@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./scss/fonts";
+
+:root {
+  --primaryColor: #f48029;
+  --secondaryColor: #443828;
+  --tertiaryColor: #f5f2ec;
+}
