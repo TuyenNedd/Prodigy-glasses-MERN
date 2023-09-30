@@ -67,6 +67,28 @@ const updateProduct = (id,data) => {
         }
     })
   };
+  const deleteProduct = (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const checkProduct = await Product.findOne({
+          _id: id,
+        });
+        if (checkProduct === null) {
+          resolve({
+            status: "oke",
+            message: "the Product not undefine",
+          });
+        }
+        await Product.findByIdAndDelete(id);
+        resolve({
+          status: "OK",
+          message: "Delete ptoduct success",
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
   const getDetailsProduct = (id) => {
     return new Promise(async (resolve, reject) => {
       try {
