@@ -89,6 +89,27 @@ const updateProduct = (id,data) => {
       }
     });
   };
+  const getAllProducts = (limit = 2, page = 0) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const totalProduct = await Product.count();
+        const allProduct = await Product.find()
+          .limit(limit)
+          .skip(limit * page);
+        resolve({
+          status: "OK",
+          message: " success",
+          data: allProduct,
+  
+          total: totalProduct,
+          pageCurrent: page + 1,
+          totalPage : Math.ceil(totalProduct /limit)
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
   const getDetailsProduct = (id) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -115,4 +136,4 @@ const updateProduct = (id,data) => {
   };
   
 module.exports = { createProduct,
-updateProduct,getDetailsProduct };
+updateProduct,getDetailsProduct,deleteProduct,getAllProducts };
