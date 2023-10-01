@@ -50,6 +50,16 @@ const updateProduct = async (req, res) => {
     });
   }
 };
+const getAllProducts = async (req, res) => {
+  try {
+      const response = await ProductService.getAllProducts()
+      return res.status(200).json(response)
+  } catch (e) {
+      return res.status(404).json({
+          message: e
+      })
+  }
+}
 const getDetailsProduct = async (req, res) => {
   try {
       const productId = req.params.id
@@ -73,8 +83,32 @@ const getDetailsProduct = async (req, res) => {
       })
   }
 }
+
+const deleteProduct = async (req, res) => {
+
+  try {
+      const productId = req.params.id
+      // console.log('chekc userid delete',userId );
+      // const token =req.headers
+      // console.log('checl token',token);
+      if (!productId) {
+          return res.status(200).json({
+              status: 'ERR',
+              message: 'The productId is required'
+          })
+      }
+      const response = await ProductService.deleteProduct(productId)
+      return res.status(200).json(response)
+  } catch (e) {
+      return res.status(404).json({
+          message: e
+      })
+  }
+}
 module.exports = {
   createProduct,
   updateProduct,
-  getDetailsProduct
+  getDetailsProduct,
+  deleteProduct,
+  getAllProducts
 };
