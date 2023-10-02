@@ -2,10 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+body {
+  overflow-x: hidden;
+
+  ::selection {
+    color: #fff;
+    background: var(--secondaryColor);
+  }
+}
+
 @import "./scss/fonts";
 
 :root {
   --primaryColor: #f48029;
   --secondaryColor: #443828;
   --tertiaryColor: #f5f2ec;
+  --borderColor: #61584e40;
 }
+#mega-menu-full-dropdown {
+  // visibility: visible; /* Mặc định ẩn menu */
+  visibility: hidden; /* Mặc định ẩn menu */
+}
+
+#mega-menu-full-dropdown.show {
+  visibility: visible; /* Hiển thị menu khi có class "show" */
+}
+
+@import "./scss/header";
