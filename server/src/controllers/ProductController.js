@@ -50,9 +50,11 @@ const updateProduct = async (req, res) => {
     });
   }
 };
+
 const getAllProducts = async (req, res) => {
   try {
-      const response = await ProductService.getAllProducts()
+    const {limit , page,sort,filter} = req.query 
+      const response = await ProductService.getAllProducts(Number(limit), Number(page),sort,filter)
       return res.status(200).json(response)
   } catch (e) {
       return res.status(404).json({
@@ -105,6 +107,7 @@ const deleteProduct = async (req, res) => {
       })
   }
 }
+
 module.exports = {
   createProduct,
   updateProduct,
