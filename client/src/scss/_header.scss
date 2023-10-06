@@ -25,7 +25,7 @@
   --nav-height-mobile: 4rem;
 }
 
-.overflowHidden{
+.overflowHidden {
   overflow: hidden;
 }
 
@@ -96,23 +96,23 @@
   overflow: hidden;
 }
 
-.dropdown_mobile {
-  top: 0;
-  position: relative;
-  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-  box-shadow: none;
-  height: 0;
-  text-align: start;
-  transition: all 0.1s ease-in;
-}
-.nav_list_menu--mobile:hover .dropdown_mobile {
-  height: 100%;
-  transition: all 0.1s ease-in;
-}
+// .dropdown_mobile {
+//   top: 0;
+//   position: relative;
+//   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+//   box-shadow: none;
+//   height: 0;
+//   text-align: start;
+//   transition: all 0.1s ease-in;
+// }
+// .nav_list_menu--mobile:hover .dropdown_mobile {
+//   height: 100%;
+//   transition: all 0.1s ease-in;
+// }
 
 .nav_mobile {
   border-bottom: solid 1px var(--borderColor);
-  padding: 16px 20px;
+  // padding: 16px 20px;
   // letter-spacing: 0.5px;
   line-height: 40px;
   justify-content: space-between;
@@ -122,6 +122,7 @@
   transition-duration: 0.15s;
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 
   .nav_name--mobile {
     padding-top: 10px;
@@ -144,6 +145,7 @@
   }
 }
 .nav__item--additional {
+  cursor: pointer;
   .btn--cta {
     font-size: 1.125rem;
 
@@ -177,6 +179,14 @@
   }
 }
 
+.accordion-panel--nav {
+  color: var(--secondaryColor);
+  line-height: 1;
+  li:first-child a {
+    padding-top: 0;
+  }
+}
+
 // .nav__item--additional:first-of-type {
 //   transition-delay: 1s;
 // }
@@ -206,12 +216,30 @@
 //   background: var(--white);
 // }
 
-// .nav_list {
-//   display: inline-flex;
-//   gap: 2rem;
-//   align-items: center;
-//   margin: 0 1.5rem;
-// }
+.nav_list {
+  .nav_name {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background: #000000;
+      width: 0;
+      height: 1.6px;
+      bottom: -2px;
+      left: 0px;
+      transition-duration: 300ms;
+      // transition: 0.3s ease;
+      // border-radius: 25px;
+    }
+  }
+  
+  &:hover {
+    .nav_name::before {
+      width: 100%;
+    }
+  }
+}
 
 // .nav_action {
 //   display: flex;
