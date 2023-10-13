@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AwwMenu from "./AwwMenu/AwwMenu.jsx";
 
 const Testing = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -432,6 +433,8 @@ const Testing = () => {
           </ul>
         </nav>
       </header>
+
+      <AwwMenu></AwwMenu>
     </>
   );
 };

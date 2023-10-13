@@ -39,6 +39,17 @@ body {
   --tertiaryColor: #f5f2ec;
   --borderColor: #61584e40;
 }
+
+[type="text"] {
+  background: transparent;
+}
+[type="text"]:focus {
+  border: none;
+  box-shadow: none;
+}
+strong {
+  font-weight: bold;
+}
 #mega-menu-full-dropdown {
   // visibility: visible; /* Mặc định ẩn menu */
   visibility: hidden; /* Mặc định ẩn menu */
