@@ -17,7 +17,44 @@ const createOrder = async (req, res) => {
         })
     }
 }   
+
+  
+  const getAllProducts = async (req, res) => {
+    try {
+      const {limit , page,sort,filter} = req.query 
+        const response = await ProductService.getAllProducts(Number(limit), Number(page),sort,filter)
+        return res.status(200).json(response)
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+  }
+  const getDetailsOrder = async (req, res) => {
+    try {
+        const productId = req.params.id
+  
+      
+        if (!productId) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The userId is required'
+            })
+  
+        }
+        
+        const response = await ProductService.getDetailsProduct(productId)
+       
+        return res.status(200).json(response)
+       
+    } catch (e) {
+        return res.status(404).json({
+            message: e
+        })
+    }
+  }
 module.exports = {
   createOrder,
-  
+  getAllProducts,
+  getDetailsOrder
 };
