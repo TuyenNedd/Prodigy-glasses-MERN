@@ -69,6 +69,57 @@ const createOrder = (newOrder) => {
         }
     })
 }
+
+const getAllOrderDetails = (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const order = await Order.find({
+          user: id,
+        });
+  
+        if (order === null) {
+          resolve({
+            status: "oke",
+            message: "order is not undefined",
+          });
+        }
+  
+        resolve({
+          status: "OK",
+          message: " success",
+          data: order,
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
+  const getOrderDetails = (id) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const order = await Order.findById({
+          _id: id,
+        });
+  
+        if (order === null) {
+          resolve({
+            status: "oke",
+            message: "order is not undefined",
+          });
+        }
+  
+        resolve({
+          status: "OK",
+          message: " success",
+          data: order,
+        });
+      } catch (e) {
+        reject(e);
+      }
+    });
+  };
 module.exports={
     createOrder,
+    getAllOrderDetails,
+    getOrderDetails
 }
