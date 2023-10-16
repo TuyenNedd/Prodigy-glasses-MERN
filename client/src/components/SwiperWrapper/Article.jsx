@@ -17,7 +17,10 @@ const Article = ({ swiperContent }) => {
               <h2 className="type--subhead-s1 flex justify-center items-center flex-col mb-4 mt-0 ITCGara text-2xl lg:text-3xl">
                 {swiperContent.type}
                 <span
-                  className={`opacity-0 block decoration group-hover:opacity-100 ease-in-out duration-300 transition cubic bg-[url(${swiperContent.underline})]`}
+                  style={{ backgroundImage: `url(${swiperContent.underline})` }}
+                  className={
+                    "opacity-0 block decoration group-hover:opacity-100 ease-in-out duration-300 transition cubic "
+                  }
                 ></span>
               </h2>
             </div>
