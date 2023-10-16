@@ -52,9 +52,31 @@ const createOrder = async (req, res) => {
             message: e
         })
     }
+
   }
+  const cancelOrderDetails = async (req, res) => {
+    try {
+        const data= req.body.orderItems
+        const orderId= req.body.orderId
+        if (!orderId) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'The orderId is required'
+            })
+        }
+        const response = await OrderService.cancelOrderDetails(orderId, data)
+        return res.status(200).json(response)
+    } catch (e) {
+        // console.log(e)
+        return res.status(404).json({
+            message: e
+        })
+    }
+}
+
 module.exports = {
   createOrder,
   getAllProducts,
-  getDetailsOrder
+  getDetailsOrder,
+  cancelOrderDetails
 };
