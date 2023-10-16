@@ -1,10 +1,11 @@
-import "./App.css";
-import MyComponent from "./components/api.jsx";
+import HomePage from "./pages/Home/HomePage.jsx";
 
 function App() {
-  return <>
-    <MyComponent></MyComponent>
-  </>;
+  return (
+    <>
+      <HomePage></HomePage>
+    </>
+  );
 }
 
 export default App;
