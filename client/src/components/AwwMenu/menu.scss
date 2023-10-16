@@ -51,7 +51,7 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease-in-out;
-  z-index: 9;
+  z-index: 99999;
   pointer-events: none;
 }
 .menu-float.is-visible {
@@ -412,7 +412,7 @@
 .menu-float__content {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   height: 60px;
   padding: 0 6px;
   text-align: center;

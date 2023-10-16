@@ -192,7 +192,11 @@ const AwwMenu = () => {
                 <div className="menu-float__layout menu-float__layout--primary">
                   <div className="menu-float__content">
                     <a href="/" className="menu-float__logo">
-                      <img width={30} src="/images/download.png" alt="" />
+                      <img
+                        width={25}
+                        src="/images/logo/pdglogo-mobile.svg"
+                        alt=""
+                      />
                     </a>
                     <div className="menu-float__breadcrumb">
                       <strong className="menu-float__title">home</strong>
