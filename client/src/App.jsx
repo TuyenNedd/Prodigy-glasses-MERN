@@ -1,9 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/Home/HomePage.jsx";
-
+import { routes } from "./routes/index.js";
 function App() {
   return (
     <>
-      <HomePage></HomePage>
+      <Router>
+        <Routes>
+          {routes.map((route) => {
+            const Page = route.page;
+            // eslint-disable-next-line react/jsx-key
+            return <Route path={route.path} element={<Page></Page>}></Route>;
+          })}
+        </Routes>
+      </Router>
     </>
   );
 }
