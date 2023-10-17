@@ -186,7 +186,7 @@ const AwwMenu = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
 
               <div className="menu-float__bottom TradeGodthic-BoldCm uppercase">
                 <div className="menu-float__layout menu-float__layout--primary">
