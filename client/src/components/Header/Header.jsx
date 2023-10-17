@@ -4,13 +4,13 @@ import ButtonSolid from "../ButtonSolid/ButtonSolid.jsx";
 import ButtonOutline from "../ButtonOutline/ButtonOutline.jsx";
 import { useNavigate } from "react-router-dom";
 const Header = () => {
-  // const navigate = useNavigate();
-  // const handleLogin = () => {
-  //   navigate("/sign-in");
-  // };
-  // const handleSignUp = () => {
-  //   navigate("/sign-up");
-  // };
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/sign-in");
+  };
+  const handleSignUp = () => {
+    navigate("/sign-up");
+  };
   useEffect(() => {
     const jsSearchInput = document.querySelector(".js-search-input");
     const headerSearch = document.querySelector(".header-search");
@@ -354,13 +354,13 @@ const Header = () => {
             <div className="header-main__right flex-none lg:flex-1">
               <div className="header-main__user flex-1 justify-end">
                 <ButtonSolid
-                  // onClick={handleLogin}
+                  onClick={handleLogin}
                   child={"Login"}
                   hidden={"hidden-sm"}
                 ></ButtonSolid>
                 <ButtonOutline
                   child={"Sign up"}
-                  // onClick={handleSignUp}
+                  onClick={handleSignUp}
                 ></ButtonOutline>
                 <span className="header-main__ico">
                   <img src="/images/user-check.svg" alt="" width={23} />
