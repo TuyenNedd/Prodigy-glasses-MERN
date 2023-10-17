@@ -1,0 +1,5 @@
+tk : vietnq543 
+pass :KU6B1t8NMprs51oX
+
+
+mongodb+srv://vietnq543:KU6B1t8NMprs51oX@cluster0.rfercqg.mongodb.net/testFresher
