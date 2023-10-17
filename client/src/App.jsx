@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/Home/HomePage.jsx";
 import { routes } from "./routes/index.js";
 function App() {
   return (
