@@ -1,0 +1,56 @@
+.h-main {
+  height: calc(100vh - var(--nav-height));
+}
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="text"],
+.field select,
+.field textarea {
+  font-family: var(--font-body-family);
+  font-weight: var(--font-body-weight);
+  font-weight: var(--font-body-style);
+}
+
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="text"],
+.field select,
+.field textarea {
+  --tw-border-opacity: 0.5;
+  background-color: var(--color-light);
+  border-color: #61584e80;
+  border-width: 1px;
+  color: var(--secondaryColor);
+  display: block;
+  font-family: "TradeGodthicCn";
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+.field input,
+.field select {
+  height: 2.5rem;
+}
+.field input[type="email"]:focus,
+.field input[type="email"]:focus-visible,
+.field input[type="password"]:focus,
+.field input[type="password"]:focus-visible,
+.field input[type="text"]:focus,
+.field input[type="text"]:focus-visible,
+.field select:focus,
+.field select:focus-visible,
+.field textarea:focus,
+.field textarea:focus-visible {
+  border-color: black;
+}
+.form--label {
+  color: var(--secondaryColor);
+  font-family: "TradeGodthicCn";
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+.form--input {
+  border-radius: 0.375rem !important;
+}

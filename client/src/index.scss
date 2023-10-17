@@ -44,7 +44,13 @@ body {
   background: transparent;
 }
 [type="text"]:focus {
-  border: none;
+  // border: none;
+  box-shadow: none;
+}
+[type="email"]:focus{
+  box-shadow: none;
+}
+[type="password"]:focus{
   box-shadow: none;
 }
 strong {
