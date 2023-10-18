@@ -4,6 +4,7 @@ import Marquee from "../../components/Marquee/Marquee.jsx";
 import Block from "../../components/block.jsx";
 import DynamicImgContain from "../../layout/Section/DynamicImgContain/DynamicImgContain.jsx";
 import SwiperMenu from "../../layout/Section/SwiperMenu/SwiperMenu.jsx";
+import Footer from "../../layout/Footer/Footer.jsx";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <DynamicImgContain></DynamicImgContain>
       <SwiperMenu></SwiperMenu>
       <Block></Block>
+      <Footer></Footer>
     </>
   );
 };
