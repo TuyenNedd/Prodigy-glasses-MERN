@@ -1,13 +1,13 @@
 import AwwMenu from "../../components/AwwMenu/AwwMenu.jsx";
 import ButtonSolid from "../../components/ButtonSolid/ButtonSolid.jsx";
-import Header from "../../components/Header/Header.jsx";
+// import Header from "../../components/Header/Header.jsx";
 import "./signin.scss";
 
 /* eslint-disable react/no-unescaped-entities */
 const SignInPage = () => {
   return (
     <>
-      <Header></Header>
+      {/* <Header></Header> */}
       <AwwMenu></AwwMenu>
       <section className=" flex flex-col text-left lg:flex-row-reverse h-main items-center">
         <div className="flex flex-col items-center justify-center w-full  lg:p-16 p-4">
