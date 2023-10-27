@@ -45,14 +45,14 @@
   return (
     <>
      <footer className="footer-section bg-black text-white" data-section-id="footer" data-section-type="footer-section">
-          <div id="footer-wrapper" className="container lg:px-8 mx-auto">
+          <div id="footer-wrapper" className="container lg:px-0 mx-auto">
             <div
               id="footer"
-              className="row flex lg:flex-row flex-col flex-wrap pt-10 pb-0 px-4 lg:px-0 lg:pt-16 lg:pb-0"
+              className="row flex lg:flex-row flex-col flex-wrap pt-10 pb-0 px-4 lg:px-0 lg:pt-16 lg:pb-0 m-0 "
             >
               <div className="w-full flex lg:flex-row flex-col justify items-stretch">
                 <section className="footer-company w-full md:w-3/4 lg:w-4/4 m-0 flex flex-col items-center lg:items-start lg:py-0 py-5 lg:pr-16 lg:order-none order-none">
-                  <p className="h3 text-3xl md:text-4xl m-0 ITCGara">Join the cult.</p>
+                  <p className="h3  md:text-6xl m-0 ITCGara">Join the cult.</p>
     
                   <p className="m-0 TradeGodthicCn ">
                     For insider product info + age awesome content...sign up.
@@ -241,17 +241,17 @@
                     </div>
                   </div>
     
-                  <div className="hidden md:flex flex-col items-center md:items-start mt-10">
+                  <div className="hidden md:flex flex-col items-center md:items-start mt-2">
                     <p className="tracking-wider mb-2 TradeGodthicCn ">QUESTIONS? CONTACT US</p>
     
                     <div
-                      className="flex justify-start items-center"
+                      className="flex  justify-start items-center "
                    style={{color: "transparent"}}
                     >
-                     <img src="/images/icons/mail.png" alt="" className="w-6 h-6 m-2 " />
+                     <img src="/images/icons/mail.png" alt="" className="w-5 h-5 m-2 " />
     
                       <a
-                        className="m-0 underline TradeGodthicCn text-white"
+                        className="m-0 TradeGodthicCn text-white"
                         href="mailto:helpivefallenandicantgetup@caddislife.com"
                       >
                         nhom3@prodigy.com
@@ -279,8 +279,8 @@
                         className="group w-full footer-menu m-0 border-b lg:border-b-0 border-gray-400 lg:mb-0"
                        
                       >
-                        <div className="flex lg:cursor-default cursor-pointer items-center justify-between w-full border-none bg-transparent color-white font-normal accordion-title py-5 lg:py-0">
-                          <span className="block h5 text-xl lg:text-2xl m-0 font-subheading lg:mb-4 ITCGara">
+                        <div className="flex lg:cursor-default cursor-pointer items-center justify-between w-full border-none bg-transparent color-white font-normal accordion-title py-5 lg:py-0 ">
+                          <span className="block h5 text-xl lg:text-3xl m-0 font-subheading lg:mb-4 ITCGara">
                             Shop
                           </span>
                           <span className="w-8 text-right text-currentColor icon-plus lg:hidden">
@@ -361,7 +361,7 @@
                         
                       >
                         <div className="flex lg:cursor-default cursor-pointer items-center justify-between w-full border-none bg-transparent color-white font-normal accordion-title py-5 lg:py-0">
-                          <span className="block h5 text-xl lg:text-2xl m-0 font-subheading lg:mb-4 ITCGara">
+                          <span className="block h5 text-xl lg:text-3xl m-0 font-subheading lg:mb-4 ITCGara">
                             Discover
                           </span>
                           <span className="w-8 text-right text-currentColor icon-plus lg:hidden">
@@ -466,7 +466,7 @@
                         
                       >
                         <div className="flex lg:cursor-default cursor-pointer items-center justify-between w-full border-none bg-transparent color-white font-normal accordion-title py-5 lg:py-0">
-                          <span className="block h5 text-xl lg:text-2xl m-0 font-subheading lg:mb-4 ITCGara">
+                          <span className="block h5 text-xl lg:text-3xl m-0 font-subheading lg:mb-4 ITCGara">
                             Help
                           </span>
                           <span className="w-8 text-right text-currentColor icon-plus lg:hidden">
@@ -555,7 +555,7 @@
                       
                       >
                         <div className="flex lg:cursor-default cursor-pointer items-center justify-between w-full border-none bg-transparent color-white font-normal accordion-title py-5 lg:py-0">
-                          <span className="block h5 text-xl lg:text-2xl m-0 font-subheading lg:mb-4 ITCGara">
+                          <span className="block h5 text-xl lg:text-3xl m-0 font-subheading lg:mb-4 ITCGara">
                             Returns
                           </span>
                           <span className="w-8 text-right text-currentColor icon-plus lg:hidden">
@@ -593,7 +593,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-6">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/returns"
+                           
                             >
                               Start a Return or Exchange
                             </a>
@@ -651,12 +651,12 @@
                     <li>
                       <a
                         href="https://www.facebook.com/caddislife/"
-                        className="link block hover:opacity-50 no-underline mx-2  md:mr-6"
+                        className="link block hover:opacity-50 no-underline mx-5  md:mr-6"
                         style={{ textDecoration: "none", color: "transparent" }}
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <img src="/images/icons/facebook-fill.svg" alt="Icons" className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1"/>
+                        <img src="/images/icons/facebook-fill.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1"/>
                         <span className="sr-only">Facebook</span>
                       </a>
                     </li>
@@ -669,7 +669,7 @@
                         target="_blank"
                         rel="noreferrer"
                       >
-                       <img src= "/images/icons/pinterest-fill.svg" alt="Icons"className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
+                       <img src= "/images/icons/pinterest-fill.svg" alt="Icons"className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
                         <span className="sr-only">Pinterest</span>
                       </a>
                     </li>
@@ -682,7 +682,7 @@
                         target="_blank"
                         rel="noreferrer"
                       >
-                       <img src="/images/icons/instagram-line.svg" alt="Icons" className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
+                       <img src="/images/icons/instagram-line.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
                         <span className="sr-only">Instagram</span>
                       </a>
                     </li>
@@ -696,7 +696,7 @@
                         rel="noreferrer"
                         
                       >
-                        <img src="/images/icons/youtube-fill.svg" alt="Icons" className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
+                        <img src="/images/icons/youtube-fill.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
                         <span className="sr-only">YouTube</span>
                       </a>
                     </li>
@@ -705,7 +705,7 @@
                             
                 <div className="footer-logo max-w-full">
                   
-                <p className="h3 text-3xl md:text-5xl  TradeGodthicCn">PRODIGY</p>
+                <p className="h3 text-3xl md:text-5xl font-semibold  TradeGodthicCn">PRODIGY</p>
                 </div>
     
                 <ul className="list-none m-0 p-0 flex flex-row items-start justify-center gap-4 lg:justify-start text-xs lg:order-2 order-1">
