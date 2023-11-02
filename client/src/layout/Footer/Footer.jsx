@@ -66,8 +66,6 @@
                       >
                        <form
   className="needsclick klaviyo-form klaviyo-form-version-cid_1 kl-private-reset-css-Xuajs1"
-  data-testid="klaviyo-form-RZNiRy"
-  noValidate=""
   tabIndex="-1"
   style={{
     display: "flex",
@@ -252,7 +250,7 @@
     
                       <a
                         className="m-0 TradeGodthicCn text-white"
-                        href="mailto:helpivefallenandicantgetup@caddislife.com"
+                        href=""
                       >
                         nhom3@prodigy.com
                       </a>
@@ -399,7 +397,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="https://caddislife.com/pages/about"
+                              href=""
                             >
                               About Us
                             </a>
@@ -407,7 +405,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/store-locator"
+                              href=""
                             >
                               Find a Store
                             </a>
@@ -415,7 +413,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="https://caddislife.com/pages/nyc-store"
+                              href=""
                             >
                               Prodigy NYC Store
                             </a>
@@ -423,7 +421,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/readers-101"
+                              href=""
                             >
                               Readers 101
                             </a>
@@ -431,7 +429,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/architects-custodians"
+                              href=""
                             >
                               Architects &amp,Custodians
                             </a>
@@ -439,7 +437,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/collaborations"
+                              href=""
                             >
                               Collaborations
                             </a>
@@ -447,7 +445,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-6">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/refer-a-friend"
+                              href=""
                             >
                               Give 20%, Get 20%
                             </a>
@@ -504,7 +502,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/frequently-asked-questions"
+                              href=""
                             >
                               FAQ
                             </a>
@@ -520,7 +518,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/affiliate-program"
+                              href=""
                             >
                               Become an Affiliate
                             </a>
@@ -528,7 +526,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-3">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/wholesale"
+                              href=""
                             >
                               Become a Stockist
                             </a>
@@ -536,7 +534,7 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-6">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                              href="/pages/flexible-spending-accounts"
+                              href=""
                             >
                               FSA/HSA Cards
                             </a>
@@ -593,9 +591,8 @@
                           <li className="flex-auto flex-basis-0 p-0 mb-6">
                             <a
                               className="block hover:opacity-70 leading-normal font-body text-md TradeGodthicCn"
-                           
                             >
-                              Start a Return or Exchange
+                     Start a Return or Exchange
                             </a>
                           </li>
                         </ul>
@@ -622,7 +619,7 @@
     
                   <a
                     className="m-0 underline TradeGodthicCn text-white"
-                    href="mailto:helpivefallenandicantgetup@caddislife.com"
+                    href=""
                   >
                      nhom3@prodigy.com
                   </a>
@@ -642,7 +639,7 @@
               <div className="flex lg:flex-row-reverse flex-col items-center lg:items-center lg:justify-between lg:px-0 lg:pt-10">
                 <div
                   id="socialFooter"
-                  className="flex lg:flex-row flex-col lg:px-2 lg:py-10 px-4 py-5"
+                  className="flex lg:flex-row flex-col lg:px-2 lg:py-10 px-4 py-5 "
                 >
                   <ul
                     id="social-icons"
@@ -650,11 +647,10 @@
                   >
                     <li>
                       <a
-                        href="https://www.facebook.com/caddislife/"
+                        href=""
                         className="link block hover:opacity-50 no-underline mx-5  md:mr-6"
                         style={{ textDecoration: "none", color: "transparent" }}
-                        target="_blank"
-                        rel="noreferrer"
+                        rel=""
                       >
                         <img src="/images/icons/facebook-fill.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1"/>
                         <span className="sr-only">Facebook</span>
@@ -663,11 +659,11 @@
     
                     <li>
                       <a
-                        href="https://co.pinterest.com/caddis_life/"
+                        href=""
                         className="link block hover:opacity-50 no-underline mx-2 md:mr-6"
                         style={{ textDecoration: "none", color: "transparent" }}
                         target="_blank"
-                        rel="noreferrer"
+                        rel=""
                       >
                        <img src= "/images/icons/pinterest-fill.svg" alt="Icons"className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
                         <span className="sr-only">Pinterest</span>
@@ -676,11 +672,11 @@
     
                     <li>
                       <a
-                        href="https://www.instagram.com/Caddis_life/"
+                        href=""
                         className="link block hover:opacity-50 no-underline mx-2 md:mr-6"
                         style={{ textDecoration: "none", color: "transparent " }}
                         target="_blank"
-                        rel="noreferrer"
+                        rel=""
                       >
                        <img src="/images/icons/instagram-line.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
                         <span className="sr-only">Instagram</span>
@@ -689,11 +685,11 @@
     
                     <li>
                       <a
-                        href="https://www.youtube.com/channel/UCfaYlDSxWkvudyrLJRYQ1Rg/videos"
+                        href=""
                         className="link block hover:opacity-50 no-underline mx-2 md:mr-6"
                         style={{ textDecoration: "none", color: "transparent" }}
                         target="_blank"
-                        rel="noreferrer"
+                        rel=""
                         
                       >
                         <img src="/images/icons/youtube-fill.svg" alt="Icons" className="w-7 h-7 rounded-full bg-yellow-500 hover:bg-yellow-600 mx-1 inline-block pt-1" />
@@ -712,7 +708,7 @@
                   <li className="lg:mr-4">
                     <a
                       className="block hover:opacity-70 animate leading-normal py-3 lg:p-0 text-xs white hover:underline TradeGodthicCn"
-                      href="/pages/privacy-policy"
+                      href=""
                     >
                       Privacy Policy
                     </a>
@@ -721,7 +717,7 @@
                   <li className="lg:mr-4">
                     <a
                       className="block hover:opacity-70 animate leading-normal py-3 lg:p-0 text-xs white hover:underline TradeGodthicCn"
-                      href="/pages/accessibility-statement"
+                      href=""
                     >
                       Accessibility Statement
                     </a>
@@ -730,7 +726,7 @@
                   <li className="lg:mr-4">
                     <a
                       className="block hover:opacity-70 animate leading-normal py-3 lg:p-0 text-xs white hover:underline TradeGodthicCn"
-                      href="/pages/terms-of-service"
+                      href=""
                     >
                       Terms of Service
                     </a>
