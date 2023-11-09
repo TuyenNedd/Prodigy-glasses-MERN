@@ -6,6 +6,7 @@ import DynamicImgContain from "../../layout/Section/DynamicImgContain/DynamicImg
 import SwiperMenu from "../../layout/Section/SwiperMenu/SwiperMenu.jsx";
 import Footer from "../../layout/Footer/Footer.jsx";
 
+
 const HomePage = () => {
   return (
     <>
@@ -14,8 +15,11 @@ const HomePage = () => {
       <AwwMenu></AwwMenu>
       <DynamicImgContain></DynamicImgContain>
       <SwiperMenu></SwiperMenu>
-      <Block></Block>
+     
+     <Block></Block>
       <Footer></Footer>
+  
+      
     </>
   );
 };
