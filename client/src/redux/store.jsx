@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./slides/useSlide";
+
+
 
 export const store = configureStore({
-  reducer: {},
+     reducer :{
+    user : userReducer
+     }
 });
-
-// Infer the `RootState` and `AppDispatch` types from the store itself

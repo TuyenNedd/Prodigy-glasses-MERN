@@ -1,10 +1,15 @@
 .form--label [type="text"]:focus {
   border-color: black !important;
 }
+.field input[type="name"]:focus,
+.field input[type="name"]:focus-visible,
 .field input[type="email"]:focus,
 .field input[type="email"]:focus-visible,
+
 .field input[type="password"]:focus,
 .field input[type="password"]:focus-visible,
+.field input[type="tel"]:focus,
+.field input[type="tel"]:focus-visible,
 .field input[type="text"]:focus,
 .field input[type="text"]:focus-visible,
 .field select:focus,

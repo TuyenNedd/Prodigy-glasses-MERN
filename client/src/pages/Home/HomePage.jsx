@@ -1,5 +1,5 @@
 import AwwMenu from "../../components/AwwMenu/AwwMenu.jsx";
-// import Header from "../../components/Header/Header.jsx";
+import Header from "../../components/Header/Header.jsx";
 
 import Marquee from "../../components/Marquee/Marquee.jsx";
 import Block from "../../components/block.jsx";
@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <>
       <Marquee></Marquee>
-      {/* <Headers></Headers> */}
+      <Header></Header>
       <AwwMenu></AwwMenu>
       <DynamicImgContain></DynamicImgContain>
       <SwiperMenu></SwiperMenu>
