@@ -14,8 +14,9 @@ import Loading from "../../components/LoadingComponent/Loading.jsx";
 
 
 const SignUpPage = () => {
-  const mutation = useMutationHooks(
-    data => UserService.signupUser(data));
+  const mutation = useMutationHooks(data => UserService.signupUser(data));
+
+  
  
 const {data ,isError, isSuccess,isLoading}=mutation;
 const navigate = useNavigate();
@@ -28,10 +29,16 @@ useEffect(()=>{
   }else if (isError) {
     message.error();
   }
-  const handleNavigate =()=>{
-    navigate("/sign-in");
-  };
+ 
 },[isSuccess]);
+const handleNavigate = () => {
+  if (data) {
+    navigate("/sign-in");
+  } else {
+    console.log("err");
+  }
+};
+
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
