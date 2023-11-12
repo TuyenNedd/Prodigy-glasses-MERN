@@ -70,7 +70,6 @@ const SignInPage = () => {
   };
 
   const handleSubmitSignin = () => {
-    console.log("submit");
     mutation.mutate({
       email,
       password,

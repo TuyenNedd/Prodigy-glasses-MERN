@@ -397,7 +397,6 @@ const [userName,setName]=useState("");
                       <div style={{ cursor: "pointer" }}>{userName || user.email}</div>
                     </Popover>
                   </>
-                
                 ) : (
                   <>
                     <ButtonSolid
