@@ -6,13 +6,13 @@ const createUser =(newUser)=>{
        const { name, email, password, confirmPassword, phone } = newUser
        
        try{
-           const checkUser = await User .findOne({
+           const checkUser = await User.findOne({
                email:email
            })
            if(checkUser !==null){
 
            resolve({
-              status:"oke",
+              status:"ERR",
               message :"email onl redly"
            })
        }
@@ -49,7 +49,7 @@ const loginUser =(userLogin)=>{
            if(checkUser ===null){
 
            resolve({
-              status:"oke",
+              status:"ERR",
               message :"useaaaanot undedfined"
            })
        }
@@ -58,7 +58,7 @@ const loginUser =(userLogin)=>{
        
            if (!comparePassword){
                resolve({
-                   status:'oke',
+                   status:'ERR',
                    message :'the pas or is corecct '
                })
            }
@@ -74,8 +74,7 @@ const loginUser =(userLogin)=>{
 
 
            })
-           console.log('access_tolken',access_token);
-           console.log('refresh_tolken',refresh_token);
+
                resolve({ status :"oke",
                status:'oke',
                    message : "Succes",
@@ -103,7 +102,7 @@ const updateUser =(id,data)=>{
            if(checkUser ===null){
 
            resolve({
-              status:"oke",
+              status:"ERR",
               message :"user not undedfined"
            })   
        }
@@ -163,7 +162,7 @@ const getDetailsUser = (id) => {
            const user  = await User.findOne({
                _id: id
            })
-           
+           console.log("usertesr",user);
       if(user=== null){
        resolve({
            status:'oke',

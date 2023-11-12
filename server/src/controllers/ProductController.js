@@ -16,7 +16,7 @@ const createProduct = async (req, res) => {
     ) {
       return res.status(200).json({
         status: "ERR",
-        message: "The input is required",
+        message: "The not create is required",
       });
     }
 
