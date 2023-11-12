@@ -34,10 +34,10 @@ const createUser = async (req, res) => {
 const loginUser = async (req, res) => {
    
     try {
-        const { name, email, password, confirmPassword, phone } = req.body
+        const { email, password } = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-        if (!email || !password || !confirmPassword) {
+        if (!email || !password ) {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'The input is required'
@@ -47,22 +47,18 @@ const loginUser = async (req, res) => {
                 status: 'ERR',
                 message: 'The input is email'
             })
-        } else if (password !== confirmPassword) {
-            return res.status(200).json({
-                status: 'ERR',
-                message: 'The password is equal confirmPassword'
-            })
         }
         const response = await UserService.loginUser(req.body)
-        // const { refresh_token, ...newReponse } = response
-        // res.cookie('refresh_token', refresh_token, {
-        //     httpOnly: true,
-        //     secure: false,
-        //     sameSite: 'strict',
-        //     path: '/',
-        // })
+        // console.log("respn",response);
+        const { refresh_token, ...newReponse } = response
+        res.cookie('refresh_token', refresh_token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            path: '/',
+        })
         // return res.status(200).json(newReponse ,refresh_token)
-        return res.status(200).json(response)
+        return res.status(200).json(newReponse)
     } catch (e) {
         return res.status(404).json({
             message: e
@@ -171,8 +167,11 @@ const getDetailsUser = async (req, res) => {
 }
 
 const refreshToken = async (req, res) => {
+    console.log("cookeipasssaaa",req.cookies.refresh_token);
     try {
-        const token = req.headers.token.split(' ')[1]
+        // const token = req.cookies.token.split(' ')[1]
+        
+         const token = req.cookies.refresh_token
         console.log('cjeckkk ', token);
         if (!token) {
             return res.status(200).json({
@@ -181,8 +180,6 @@ const refreshToken = async (req, res) => {
             })
         }
         const response = await JwtService.refreshTokenJwtService(token)
-    
-       
         return res.status(200).json(response)
     } catch (e) {
         return res.status(404).json({
@@ -195,6 +192,7 @@ const refreshToken = async (req, res) => {
 const logoutUser = async (req, res) => {
     try {
         res.clearCookie('refresh_token')
+        
         return res.status(200).json({
             status: 'OK',
             message: 'Logout successfully'
