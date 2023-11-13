@@ -17,7 +17,7 @@ const PaymentPage = () => {
             <div className="hidden lg:flex flex-col">
               <div className="border-t border-b p-4 ITCGara" onClick={() => setShow(!show)}>{show ? "Hide" : "Show"} order summary</div>
               {show && 
-              <div className="w-full h-[100vh] bg-[#f48029] text-white flex flex-col ">
+              <div className="w-full h-[70vh] bg-[#f48029] text-white flex flex-col ">
                 <div className="w-3/4 mx-auto mt-[120px]">
                   <div className="flex items-center justify-between border-b border-[rgba(248,172,116,0.34)] pb-2">
                     <img src="images/payment/pay2.png" alt="" />
