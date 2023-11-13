@@ -15,7 +15,14 @@ const PaymentPage = () => {
           />
           <div className="max-w-[70%] lg:max-w-full mt-[-100px] mx-auto flex flex-col">
             <div className="hidden lg:flex flex-col">
-              <div className="border-t border-b p-4 ITCGara" onClick={() => setShow(!show)}>{show ? "Hide" : "Show"} order summary</div>
+             
+            <div className="flex items-center">
+          <img src="/images/icons/cart-shopping-solid.svg" alt="" className="w-5 h-10" />
+          <div className="border-t border-b p-4 ITCGara" onClick={() => setShow(!show)}>
+            {show ? "Hide" : "Show"} order summary
+             </div>
+           </div>
+             
               {show && 
               <div className="w-full h-[70vh] bg-[#f48029] text-white flex flex-col ">
                 <div className="w-3/4 mx-auto mt-[120px]">
