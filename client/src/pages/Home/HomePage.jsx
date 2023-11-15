@@ -5,12 +5,14 @@ import Block from "../../components/block.jsx";
 import DynamicImgContain from "../../layout/Section/DynamicImgContain/DynamicImgContain.jsx";
 import SwiperMenu from "../../layout/Section/SwiperMenu/SwiperMenu.jsx";
 import Footer from "../../layout/Footer/Footer.jsx";
+import PaymentPage from "../PaymentPage/PaymentPage.jsx";
 
 
 const HomePage = () => {
   return (
     <>
       <Marquee></Marquee>
+      <PaymentPage></PaymentPage>
       <Header></Header>
       <AwwMenu></AwwMenu>
       <DynamicImgContain></DynamicImgContain>
