@@ -14,8 +14,8 @@ const HomePage = () => {
   return (
     <>
       {/* <Marquee></Marquee> */}
-      {/* <PaymentPage></PaymentPage> */}
-      <Subtilte></Subtilte>
+      <PaymentPage></PaymentPage>
+      {/* <Subtilte></Subtilte> */}
       {/* <Introduction></Introduction> */}
       {/* <Header></Header>
       <AwwMenu></AwwMenu>
