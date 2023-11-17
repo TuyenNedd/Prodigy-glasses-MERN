@@ -7,6 +7,7 @@ const PaymentPage = () => {
     <div className=" flex overflow-auto ">
       <div className="w-full lg:w-3/5  lg:mx-10  lg:px-10">
         <div className="flex flex-col">
+<<<<<<< HEAD
           <div className="img-logo my-[21px] py-[15px] pl-16 ml-5 lg:ml-20 lg:pl-[25px] ">
             <img
               className=" brightness-0 w-[132px] lg:w-[15rem] "
@@ -31,6 +32,61 @@ const PaymentPage = () => {
                   {show ? "Hide" : "Show"} order summary
                 </div>
                 <div className=" font-semibold items-price">$130.00</div>
+=======
+          <img
+            className="max-w-[400px] "
+            src="/images/logo/pdglogo.png"
+            alt=""
+          />
+          <div className="max-w-[70%] lg:max-w-full mt-[-100px] mx-auto flex flex-col">
+            <div className="hidden lg:flex flex-col">
+             
+            <div className="flex items-center">
+          <img src="/images/icons/cart-shopping-solid.svg" alt="" className="w-5 h-10" />
+          <div className="border-t border-b p-4 ITCGara" onClick={() => setShow(!show)}>
+            {show ? "Hide" : "Show"} order summary
+             </div>
+           </div>
+             
+              {show && 
+              <div className="w-full h-[70vh] bg-[#f48029] text-white flex flex-col ">
+                <div className="w-3/4 mx-auto mt-[120px]">
+                  <div className="flex items-center justify-between border-b border-[rgba(248,172,116,0.34)] pb-2">
+                    <img src="images/payment/pay2.png" alt="" />
+                    <div className="">
+                      <div className="ITCGara">D28 Compact | Reading Glasses</div>
+                      <div className="text-gray-300 TradeGodthicCn">Camo / frq Blue-Light Filtering / 3.00</div>
+                    </div>
+                    <div className="TradeGodthicCn">1 $130.00</div>
+                  </div>
+                  <div className="mt-6 gap-2 flex border-b border-[rgba(248,172,116,0.34)] pb-8">
+                    <input
+                      type="text"
+                      className="!bg-white outline-none rounded border-0 h-[50px] TradeGodthicCn"
+                      placeholder="Discount code or gift card"
+                    />
+                    <button className="bg-[#f7a05f] h-[50px] w-[80px] TradeGodthicCn">
+                      {" "}
+                      Apply
+                    </button>
+                  </div>
+                  <div className="mt-6 border-[rgba(248,172,116,0.34)] border-b pb-8">
+                    <div className="flex justify-between">
+                      <div className="text-sm text-gray-300 TradeGodthicCn">Subtotal</div>
+                      <div className="text-lg TradeGodthicCn">$130.00</div>
+                    </div>
+                    <div className="flex justify-between">
+                      <div className="text-sm text-gray-300 TradeGodthicCn">Shipping</div>
+                      <div className="text-sm text-gray-300 TradeGodthicCn">Calculated at next step</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between mt-6">
+                      <div className="text-gray-50 ITCGara">Total</div>
+                      <div className="flex ">
+              <div className="text-sm mt-1 mx-3 text-gray-300 TradeGodthicCn">USD </div>
+              <div className="text-lg TradeGodthicCn">$130.000</div>
+>>>>>>> 53a5c313fab46435f0ae906f776cc8f7ec26254c
               </div>
 
               {show && (
