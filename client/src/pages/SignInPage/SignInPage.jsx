@@ -18,6 +18,7 @@ import { updateUser } from "../../redux/slides/useSlide.jsx";
 /* eslint-disable react/no-unescaped-entities */
 
 const SignInPage = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -32,11 +33,13 @@ const SignInPage = () => {
   const mutation = useMutationHooks((data) => UserService.loginUser(data));
 
   const { data, isSuccess, isError, isLoading } = mutation;
+  const [success , setSucccess] = useState(isSuccess === false);
+   
 
   useEffect(() => {
     if (isSuccess) {
-      message.success("chờ 2s");
-      setTimeout(() => handleNextpage(), 2000);
+      
+      
       localStorage.setItem("access_token", JSON.stringify(data?.access_token));
       console.log("aaa", data?.access_token);
       if (data?.access_token) {
@@ -44,12 +47,14 @@ const SignInPage = () => {
         console.log("decoooo", decoded);
         if (decoded?.id) {
           handlGetDetailsUser(decoded?.id, data?.access_token);
+          message.success("chờ 2s");
+      setTimeout(() => handleNextpage(), 2000);
         }
       }
     } else if (isError) {
-      message.error();
+      message.error(data?.message || "Sai thông tin đăng nhập");
     }
-  }, [isSuccess]);
+  }, [isSuccess,isError]);
   const handlGetDetailsUser = async (id, token) => {
     const res = await UserService.getDetailsUser(id, token);
     dispatch(updateUser({ ...res?.data, access_token: token }));

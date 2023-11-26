@@ -24,7 +24,7 @@ const createUser =(newUser)=>{
                confirmPassword :hash, 
                phone 
             })
-            if (createUser) {
+            if (createUser) { 
                resolve({ status :"oke",
 
                    message : "Succes",
