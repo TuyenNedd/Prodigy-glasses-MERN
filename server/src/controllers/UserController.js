@@ -145,7 +145,7 @@ const getAllUser = async (req, res) => {
 const getDetailsUser = async (req, res) => {
     try {
         const userId = req.params.id
-
+            console.log("user", userId);
       
         if (!userId) {
             return res.status(200).json({
