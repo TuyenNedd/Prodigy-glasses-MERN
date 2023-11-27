@@ -51,7 +51,25 @@ const create = async (req, res) => {
   }
  }
 
-
+ const deleteManyComment = async (req,res) =>{
+  try {
+    const ids = req.body.ids
+    if(!ids){
+      return res.status(200).json({
+        status :"oke",
+        message :"comment id is not found"
+      })
+    }
+    const response = await CommentService.deleteManyComment(ids)
+    return res.status(200).json(response)
+  } catch (error) {
+    return res.status(404).json({
+      status: "err",
+      message :error
+    })
+    
+  }
+ }
  const deleteComment  = async (req, res) =>{
   try{
 const CommentId = req.params.id;
@@ -75,5 +93,6 @@ return res.status(200).json(response)
   create,
    getAllComment,
    deleteComment,
-  getDetailsComment
+  getDetailsComment,
+  deleteManyComment
  }

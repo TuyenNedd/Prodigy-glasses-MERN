@@ -89,6 +89,32 @@ const updateUser = async (req, res) => {
     }
   
 }
+const deleteMany = async (req, res) => {
+    try {
+        // Trích xuất danh sách ID người dùng từ phần thân yêu cầu (request body)
+        const ids = req.body.ids;
+
+        // Kiểm tra xem thuộc tính 'ids' có tồn tại trong phần thân yêu cầu không
+        if (!ids) {
+            return res.status(200).json({
+                status: 'ERR',
+                message: 'Yêu cầu bao gồm danh sách ID người dùng'
+            });
+        }
+
+        // Gọi hàm deleteManyUser từ UserService với danh sách ID đã trích xuất
+        const response = await UserService.deleteManyUser(ids);
+
+        // Trả về một phản hồi JSON với kết quả của hoạt động xóa
+        return res.status(200).json(response);
+    } catch (e) {
+        // Nếu có lỗi trong quá trình xử lý, trả về một phản hồi JSON với mã lỗi 404
+        return res.status(404).json({
+            message: e
+        });
+    }
+};
+
 
 const deleteUser = async (req, res) => {
 
@@ -211,5 +237,5 @@ module.exports = {
     getDetailsUser,
     refreshToken,
     logoutUser,
-    // deleteMany
+    deleteMany
 }
