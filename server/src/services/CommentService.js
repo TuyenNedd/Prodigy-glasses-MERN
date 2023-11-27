@@ -109,9 +109,33 @@ const getDetailsComment = (id) => {
     }
   });
 };
+const deleteManyComment =(ids) => {
+  return new Promise( async (resolve,reject)=>{
+    try {
+      const checkIds = await Comment.deleteManyComments({
+        _id:ids
+      });
+
+      if(checkIds === null){
+        resolve({
+          status:"Error",
+          message:"id is not defline"
+        })
+      }
+      resolve({
+        status : "oke",
+        message : "delete success"
+      })
+    } catch (error) {
+      reject (error)
+      
+    }
+  })
+}
 module.exports = {
   createComment,
   getAllComment,
   deleteComemt,
   getDetailsComment,
+  deleteManyComment
 };

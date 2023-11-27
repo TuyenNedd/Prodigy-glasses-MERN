@@ -6,7 +6,7 @@ router.post ("/create" ,CommentComtroller.create)
  router.get("/get-all",authMiddleWare,CommentComtroller.getAllComment)
  router.delete("/delete-Comment/:id",authUserMiddleWare,CommentComtroller.deleteComment)
  router.get("/get-details/:id",authUserMiddleWare,CommentComtroller.getDetailsComment)
-
+ router.post("/delete-many",authMiddleWare,CommentComtroller.deleteManyComment)
  
 
 module.exports = router
