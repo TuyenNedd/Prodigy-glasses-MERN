@@ -1,0 +1,222 @@
+.product-essentials__title--mobile {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 1rem;
+}
+.tt-c-teaser {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+[class^="tt-c-"],
+[class^="tt-l-"],
+[class^="tt-o-"],
+[class^="tt-u-"],
+[class^="tt-w-"] {
+  font-family: "TradeGodthicCn";
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.87);
+}
+.tt-c-teaser > * {
+  line-height: normal;
+  // margin-bottom: 0.25rem;
+}
+.tt-c-rating {
+  display: inline-flex;
+  vertical-align: middle;
+  padding-left: 0;
+}
+.tt-u-clip-hide {
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+.tt-c-rating__star {
+  display: inline-block;
+  margin: 0 0.25rem 0 0;
+}
+.tt-o-icon--star--full,
+.TTteaser__icon--full {
+  fill: var(--primaryColor) !important;
+}
+.thumbSwiper {
+  left: 0;
+  right: 0;
+  .swiper-wrapper {
+    align-items: center;
+    justify-content: center;
+  }
+  .swiper-slide {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+.mainSwiper {
+  .swiper-prev {
+    background-image: url(//caddislife.com/cdn/shop/t/540/assets/DirectionLeft@2x.png?v=54780283644200158031698847479);
+  }
+  .swiper-next {
+    background-image: url(//caddislife.com/cdn/shop/t/540/assets/DirectionRight@2x.png?v=176304554621661818231698847479);
+  }
+  .btn-control {
+    align-items: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-direction: column;
+    height: 0;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 3rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transition-duration: 0.15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-user-select: none;
+    user-select: none;
+    width: 5rem;
+    z-index: 10;
+
+    &:disabled {
+      opacity: 0 !important;
+    }
+  }
+}
+.product-essentials__buy-box {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  transition-delay: 0.3s;
+}
+
+.animate {
+  transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.buy-box__wrapper {
+  width: 100%;
+}
+@media (min-width: 1024px) {
+  .buy-box__wrapper {
+    max-width: 100%;
+    width: 500px;
+  }
+}
+.tt-c-teaser__link {
+  font-size: 12px;
+  font-family: "TradeGodthicCn";
+}
+.swiper-pagination-bullet-active {
+  background-color: var(--primaryColor);
+}
+.field.field-plus-minus button:first-child {
+  border-right-width: 0;
+}
+
+.field.field-plus-minus button {
+  --tw-bg-opacity: 1;
+  --tw-text-opacity: 1;
+  align-items: center;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  border-color: #61584e80;
+  border-width: 1px;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+  cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  height: 2rem;
+  justify-content: center;
+  text-align: center;
+  width: 2rem;
+}
+.field.field-plus-minus input {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  border-color: #61584e80;
+  border-radius: 0;
+  border-width: 1px 0;
+  font-size: 1rem;
+  height: 2rem;
+  text-align: center;
+  width: 3rem;
+}
+.field.field-plus-minus button:last-child {
+  border-left-width: 0;
+}
+.ant-rate-star:not(:last-child) {
+  margin-right: 4px !important;
+}
+.ant-rate-star-second {
+  display: flex;
+  align-items: center !important;
+}
+.ant-rate-star-first {
+  display: flex;
+  align-items: center !important;
+}
+
+.accordion .accordion-title--ps {
+  background-color: var(--detailColor);
+}
+
+.accordion .accordion-title {
+  align-items: center;
+  // cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  font-family: "ITCGara";
+  font-size: 1.125rem;
+  justify-content: center;
+  line-height: 1.25;
+  text-align: left;
+  width: 100%;
+  border-radius: 6px;
+}
+
+.accordion .accordion-control--open {
+  display: flex;
+}
+.accordion .accordion-control {
+  align-items: center;
+  background-color: transparent;
+  border-width: 0;
+  justify-content: center;
+  margin-left: auto;
+}
+
+@media (min-width: 1024px) {
+  .title--subhead-s1,
+  .type--subhead-s1 {
+    font-size: 1.875rem;
+  }
+}
+@media (min-width: 1024px) {
+  .accordion .accordion-title {
+    font-size: 1.5rem;
+  }
+}
+.group.active .group-active\:opacity-100 {
+  opacity: 1;
+}
+.slider__segment.slider__segment--active span::before {
+  content: "";
+  position: absolute;
+  top: -22px;
+  left: 8px;
+  height: 22px;
+  width: 22px;
+  background-image: url(//caddislife.com/cdn/shop/t/547/assets/arrow-27.png?v=1722788…);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
