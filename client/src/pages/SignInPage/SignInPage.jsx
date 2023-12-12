@@ -1,29 +1,85 @@
-import AwwMenu from "../../components/AwwMenu/AwwMenu.jsx";
+import jwt_decode from "jwt-decode";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import ButtonSolid from "../../components/ButtonSolid/ButtonSolid.jsx";
-import Header from "../../components/Header/Header.jsx";
-import "./signin.scss";
+import InputForm from "../../components/InputForm/InputForm";
+import Loading from "../../components/LoadingComponent/Loading";
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import { updateUser } from "../../redux/slides/userSlide";
+import * as UserService from "../../services/UserService";
+import "./style.scss";
+import { message } from "antd";
+import { error } from "../../components/Message/Message.jsx";
 
-/* eslint-disable react/no-unescaped-entities */
 const SignInPage = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const location = useLocation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
+
+  const mutation = useMutationHooks((data) => UserService.loginUser(data));
+  const { data, isLoading, isSuccess, isError } = mutation;
+
+  useEffect(() => {
+    if (isSuccess) {
+      // if (location?.state) {
+      //   navigate(location?.state);
+      //   console.log("useEffect ~ location?.state:", location?.state);
+      // } else {
+      //   navigate("/");
+      // }
+      localStorage.setItem("access_token", JSON.stringify(data?.access_token));
+      localStorage.setItem(
+        "refresh_token",
+        JSON.stringify(data?.refresh_token)
+      );
+      if (data?.access_token) {
+        const decoded = jwt_decode(data?.access_token);
+        if (decoded?.id) {
+          handleGetDetailsUser(decoded?.id, data?.access_token);
+          navigate("/");
+        }
+      }
+    }
+  }, [isSuccess]);
+
+  const handleGetDetailsUser = async (id, token) => {
+    const storage = localStorage.getItem("refresh_token");
+    const refreshToken = JSON.parse(storage);
+    const res = await UserService.getDetailsUser(id, token);
+    dispatch(updateUser({ ...res?.data, access_token: token, refreshToken }));
+  };
+
+  const handleNavigateSignUp = () => {
+    navigate("/sign-up");
+  };
+
+  const handleOnchangeEmail = (value) => {
+    setEmail(value);
+  };
+
+  const handleOnchangePassword = (value) => {
+    setPassword(value);
+  };
+
+  const handleSignIn = () => {
+    mutation.mutate({
+      email,
+      password,
+    });
+  };
+
   return (
     <>
-      <Header></Header>
-      <AwwMenu></AwwMenu>
       <section className=" flex flex-col text-left lg:flex-row-reverse h-main items-center">
         <div className="flex flex-col items-center justify-center w-full  lg:p-16 p-4">
-          <div className="form-success hidden" data-reset-success="">
-            We've sent you an email with a link to update your password.
-          </div>
-          <div className="max-w-md w-full p-4 lg:p-0" data-login-form="">
-            <form
-              method="post"
-              action="/account/login"
-              id="customer_login"
-              acceptCharset="UTF-8"
-              data-login-with-shop-sign-in="true"
-            >
-              <input type="hidden" name="form_type" value="customer_login" />
-              <input type="hidden" name="utf8" value="✓" />
+          <div className="max-w-md w-full p-4 lg:p-0">
+            <form>
               <h1 className="text-[40px] lg:text-[80px] mb-2 mt-0 ITCGara leading-none">
                 Login
               </h1>
@@ -32,120 +88,77 @@ const SignInPage = () => {
                 <label htmlFor="CustomerEmail" className="form--label text-sm">
                   Email
                 </label>
-                <input
-                  type="email"
-                  name="customer[email]"
-                  id="CustomerEmail"
-                  placeholder="Email address"
-                  className="form--input w-full placeholder-[#443828]"
-                  spellCheck="false"
-                  autoComplete="off"
-                  autoCapitalize="off"
-                  autoFocus
-                />
+                <InputForm
+                  customClass={"form--input w-full placeholder-[#443828]"}
+                  placeholder="email"
+                  type={"email"}
+                  value={email}
+                  onChange={handleOnchangeEmail}
+                ></InputForm>
+                {data?.status === "ERR" && (
+                  <span
+                    className="TradeGodthicCn tracking-wide"
+                    style={{ color: "red" }}
+                  >
+                    {data?.message === "This user is not defined"
+                      ? "This user is not defined"
+                      : ""}
+                  </span>
+                )}
               </div>
 
               <div className="mt-2 relative field my-2">
-                <label
-                  htmlFor="CustomerPassword"
-                  className="form--label text-sm"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="customer[password]"
-                  id="CustomerPassword"
-                  className="form--input w-full placeholder-[#443828]"
-                />
+                <label className="form--label text-sm">Password</label>
+                <InputForm
+                  autocomplete="current-password"
+                  customClass={"form--input w-full placeholder-[#443828]"}
+                  placeholder="password"
+                  type={"password"}
+                  value={password}
+                  onChange={handleOnchangePassword}
+                ></InputForm>
+                {data?.status === "ERR" && (
+                  <span
+                    className="TradeGodthicCn tracking-wide"
+                    style={{ color: "red" }}
+                  >
+                    {data?.message === "The password or user is incorrect"
+                      ? "The password or user is incorrect"
+                      : ""}
+                  </span>
+                )}
               </div>
 
-              {/* <input
-                type="submit"
-                className="btn btn--primary mt-2 w-full"
-                value="Sign In"
-              /> */}
-
-              <ButtonSolid
-                child={"SIGN IN"}
-                customClass={"w-full mt-2 TradeGodthic-BoldCn text-lg"}
-              ></ButtonSolid>
+              <Loading isLoading={isLoading}>
+                <a
+                  className={`header-main__link priBut_link py-3 px-6 bg-[#f48029] rounded-md TradeGodthic-BoldCn hover:bg-[#ff9647] transition-all duration-300 tracking-wide inline-flex justify-center w-full mt-2 TradeGodthic-BoldCn text-lg ${
+                    !email.length || !password.length
+                      ? "pointer-events-none"
+                      : "pointer-events-auto"
+                  }`}
+                  onClick={handleSignIn}
+                >
+                  SIGN IN
+                </a>
+              </Loading>
 
               <div className="mt-2 text-sm TradeGodthicCn">
                 <a
-                  className="link text-sm underline text-black px-1"
-                  href="/account/register"
+                  className="link text-sm underline text-black px-1 cursor-pointer"
+                  onClick={handleNavigateSignUp}
                 >
                   Create account
                 </a>
 
-                <a
-                  href="#recover"
-                  className="link text-sm underline text-black px-1"
-                  data-recover-toggle=""
-                >
+                <a className="link text-sm underline text-black px-1">
                   Forgot your password?
                 </a>
               </div>
-
-              <input
-                type="hidden"
-                name="login_with_shop[analytics_trace_id]"
-                value="1b099161-4466-444e-9130-38cd18f073a1"
-              />
             </form>
           </div>
 
-          <div
-            className="max-w-md w-full p-1 lg:p-0 hidden"
-            data-recover-form=""
-          >
+          <div className="max-w-md w-full p-1 lg:p-0 hidden">
             <h2 className="type--secondary mb-2 mt-0">Reset your password</h2>
-            <p className="leading-normal">
-              We will send you an email to reset your password.
-            </p>
-
-            <form method="post" action="/account/recover" acceptCharset="UTF-8">
-              <input
-                type="hidden"
-                name="form_type"
-                value="recover_customer_password"
-              />
-              <input type="hidden" name="utf8" value="✓" />
-
-              <div className="field mt-1 relative">
-                <label htmlFor="RecoverEmail" className="form--label">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="RecoverEmail"
-                  className="block input-reset w-full form--input"
-                  spellCheck="false"
-                  autoComplete="off"
-                  autoCapitalize="off"
-                />
-              </div>
-
-              <div>
-                <input
-                  type="submit"
-                  className="btn btn--primary w-full mt-4"
-                  value="Submit"
-                />
-              </div>
-
-              <div>
-                <button
-                  type="button"
-                  className="border-0 bg-transparent border-none link font-body text-sm underline px-1"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </section>

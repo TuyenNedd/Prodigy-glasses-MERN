@@ -1,0 +1,20 @@
+.profile_info {
+  justify-content: space-between;
+}
+.acc-form {
+  width: -webkit-fill-available;
+  font-size: 18px;
+  line-height: normal;
+  height: 35px;
+}
+
+.acc-form-disable {
+  border: none;
+  pointer-events: none;
+}
+.ant-upload-list-item-error,
+.ant-upload-list-item-error .ant-upload-list-item-card-actions .anticon,
+.ant-upload-list-item-error .ant-upload-list-item-name,
+.ant-upload-list-item-error .ant-upload-text-icon > .anticon {
+  display: none !important;
+}
