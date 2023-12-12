@@ -1,8 +1,6 @@
 // import Loading from "../../components/LoadingComponent/Loading";
 // import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { orderContant } from "../../contant";
-import { convertPrice } from "../../utils";
 import { CheckCircleFilled } from "@ant-design/icons";
 import ButtonSolid from "../../components/ButtonSolid/ButtonSolid.jsx";
 import { useSelector } from "react-redux";
