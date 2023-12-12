@@ -1,14 +1,14 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import dns from "dns";
+
+dns.setDefaultResultOrder("verbatim");
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-<<<<<<< HEAD
-})
-=======
   server: {
-    port: 3000,
+    port: 3001,
     // proxy: {
     //   "/api": {
     //     target: "http://localhost:3001", // Đổi cổng nếu cần
@@ -20,4 +20,3 @@ export default defineConfig({
   // server: {
   // },
 });
->>>>>>> 7ece123559cd857a473924660d2575195294f1d5

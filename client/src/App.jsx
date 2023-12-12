@@ -1,61 +1,124 @@
-<<<<<<< HEAD
-import React from 'react'; // You need to import React
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Outlet } from 'react-router-dom';
-import Header from './components/Layout/Header';
-import LoginPage from './components/LoginPage'; // You also need to import LoginPage
-import HomePage from './components/HomePage';
-import RegisterPage from './components/RegisterPage';
-import Footer from './components/Layout/Footer';
-
-const Layout = () => {
-  const isLoginRoute = window.location.pathname.startsWith("/login")
-  const isRegister = window.location.pathname.startsWith("/register")
-  return (
-    <>
-    {isLoginRoute || isRegister ? null : <Header />}
-      <Outlet />
-    {isLoginRoute || isRegister ? null : <Footer />}
-    </>
-  );
-};
-
-export default function App() {
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Layout />,
-      errorElement: <div>404</div> ,
-      children : [
-        {index : true , element : <HomePage />},
-        {path : 'login' , element : <LoginPage />} ,
-        {path : 'register' , element : <RegisterPage />}
-      ]
-    },
-   
-  ]);
-
-  return (
-    <>
-      <RouterProvider router={router}>
-        <Layout />
-      </RouterProvider>
-=======
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { routes } from "./routes/index.js";
+import { Fragment, useEffect, useLayoutEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
+import { routes } from "./routes";
+import { isJsonString } from "./utils";
+import jwt_decode from "jwt-decode";
+import * as UserService from "./services/UserService";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser, updateUser } from "./redux/slides/userSlide";
+import AwwMenu from "./components/AwwMenu/AwwMenu.jsx";
+import CircularWithValueLabel from "./components/CircularWithValueLabel/CircularWithValueLabel.jsx";
+import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
+import ToTopWhenChangeRoute from "./components/ToTopWhenChangeRoute/ToTopWhenChangeRoute.jsx";
 function App() {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const { storageData, decoded } = handleDecoded();
+    if (decoded?.id) {
+      handleGetDetailsUser(decoded?.id, storageData);
+    }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
+  }, []);
+
+  const handleDecoded = () => {
+    let storageData =
+      user?.access_token || localStorage.getItem("access_token");
+    let decoded = {};
+    if (storageData && isJsonString(storageData) && !user?.access_token) {
+      storageData = JSON.parse(storageData);
+      decoded = jwt_decode(storageData);
+    }
+    return { decoded, storageData };
+  };
+
+  UserService.axiosJWT.interceptors.request.use(
+    async (config) => {
+      // Do something before request is sent
+      const currentTime = new Date();
+      const { decoded } = handleDecoded();
+      let storageRefreshToken = localStorage.getItem("refresh_token");
+      const refreshToken = JSON.parse(storageRefreshToken);
+      const decodedRefreshToken = jwt_decode(refreshToken);
+      if (decoded?.exp < currentTime.getTime() / 1000) {
+        if (decodedRefreshToken?.exp > currentTime.getTime() / 1000) {
+          const data = await UserService.refreshToken(refreshToken);
+          config.headers["token"] = `Bearer ${data?.access_token}`;
+        } else {
+          dispatch(resetUser());
+        }
+      }
+      return config;
+    },
+    (err) => {
+      return Promise.reject(err);
+    }
+  );
+
+  const handleGetDetailsUser = async (id, token) => {
+    let storageRefreshToken = localStorage.getItem("refresh_token");
+    const refreshToken = JSON.parse(storageRefreshToken);
+    const res = await UserService.getDetailsUser(id, token);
+    dispatch(
+      updateUser({
+        ...res?.data,
+        access_token: token,
+        refreshToken: refreshToken,
+      })
+    );
+  };
+
+  // const ToTopWhenChangeRoute = ({ children }) => {
+  //   const location = useLocation();
+  //   useLayoutEffect(() => {
+  //     document.documentElement.scrollTo(0, 0);
+  //   }, [location.pathname]);
+  //   return children;
+  // };
   return (
     <>
-      <Router>
-        <Routes>
-          {routes.map((route) => {
-            const Page = route.page;
-            // eslint-disable-next-line react/jsx-key
-            return <Route path={route.path} element={<Page></Page>}></Route>;
-          })}
-        </Routes>
-      </Router>
->>>>>>> 7ece123559cd857a473924660d2575195294f1d5
+      {/* Use CircularWithValueLabel for loading */}
+      {isLoading ? (
+        <LinearWithValueLabel />
+      ) : (
+        <Router>
+          <ToTopWhenChangeRoute>
+            <Routes>
+              {routes.map((route) => {
+                const Page = route.page;
+                const Layout = route.isShowHeader ? DefaultComponent : Fragment;
+
+                return (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={
+                      <>
+                        <Layout>
+                          <Page />
+                        </Layout>
+                      </>
+                    }
+                  />
+                );
+              })}
+            </Routes>
+          </ToTopWhenChangeRoute>
+        </Router>
+      )}
     </>
   );
 }
+
+export default App;
