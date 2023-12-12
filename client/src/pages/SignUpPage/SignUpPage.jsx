@@ -1,90 +1,156 @@
-/* eslint-disable react/no-unescaped-entities */
-import "./signup.scss";
-import AwwMenu from "../../components/AwwMenu/AwwMenu.jsx";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ButtonSolid from "../../components/ButtonSolid/ButtonSolid.jsx";
-import Header from "../../components/Header/Header.jsx";
+import InputForm from "../../components/InputForm/InputForm";
+import Loading from "../../components/LoadingComponent/Loading";
+import * as message from "../../components/Message/Message";
+import { useMutationHooks } from "../../hooks/useMutationHook";
+import * as UserService from "../../services/UserService";
+
 const SignUpPage = () => {
+  const navigate = useNavigate();
+
+  const [isShowPassword, setIsShowPassword] = useState(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const handleOnchangeEmail = (value) => {
+    setEmail(value);
+  };
+
+  const handleOnchangePhone = (value) => {
+    setPhone(value);
+  };
+
+  const mutation = useMutationHooks((data) => UserService.signupUser(data));
+
+  const { data, isLoading, isSuccess, isError } = mutation;
+
+  useEffect(() => {
+    if (isSuccess) {
+      message.success();
+      handleNavigateSignIn();
+    } else if (isError) {
+      message.error();
+    }
+  }, [isSuccess, isError]);
+
+  const handleOnchangePassword = (value) => {
+    setPassword(value);
+  };
+
+  const handleOnchangeConfirmPassword = (value) => {
+    setConfirmPassword(value);
+  };
+
+  const handleNavigateSignIn = () => {
+    navigate("/sign-in");
+  };
+
+  const handleSignUp = () => {
+    mutation.mutate({
+      name: name,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      phone: phone,
+    });
+  };
+
+  const handleOnchangeName = (value) => {
+    setName(value);
+  };
+
   return (
-    <>
-      <Header></Header>
-      <AwwMenu></AwwMenu>
-      <section className=" flex flex-col text-left lg:flex-row-reverse h-main items-center">
-        <div className="flex flex-col items-center justify-center w-full  lg:p-16 p-4">
-          <div className="max-w-md w-full p-4 lg:p-0" data-login-form="">
-            <form
-              method="post"
-              action="/account/login"
-              id="customer_login"
-              acceptCharset="UTF-8"
-              data-login-with-shop-sign-in="true"
-            >
-              <input type="hidden" name="form_type" value="customer_login" />
-              <input type="hidden" name="utf8" value="✓" />
-              <h1 className="text-[40px] lg:text-[80px] mb-2 mt-0 ITCGara leading-none">
-                Create Account
-              </h1>
+    <section className=" flex flex-col text-left lg:flex-row-reverse h-main items-center">
+      <div className="flex flex-col items-center justify-center w-full  lg:p-16 p-4">
+        <div className="max-w-md w-full p-4 lg:p-0">
+          <form>
+            <h1 className="text-[40px] lg:text-[80px] mb-2 mt-0 ITCGara leading-none">
+              Create Account
+            </h1>
 
-              <div className=" relative field my-1">
-                <label className="form--label text-sm">First Name</label>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="form--input w-full placeholder-[#443828]"
-                />
-              </div>
-              <div className=" relative field my-1">
-                <label className="form--label text-sm">Last Name</label>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="form--input w-full placeholder-[#443828]"
-                />
-              </div>
+            <div className=" relative field my-1">
+              <label className="form--label text-sm">Your Name</label>
+              <InputForm
+                customClass={"form--input w-full placeholder-[#443828]"}
+                placeholder="name"
+                type={"text"}
+                value={name}
+                onChange={handleOnchangeName}
+              ></InputForm>
+            </div>
 
-              <div className="relative field my-1">
-                <label htmlFor="CustomerEmail" className="form--label text-sm">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="customer[email]"
-                  id="CustomerEmail"
-                  placeholder="Email address"
-                  className="form--input w-full placeholder-[#443828]"
-                />
-              </div>
+            <div className="relative field my-1">
+              <label className="form--label text-sm">Email</label>
+              <InputForm
+                customClass={"form--input w-full placeholder-[#443828]"}
+                placeholder="email"
+                type={"email"}
+                value={email}
+                onChange={handleOnchangeEmail}
+              ></InputForm>
+            </div>
 
-              <div className=" relative field my-1">
-                <label
-                  htmlFor="CustomerPassword"
-                  className="form--label text-sm"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="customer[password]"
-                  id="CustomerPassword"
-                  className="form--input w-full placeholder-[#443828]"
-                />
-              </div>
-
-              {/* <input
-                type="submit"
-                className="btn btn--primary mt-2 w-full"
-                value="Sign In"
-              /> */}
-
+            <div className=" relative field my-1">
+              <label className="form--label text-sm">Password</label>
+              <InputForm
+                autocomplete="current-password"
+                customClass={"form--input w-full placeholder-[#443828]"}
+                placeholder="password"
+                type={"password"}
+                value={password}
+                onChange={handleOnchangePassword}
+              ></InputForm>
+            </div>
+            <div className=" relative field my-1">
+              <label className="form--label text-sm">Confirm Password</label>
+              <InputForm
+                customClass={"form--input w-full placeholder-[#443828]"}
+                placeholder="confirmPassword"
+                type={"password"}
+                value={confirmPassword}
+                onChange={handleOnchangeConfirmPassword}
+              ></InputForm>
+            </div>
+            <div className=" relative field my-1">
+              <label className="form--label text-sm">Phone</label>
+              <InputForm
+                customClass={"form--input w-full placeholder-[#443828]"}
+                placeholder="phone"
+                type={"tel"}
+                value={phone}
+                onChange={handleOnchangePhone}
+              ></InputForm>
+            </div>
+            {data?.status === "ERR" && <span>{data?.message}</span>}
+            <Loading isLoading={isLoading}>
               <ButtonSolid
+                onClick={handleSignUp}
+                disabled={
+                  !name ||
+                  !email ||
+                  !password ||
+                  !confirmPassword ||
+                  !phone ||
+                  email.length === 0 ||
+                  password.length === 0 ||
+                  name.length === 0 ||
+                  confirmPassword.length === 0 ||
+                  phone.length === 0
+                }
                 child={"CREATE"}
                 customClass={"w-full mt-2 TradeGodthic-BoldCn text-lg"}
               ></ButtonSolid>
-            </form>
-          </div>
+            </Loading>
+          </form>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
