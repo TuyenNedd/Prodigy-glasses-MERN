@@ -28,7 +28,6 @@ const AdminPage = () => {
     getItem("Products", "products", <AppstoreOutlined />),
     getItem("Orders", "orders", <ShoppingCartOutlined />),
     getItem("Comments", "comments", <CommentOutlined />),
-    getItem("Comment", "Comment", <CommentOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");
@@ -83,8 +82,6 @@ const AdminPage = () => {
         return <AdminProduct />;
       case "orders":
         return <OrderAdmin />;
-        case "Comment":
-          return <AdminComment />;
       default:
         return <></>;
     }

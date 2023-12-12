@@ -1,0 +1,116 @@
+.product-item__meta {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+}
+.product-item__outer {
+  overflow: visible;
+  position: relative;
+}
+
+.product-item__contents {
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.product-item__link {
+  display: block;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-decoration-line: none;
+  width: 100%;
+}
+.product-item__meta {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.25rem;
+  padding-top: 0.25rem;
+}
+
+.product-item__title {
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+.product-item__image-wrapper {
+  --tw-aspect-w: 1;
+  --tw-aspect-h: 1;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+}
+.product-item__image-wrapper,
+.product-item__image-wrapper0,
+.product-item__image-wrapper1,
+.product-item__image-wrapper2,
+.product-item__image-wrapper3,
+.product-item__image-wrapper4,
+.product-item__image-wrapper5,
+.product-item__image-wrapper6 {
+  padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+  position: relative;
+}
+
+.product-item__info {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.25rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  text-align: left;
+}
+.product-item__footer {
+  --tw-bg-opacity: 1;
+  background-color: white;
+  position: relative;
+}
+
+.product-item__price {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  padding-top: 0;
+}
+.product-item__title span {
+  color: var(--secondaryColor);
+  display: block;
+  font-size: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .product-item__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .product-item__contents {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media (min-width: 1024px) {
+  .product-item__title {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1024px) {
+  .product-item__info {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
+@media (min-width: 1024px) {
+  .product-item__price {
+    font-size: 1rem;
+  }
+}

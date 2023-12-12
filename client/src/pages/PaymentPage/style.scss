@@ -1,0 +1,55 @@
+.paypal-button-container {
+  display: flex !important;
+  gap: 8px !important;
+}
+.paypal-button-row.paypal-button-layout-vertical {
+  flex: 1 !important;
+  margin: 0 !important;
+}
+.paypal-button-number-1 {
+  margin: 0 !important;
+}
+.paypal-button-tagline {
+  display: none !important;
+}
+.ant-radio-input:focus + .ant-radio-inner {
+  box-shadow: none !important;
+}
+
+.ant-radio-input:focus + .ant-radio-inner,
+.ant-radio-wrapper:hover .ant-radio,
+.ant-radio:hover .ant-radio-inner {
+  border-color: #000 !important;
+}
+.ant-radio-inner:after {
+  background-color: #000 !important;
+  width: 15px !important;
+  height: 15px !important;
+  top: 6% !important;
+  left: 0.5px !important;
+  border-radius: 100% !important;
+  margin: 0 !important;
+  transform: scale(1) !important;
+}
+.ant-radio-checked:after {
+  border: 1px solid #000 !important;
+}
+.ant-radio-checked .ant-radio-inner {
+  border-color: #000 !important;
+}
+.ant-radio-inner {
+  width: 20px !important;
+  height: 20px !important;
+  border: 2px solid #d9d9d9 !important;
+}
+.ant-radio-wrapper {
+  justify-content: space-between !important;
+  flex-direction: row-reverse !important;
+}
+span.ant-radio + * {
+  flex: 1 !important;
+  padding: 0 !important;
+}
+#zoid-paypal-buttons-uid_cb171b99fe_mdc6ndu6ntq > iframe.component-frame {
+  z-index: 1 !important;
+}
