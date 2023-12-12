@@ -1,0 +1,20 @@
+<button
+                className="btn-control swiper-next swiper-button-next-unique top-1/2 -translate-y-1/2 absolute p-2 right-0 lg:right-0 h-10 text-dark transform z-10 transition-all user-select-none hidden opacity-0 group-hover:opacity-100 lg:block"
+                tabIndex="0"
+                aria-label="Next slide"
+                aria-controls="swiper-wrapper-f497721da435ce2e"
+                aria-disabled="false"
+              >
+                <div className="sr-only">Next slide</div>
+              </button>
+
+              <button
+                className="btn-control swiper-prev swiper-button-prev-unique top-1/2 -translate-y-1/2 absolute p-2 left-0 lg:left-0 h-10 text-dark transform z-10 transition-all user-select-none hidden opacity-0 group-hover:opacity-100 lg:block swiper-button-disabled"
+                disabled=""
+                tabIndex="-1"
+                aria-label="Previous slide"
+                aria-controls="swiper-wrapper-f497721da435ce2e"
+                aria-disabled="true"
+              >
+                <div className="sr-only">Previous slide</div>
+              </button>
