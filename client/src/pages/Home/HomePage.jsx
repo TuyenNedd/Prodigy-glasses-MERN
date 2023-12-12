@@ -14,16 +14,16 @@ const HomePage = () => {
   return (
     <>
       {/* <Marquee></Marquee> */}
-      <PaymentPage></PaymentPage>
+      {/* <PaymentPage></PaymentPage> */}
       {/* <Subtilte></Subtilte> */}
       {/* <Introduction></Introduction> */}
-      {/* <Header></Header>
+      {/* <Header></Header> */}
       <AwwMenu></AwwMenu>
       <DynamicImgContain></DynamicImgContain>
       <SwiperMenu></SwiperMenu>
      
      <Block></Block>
-      <Footer></Footer> */}
+      <Footer></Footer>
   
       
     </>
