@@ -1,0 +1,130 @@
+<div className="search-results__product lg:w-2/3 w-full p-0 lg:p-6 lg:order-2 order-1 lg:sticky top-0">
+        <p className="lg:text-base text-sm font-custom-1 uppercase tracking-wider leading-tight text-secondary lg:mb-10 mb-6 px-5 lg:px-0">
+          Suggested Products:
+        </p>
+        <div className="search-results__product-grid lg:grid lg:gap-2.5 lg:grid-cols-3 flex no-scrollbar">
+          {/* {searchDebounce !== "" ? (
+            products
+              ?.filter((pro) => {
+                if (
+                  pro.name.toLowerCase().includes(searchDebounce.toLowerCase())
+                ) {
+                  return pro;
+                }
+              })
+              ?.map((product) => {
+                return (
+                  <>
+                    <a
+                      onClick={() => handleDetailsProduct(product._id)}
+                      key={product._id}
+                      className="search-result__link no-underline first:pl-5 first:lg:pl-0"
+                    >
+                      <div className="h-full">
+                        <div className="seach-result h-full bg-white p-3.5">
+                          <div className="search-result__image-wrapper aspect-w-1 aspect-h-1 mb-2 relative">
+                            <img
+                              className="search-result__image absolute top-0 left-0 w-full h-full object-contain"
+                              src={product.image}
+                              alt="D28 | Reading Glasses"
+                            />
+                          </div>
+
+                          <div className="search-result__title clamp-2 my-1 leading-snug product-title product_item--title type--label-m">
+                            {product.name}
+                            <span className="block text-xs font-body">
+                              {product.type}
+                            </span>
+                          </div>
+                          <div className="search-result__price text-xs">
+                            {convertPrice(product.price)}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </>
+                );
+              })
+          ) : (
+            <p>No search results found.</p>
+          )} */}
+          {searchDebounce !== "" ? (
+            products
+              ?.filter((pro) => {
+                if (
+                  pro.name.toLowerCase().includes(searchDebounce.toLowerCase())
+                ) {
+                  return pro;
+                }
+              })
+              ?.map((product) => {
+                return (
+                  <>
+                    <a
+                      onClick={() => handleDetailsProduct(product._id)}
+                      key={product._id}
+                      className="search-result__link no-underline first:pl-5 first:lg:pl-0"
+                    >
+                      <div className="h-full">
+                        <div className="seach-result h-full bg-white p-3.5">
+                          <div className="search-result__image-wrapper aspect-w-1 aspect-h-1 mb-2 relative">
+                            <img
+                              className="search-result__image absolute top-0 left-0 w-full h-full object-contain"
+                              src={product.image}
+                              alt="D28 | Reading Glasses"
+                            />
+                          </div>
+
+                          <div className="search-result__title clamp-2 my-1 leading-snug product-title product_item--title type--label-m">
+                            {product.name}
+                            <span className="block text-xs font-body">
+                              {product.type}
+                            </span>
+                          </div>
+                          <div className="search-result__price text-xs">
+                            {convertPrice(product.price)}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </>
+                );
+              })
+          ) : (
+            <p>No search results found.</p>
+          )}
+          {/* {products?.data?.map((product) => {
+            return (
+              <>
+                <a
+                  onClick={() => handleDetailsProduct(product._id)}
+                  key={product._id}
+                  className="search-result__link no-underline first:pl-5 first:lg:pl-0"
+                >
+                  <div className="h-full">
+                    <div className="seach-result h-full bg-white p-3.5">
+                      <div className="search-result__image-wrapper aspect-w-1 aspect-h-1 mb-2 relative">
+                        <img
+                          className="search-result__image absolute top-0 left-0 w-full h-full object-contain"
+                          src={product.image}
+                          alt="D28 | Reading Glasses"
+                        />
+                      </div>
+
+                      <div className="search-result__title clamp-2 my-1 leading-snug product-title product_item--title type--label-m">
+                        {product.name}
+                        <span className="block text-xs font-body">
+                          {product.type}
+                        </span>
+                      </div>
+                      <div className="search-result__price text-xs">
+                        {convertPrice(product.price)}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </>
+            );
+          })} */}
+        </div>
+      </div>
