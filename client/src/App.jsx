@@ -12,8 +12,7 @@ import jwt_decode from "jwt-decode";
 import * as UserService from "./services/UserService";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, updateUser } from "./redux/slides/userSlide";
-import AwwMenu from "./components/AwwMenu/AwwMenu.jsx";
-import CircularWithValueLabel from "./components/CircularWithValueLabel/CircularWithValueLabel.jsx";
+// import CircularWithValueLabel from "./components/CircularWithValueLabel/CircularWithValueLabel.jsx";
 import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
 import ToTopWhenChangeRoute from "./components/ToTopWhenChangeRoute/ToTopWhenChangeRoute.jsx";
 function App() {
