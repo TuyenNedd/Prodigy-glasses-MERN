@@ -4,12 +4,15 @@ dotenv.config();
 const authMiddleWare = (req, res, next) => {
   // console.log('check tokenn',req.headers.token);
   const token = req.headers.token.split(" ")[1];
+ console.log('check new',token);
   console.log("check tokenn", req.headers.token);
   jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
+    console.log("check neww token",process.env.ACCESS_TOKEN);
     if (err) {
+
       return res.status(404).json({
-        message: "the authentiaaaaaaacation",
-        status: "err",
+        message: "Lỗi xác thực JWT",
+      status: "err",
       });
     }
     const { payload } = user;
