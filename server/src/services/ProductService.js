@@ -98,11 +98,12 @@ const getAllProducts = (limit =2, page = 0, sort,filter) => {
       if(filter){
        const label = filter[0]
        console.log('labe',label);
-      const allProductFilter = await Product.find({ [label] : { '$regex' :filter[1]}}).limit(limit).skip(limit * page)
+       const allObjectFilter = await Product.find({
+        [label]: { $regex: `^${filter[1]}`, $options: "i" },}).limit(limit).skip(limit * page)
       resolve({
         status: "OK",
         message: " success",
-        data: allProductFilter,
+        data: allObjectFilter,
         total: totalProduct,
         pageCurrent: page + 1,
         totalPage : Math.ceil(totalProduct /limit)
@@ -138,6 +139,20 @@ const getAllProducts = (limit =2, page = 0, sort,filter) => {
     }
   });
 };
+const deleteManyProduct = (ids) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          await Product.deleteMany({ _id: ids })
+          resolve({
+              status: 'OK',
+              message: 'Delete product success',
+          })
+      } catch (e) {
+          reject(e)
+      }
+  })
+}
+
 const getDetailsProduct = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -162,11 +177,26 @@ const getDetailsProduct = (id) => {
     }
   });
 };
-
+const getAllType = () => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          const allType = await Product.distinct('type')
+          resolve({
+              status: 'OK',
+              message: 'Success',
+              data: allType,
+          })
+      } catch (e) {
+          reject(e)
+      }
+  })
+}
 module.exports = {
   createProduct,
   updateProduct,
   getDetailsProduct,
   deleteProduct,
   getAllProducts,
+  deleteManyProduct,
+  getAllType,
 };
