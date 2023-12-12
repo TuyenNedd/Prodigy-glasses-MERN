@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  overflow-x: hidden;
+
+  ::selection {
+    color: #fff;
+    background: var(--secondaryColor);
+  }
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-image: linear-gradient(
+      to bottom,
+      var(--secondaryColor),
+      var(--secondaryColor),
+      var(--secondaryColor)
+    );
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+}
+
+@import "./scss/fonts";
+
+:root {
+  --primaryColor: #f48029;
+  --secondaryColor: #443828;
+  --tertiaryColor: #bbb5a4;
+  --borderColor: #61584e40;
+}
+
+[type="text"] {
+  background: transparent;
+}
+[type="text"]:focus {
+  // border: none;
+  box-shadow: none;
+}
+[type="email"]:focus{
+  box-shadow: none;
+}
+[type="password"]:focus{
+  box-shadow: none;
+}
+strong {
+  font-weight: bold;
+}
+#mega-menu-full-dropdown {
+  // visibility: visible; /* Mặc định ẩn menu */
+  visibility: hidden; /* Mặc định ẩn menu */
+}
+
+#mega-menu-full-dropdown.show {
+  visibility: visible; /* Hiển thị menu khi có class "show" */
+}
+
+@import "./scss/header";
