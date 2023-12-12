@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'; // You need to import React
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
@@ -39,6 +40,22 @@ export default function App() {
       <RouterProvider router={router}>
         <Layout />
       </RouterProvider>
+=======
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routes } from "./routes/index.js";
+function App() {
+  return (
+    <>
+      <Router>
+        <Routes>
+          {routes.map((route) => {
+            const Page = route.page;
+            // eslint-disable-next-line react/jsx-key
+            return <Route path={route.path} element={<Page></Page>}></Route>;
+          })}
+        </Routes>
+      </Router>
+>>>>>>> 7ece123559cd857a473924660d2575195294f1d5
     </>
   );
 }
