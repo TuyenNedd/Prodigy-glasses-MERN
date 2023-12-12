@@ -15,31 +15,35 @@ const authMiddleWare = (req, res, next) => {
       status: "err",
       });
     }
-    const { payload } = user;
-    if (payload?.isAdmin) {
+    
+    if (user?.isAdmin) {
       console.log("true");
       next();
     } else {
       return res.status(404).json({
         message: "the authentication",
-        status: "err",
+        status: "errâ",
       });
     }
   });
 };
 const authUserMiddleWare = (req, res, next) => {
+  console.log('reqheafd',req.headers);
   const userId = req.params.id;
   const token = req.headers.token.split(" ")[1];
-  console.log("check tokenn", req.headers.token);
+  // console.log("check tokenn", req.headers.token);
   jwt.verify(token, process.env.ACCESS_TOKEN, function (err, user) {
+    
+    
     if (err) {
-      return res.status(404).json({
+        return res.status(404).json({
         message: "the authentiaaaaaaacation",
         status: "err",
       });
     }
-    const { payload } = user;
-    if (payload?.isAdmin || payload?.id === userId) {
+    
+   
+    if (user?.isAdmin || user?.id === userId) {
       console.log("true");
       next();
     } else {
