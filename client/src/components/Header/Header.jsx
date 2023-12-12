@@ -7,34 +7,48 @@ import { useSelector } from "react-redux";
 import { Popover } from "antd";
 import * as UserService from "../../services/UserSevice.js";
 import { useDispatch } from "react-redux";
-import { resetUser} from "../../redux/slides/useSlide.jsx";
+import { resetUser } from "../../redux/slides/useSlide.jsx";
 import Loading from "../LoadingComponent/Loading.jsx";
 const Header = () => {
+  const user = useSelector((state) => state.user);
 
-const dispatch =useDispatch();
-const {loading,setLoading} = useState(false);
-const [userName,setName]=useState("");
-  const handleLogout = async ()=>{
+  const dispatch = useDispatch();
+  const { loading, setLoading } = useState(false);
+  const [userName, setName] = useState("");
+  const handleLogout = async () => {
     await UserService.logoutUser();
     dispatch(resetUser());
     localStorage.clear();
-    setLoading(false);  
+    setLoading(false);
   };
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     // setLoading(true);
     setName(user?.name);
     // setLoading(false);
   });
   const content = (
     <div className="w-52 text-base  ">
-      <p className="hover:bg-[#e2e8f0] px-1 py-1" onClick={handleLogout}>Logout</p>
-      <p className="hover:bg-[#e2e8f0] px-1 py-1" onClick={()=>navigate("/profile-user")}>profile</p>
+      <p
+        className="hover:bg-[#e2e8f0] px-1 py-1"
+        onClick={() => navigate("/profile-user")}
+      >
+        profile
+      </p>
+      {user?.isAdmin && (
+        <p
+          className="hover:bg-[#e2e8f0] px-1 py-1"
+          onClick={() => navigate("/system/admin")}
+        >
+          quản lý người dùng
+        </p>
+      )}
+      <p className="hover:bg-[#e2e8f0] px-1 py-1" onClick={handleLogout}>
+        Logout
+      </p>
     </div>
   );
-  const user = useSelector((state) => state.user);
-  
-  console.log("user", user);
+
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/sign-in");
@@ -384,20 +398,22 @@ const [userName,setName]=useState("");
             </div>
 
             <div className="header-main__right justify-end items-center lg:flex-1">
-         
               <div className="header-main__user flex-1 justify-end">
-
                 {user?.access_token ? (
-                   
                   <>
-                  <div className="avatar">
-                    <img src={user?.avatar} alt="" className="w-[60px] h-[60px] rounded-full"/>
-                  </div>
-                    <Popover content={content}  trigger="click">
-                      <div style={{ cursor: "pointer" }}>{userName || user.email}</div>
+                   
+                    <Popover content={content} trigger="click" className="flex items-center">
+                    <img
+                    className="w-[60px] h-[60px] rounded-full"
+                        src={user?.avatar}
+                      
+                      />
+                      <div style={{ cursor: "pointer" }}>
+                        {userName || user.email}
+                      </div>
                     </Popover>
                   </>
-                ) : (
+                ):(
                   <>
                     <ButtonSolid
                       onClick={handleLogin}

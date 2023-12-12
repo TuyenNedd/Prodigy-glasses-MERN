@@ -1,14 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { routes } from "./routes/index.js";
-import { useEffect } from "react";
+import { useEffect, Fragment, useState } from "react";
 import axios from "axios";
 import { isJsonString } from "./utils.js";
 import { jwtDecode } from "jwt-decode";
 import * as UserService from "./services/UserSevice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "./redux/slides/useSlide.jsx";
+import DefaultComponent from "./components/DefaultComponent/DefaultComponent.jsx";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const user = useSelector((state) => {
+    state.user;
+  });
   // useEffect (()=>{
 
   // fetchApi();
@@ -27,11 +33,13 @@ function App() {
   //   }
   // };
   useEffect(() => {
+    setIsLoading(true);
     const { storeData, decoded } = handleDecoded();
 
     if (decoded?.id) {
       handlGetDetailsUser(decoded?.id, storeData);
     }
+    setIsLoading(false);
   }, []);
   const handleDecoded = () => {
     let storeData = localStorage.getItem("access_token");
@@ -75,7 +83,7 @@ function App() {
           {routes.map((route) => {
             const Page = route.page;
             // eslint-disable-next-line react/jsx-key
-            return <Route path={route.path} element={<Page></Page>}></Route>;
+            return <Route path={route.path} element={<Page/>}></Route>;
           })}
         </Routes>
       </Router>
