@@ -1,4 +1,3 @@
-import AdminPage from "../pages/AdminPage/AdminPage";
 import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import HomePage from "../pages/Home/HomePage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
@@ -13,6 +12,7 @@ import ProfilePage from "../pages/Profile/ProfilePage";
 import SignInPage from "../pages/SignInPage/SignInPage";
 import SignUpPage from "../pages/SignUpPage/SignUpPage";
 import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
+import AdminPage from "./../pages/AdminPage/AdminPage";
 
 export const routes = [
   {

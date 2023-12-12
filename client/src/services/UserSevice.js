@@ -2,10 +2,12 @@ import axios from "axios";
 export const axiosJWT = axios.create();
 
 export const loginUser = async (data) => {
- 
+  console.log("data",data);
     try {
     const res = await axios.post(`${import.meta.env.VITE_APP_API_KEY}/user/sign-in`, data);
+   
     return res.data;
+    
 } catch (error) {
     console.error("Error", error);
   }
@@ -22,6 +24,7 @@ export const signupUser = async (data) => {
 
 
 export const getDetailsUser = async (id, access_token) => {
+
   try{
     const res = await axiosJWT.get(`${import.meta.env.VITE_APP_API_KEY}/user/get-details/${id}`, {
         headers: {
@@ -43,14 +46,14 @@ export const getDetailsUser = async (id, access_token) => {
 //     return res.data;
 // };
 
-// export const getAllUser = async (access_token) => {
-//     const res = await axiosJWT.get(`${import.meta.env.REACT_APP_API_URL}/user/getAll`, {
-//         headers: {
-//             token: `Bearer ${access_token}`,
-//         }
-//     },);
-//     return res.data;
-// };
+export const getAllUser = async (access_token) => {
+    const res = await axiosJWT.get(`${import.meta.env.REACT_APP_API_URL}/user/getAll`, {
+        headers: {
+            token: `Bearer ${access_token}`,
+        }
+    },);
+    return res.data;
+};
 
 export const refreshToken = async () => {
   try{
