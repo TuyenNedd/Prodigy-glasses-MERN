@@ -1,16 +1,9 @@
-import React from "react";
-import Header from "../../components/Header/Header.jsx";
-import AwwMenu from "../../components/AwwMenu/AwwMenu.jsx";
-import Introduction from "../../components/Introduction/Introduction.jsx";
+import React from 'react'
 
 const ProductsPage = () => {
   return (
-    <>
-      <Header></Header>
-      <Introduction></Introduction>
-      <AwwMenu></AwwMenu>
-    </>
-  );
-};
+    <div>ProductsPage</div>
+  )
+}
 
-export default ProductsPage;
+export default ProductsPage

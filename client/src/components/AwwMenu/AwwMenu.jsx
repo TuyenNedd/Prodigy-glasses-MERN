@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import * as UserService from "../../services/UserService";
 import { useDispatch } from "react-redux";
 import { resetUser } from "../../redux/slides/userSlide";
-import { routes } from "../../routes/index.jsx";
+import { routes } from "../../routes/index.js";
 import { useLocation } from "react-router-dom";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -270,7 +270,7 @@ const AwwMenu = ({ onCartClick }) => {
                     </div>
                   </div>
                 </div>
-              </div> 
+              </div>
 
               <div className="menu-float__bottom TradeGodthic-BoldCm uppercase">
                 <div className="menu-float__layout menu-float__layout--primary">

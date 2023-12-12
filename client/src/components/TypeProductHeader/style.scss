@@ -1,0 +1,16 @@
+@media (min-width: 1024px) {
+  .exposed-filters .field label {
+    margin-right: 2rem;
+  }
+}
+
+.exposed-filters .field label {
+  margin: 0 1.25rem 0 0;
+}
+.field label {
+  align-items: flex-start;
+  cursor: pointer;
+  display: flex;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}

@@ -1,0 +1,19 @@
+.progress-bar {
+  --max-width-page: 2560px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 20;
+  max-width: var(--max-width-page);
+  height: 9px;
+}
+.progress-bar .percent {
+  height: 100%;
+  position: relative;
+  background-color: var(--primaryColor);
+  //   box-shadow: -1px -1px 13px 0px rgba(0, 0, 0, 0.75);
+  //   -webkit-box-shadow: -1px -1px 13px 0px rgba(0, 0, 0, 0.75);
+  //   -moz-box-shadow: -1px -1px 13px 0px rgba(0, 0, 0, 0.75);
+}
