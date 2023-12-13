@@ -13,6 +13,7 @@ import "./style.scss";
 import { Skeleton } from "@mui/material";
 
 import { Rate } from "antd";
+import CommentsComponent from "../CommentsComponent/CommentsComponent.jsx";
 const ProductDetails = ({ idProduct }) => {
   const [numProduct, setNumProduct] = useState(1);
   const user = useSelector((state) => state.user);
@@ -735,6 +736,8 @@ const ProductDetails = ({ idProduct }) => {
       </div>
 
       <SlideShow></SlideShow>
+
+      <CommentsComponent></CommentsComponent>
     </>
   );
 };

@@ -14,7 +14,7 @@ import { Autoplay, FreeMode } from "swiper/modules";
 const SlideShow = () => {
   return (
     <>
-      <section className="section-template--16197083300028__bb42e441-2b2d-4240-a78f-fcc1c555d44c  block  section-slideshow section-slideshow-multiple lg:mt-4 lg:mb-2 mt-4 mb-2 lg:px-0 px-0 lg:py-0 py-0">
+      <section className="block section-slideshow section-slideshow-multiple lg:mt-4 lg:mb-2 mt-4 mb-2 lg:px-0 px-0 lg:py-0 py-0">
         <div className="w-full mx-auto flex flex-col">
           <div className="w-full">
             <div className="w-full h-full relative">
