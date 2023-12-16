@@ -9,11 +9,24 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 // import { ThemeProvider } from "@mui/material";
+import { ConfigProvider } from 'antd';
+import { createRoot } from 'react-dom/client';
 const queryClient = new QueryClient();
+
+
+const root = createRoot(document.getElementById('root'));
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
-    {/* <ThemeProvider> */}
+   
     <Provider store={store}>
+    <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#FF871C',
+            borderRadius: 6,
+          },
+        }}
+      >
       <PersistGate loading={null} persistor={persistor}>
         <PayPalScriptProvider
           options={{ "client-id": import.meta.env.VITE_CLIENT_ID }}
@@ -21,8 +34,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <App />
         </PayPalScriptProvider>
       </PersistGate>
+      </ConfigProvider>
     </Provider>
-    {/* </ThemeProvider> */}
-    {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+ 
   </QueryClientProvider>
 );
+

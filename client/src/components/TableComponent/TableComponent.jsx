@@ -13,37 +13,22 @@ const TableComponent = (props) => {
     handleDeleteMany,
   } = props;
   const [rowSelectedKeys, setRowSelectedKeys] = useState([]);
-  const newColumnExport = useMemo(() => {
-    const arr = columns?.filter((col) => col.dataIndex !== "action");
-    return arr;
-  }, [columns]);
+ 
 
   const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
       setRowSelectedKeys(selectedRowKeys);
     },
-    // getCheckboxProps: (record) => ({
-    //   disabled: record.name === 'Disabled User',
-    //   // Column configuration not to be checked
-    //   name: record.name,
-    // }),
   };
   const handleDeleteAll = () => {
     handleDeleteMany(rowSelectedKeys);
   };
-  const exportExcel = () => {
-    const excel = new Excel();
-    excel
-      .addSheet("test")
-      .addColumns(newColumnExport)
-      .addDataSource(dataSource, {
-        str2Percent: true,
-      })
-      .saveAs("Excel.xlsx");
-  };
+
 
   return (
+    
     <Loading isLoading={isLoading}>
+  
       {!!rowSelectedKeys.length && (
         <div
           style={{
@@ -58,7 +43,7 @@ const TableComponent = (props) => {
           Xóa tất cả
         </div>
       )}
-      <button onClick={exportExcel}>Export Excel</button>
+      
       <Table
         rowSelection={{
           type: selectionType,
