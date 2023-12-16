@@ -5,6 +5,7 @@ import {
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { Excel } from "antd-table-saveas-excel";
 import React, { useRef } from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
@@ -20,6 +21,7 @@ import { useQuery } from "@tanstack/react-query";
 import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
+import { useMemo } from "react";
 
 const AdminProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -180,14 +182,14 @@ const AdminProduct = () => {
     return (
       <div>
         <DeleteOutlined
-          style={{ color: "red", fontSize: "30px", cursor: "pointer" }}
+          style={{  fontSize: "20px", cursor: "pointer" , padding:'0 5px'}}
           onClick={() => setIsModalOpenDelete(true)}
         />
         <EditOutlined
-          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          style={{  fontSize: "22px", cursor: "pointer", padding:'0 5px' }}
           onClick={handleDetailsProduct}
         />
-      </div>
+      </div> 
     );
   };
 
@@ -265,20 +267,7 @@ const AdminProduct = () => {
         setTimeout(() => searchInput.current?.select(), 100);
       }
     },
-    // render: (text) =>
-    //   searchedColumn === dataIndex ? (
-    //     // <Highlighter
-    //     //   highlightStyle={{
-    //     //     backgroundColor: '#ffc069',
-    //     //     padding: 0,
-    //     //   }}
-    //     //   searchWords={[searchText]}
-    //     //   autoEscape
-    //     //   textToHighlight={text ? text.toString() : ''}
-    //     // />
-    //   ) : (
-    //     text
-    //   ),
+
   });
 
   const columns = [
@@ -521,23 +510,30 @@ const AdminProduct = () => {
       type: value,
     });
   };
+  
+  const newColumnExport = useMemo(() => {
+    const arr = columns?.filter((col) => col.dataIndex !== "action");
+    return arr;
+  }, [columns]);
+
+  const exportExcel = () => {
+    const excel = new Excel();
+    excel
+      .addSheet("test")
+      .addColumns(newColumnExport)
+      .addDataSource(dataTable)
+      .saveAs("Excel.xlsx");
+  };
 
   return (
     <div>
-      <WrapperHeader>Quản lý sản phẩm</WrapperHeader>
-      <div style={{ marginTop: "10px" }}>
-        <Button
-          style={{
-            height: "150px",
-            width: "150px",
-            borderRadius: "6px",
-            borderStyle: "dashed",
-          }}
-          onClick={() => setIsModalOpen(true)}
-        >
-          <PlusOutlined style={{ fontSize: "60px" }} />
-        </Button>
-      </div>
+     <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
+     <div style={{display:'flex'}}>
+     <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>PRODUCT MANAGEMENT</WrapperHeader>
+     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
+     </div>
+      <Button style={{borderRadius:'5px' , padding:'0 20px'}} onClick={() => setIsModalOpen(true)}>Add Product</Button>
+     </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           handleDeleteMany={handleDeleteManyProducts}

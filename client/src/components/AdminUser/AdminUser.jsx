@@ -20,6 +20,8 @@ import {
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { Excel } from "antd-table-saveas-excel";
+import { useMemo } from "react";
 
 const AdminUser = () => {
   const [rowSelected, setRowSelected] = useState("");
@@ -361,9 +363,29 @@ const AdminUser = () => {
     );
   };
 
+  const newColumnExport = useMemo(() => {
+    const arr = columns?.filter((col) => col.dataIndex !== "action");
+    return arr;
+  }, [columns]);
+
+  const exportExcel = () => {
+    const excel = new Excel();
+    excel
+      .addSheet("test")
+      .addColumns(newColumnExport)
+      .addDataSource(dataTable)
+      .saveAs("Excel.xlsx");
+  };
+
   return (
     <div>
-      <WrapperHeader>Quản lý người dùng</WrapperHeader>
+       <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
+     <div style={{display:'flex'}}>
+     <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>USER MANAGEMENT</WrapperHeader>
+     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
+     </div>
+      <Button style={{borderRadius:'5px' , padding:'0 20px'}} onClick={() => setIsModalOpen(true)}>Add Product</Button>
+     </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           handleDeleteMany={handleDeleteManyUsers}

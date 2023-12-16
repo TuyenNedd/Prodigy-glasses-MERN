@@ -9,7 +9,8 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import { convertPrice, getBase64 } from "../../utils";
 import { useEffect } from "react";
 import * as message from "../Message/Message";
-
+import { Excel } from "antd-table-saveas-excel";
+import { useMemo } from "react";
 import * as OrderService from "../../services/OrderService";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -174,12 +175,34 @@ const OrderAdmin = () => {
       };
     });
 
+    const newColumnExport = useMemo(() => {
+      const arr = columns?.filter((col) => col.dataIndex !== "action");
+      return arr;
+    }, [columns]);
+
+    const exportExcel = () => {
+      const excel = new Excel();
+      excel
+        .addSheet("order")
+        .addColumns(newColumnExport)
+        .addDataSource(dataTable)
+        .saveAs("Order.xlsx");
+    };
+
   return (
     <div>
-      <WrapperHeader>Quản lý đơn hàng</WrapperHeader>
+    
+  
       <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
       </div>
+      <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
+     <div style={{display:'flex'}}>
+     <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>ORDER MANAGEMENT</WrapperHeader>
+     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
+     </div>
+      
+     </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           columns={columns}
