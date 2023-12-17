@@ -22,6 +22,7 @@ import {
 } from "@ant-design/icons";
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
+import './style.scss'
 
 const AdminUser = () => {
   const [rowSelected, setRowSelected] = useState("");
@@ -127,11 +128,11 @@ const AdminUser = () => {
     return (
       <div>
         <DeleteOutlined
-          style={{ color: "red", fontSize: "30px", cursor: "pointer" }}
+          className="actionBtn deleteBtn"
           onClick={() => setIsModalOpenDelete(true)}
         />
         <EditOutlined
-          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          className="actionBtn editBtn"
           onClick={handleDetailsProduct}
         />
       </div>
@@ -401,6 +402,8 @@ const AdminUser = () => {
           }}
         />
       </div>
+
+      {/* edit */}
       <DrawerComponent
         title="Chi tiết người dùng"
         isOpen={isOpenDrawer}

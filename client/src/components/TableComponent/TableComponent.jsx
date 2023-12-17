@@ -4,7 +4,7 @@ import Loading from "../../components/LoadingComponent/Loading";
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
 
-const TableComponent = (props) => {
+const   TableComponent = (props) => {
   const {
     selectionType = "checkbox",
     data: dataSource = [],

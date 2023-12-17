@@ -1,6 +1,5 @@
-import { Button, Form, Select, Space } from "antd";
+import { Button, Col, Form, Select, Space ,Row , Modal , Input} from "antd";
 import {
-  PlusOutlined,
   DeleteOutlined,
   EditOutlined,
   SearchOutlined,
@@ -18,10 +17,11 @@ import Loading from "../../components/LoadingComponent/Loading";
 import { useEffect } from "react";
 import * as message from "../../components/Message/Message";
 import { useQuery } from "@tanstack/react-query";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
-import { useMemo } from "react";
+import { useMemo } from "react";;
+import TypeChart from "../TypeChart/TypeChart";
+import "./style.scss"
 
 const AdminProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +31,7 @@ const AdminProduct = () => {
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const user = useSelector((state) => state?.user);
   const searchInput = useRef(null);
+  const { TextArea } = Input;
   const inittial = () => ({
     name: "",
     price: "",
@@ -90,12 +91,13 @@ const AdminProduct = () => {
     const res = ProductService.deleteManyProduct(ids, token);
     return res;
   });
-
+  
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
+    const dataProduct = res;
     return res;
   };
-
+  
   const fetchGetDetailsProduct = async (rowSelected) => {
     const res = await ProductService.getDetailsProduct(rowSelected);
     if (res?.data) {
@@ -182,26 +184,26 @@ const AdminProduct = () => {
     return (
       <div>
         <DeleteOutlined
-          style={{  fontSize: "20px", cursor: "pointer" , padding:'0 5px'}}
+          className="actionBtn deleteBtn"
           onClick={() => setIsModalOpenDelete(true)}
         />
         <EditOutlined
-          style={{  fontSize: "22px", cursor: "pointer", padding:'0 5px' }}
+          className="actionBtn editBtn"
           onClick={handleDetailsProduct}
         />
-      </div> 
+      </div>
     );
   };
 
-  const handleSearch = (selectedKeys, confirm, dataIndex) => {
-    confirm();
+  // const handleSearch = (selectedKeys, confirm, dataIndex) => {
+  //   confirm();
     // setSearchText(selectedKeys[0]);
     // setSearchedColumn(dataIndex);
-  };
-  const handleReset = (clearFilters) => {
-    clearFilters();
+  // };
+  // const handleReset = (clearFilters) => {
+  //   clearFilters();
     // setSearchText('');
-  };
+  // };
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -334,6 +336,7 @@ const AdminProduct = () => {
     products?.data?.map((product) => {
       return { ...product, key: product._id };
     });
+  console.log('dataTAble', dataTable);
 
   useEffect(() => {
     if (isSuccess && data?.status === "OK") {
@@ -510,7 +513,8 @@ const AdminProduct = () => {
       type: value,
     });
   };
-  
+
+  //export excel----------------------------------------------------
   const newColumnExport = useMemo(() => {
     const arr = columns?.filter((col) => col.dataIndex !== "action");
     return arr;
@@ -524,17 +528,44 @@ const AdminProduct = () => {
       .addDataSource(dataTable)
       .saveAs("Excel.xlsx");
   };
+  //------------------------------end----------------------------------------
+
+
+
+// Hàm tính số lượng các loại
+const calculateTypeCounts = (data) => {
+  const typeCounts = {};
+
+  data.forEach((item) => {
+    const type = item.type;
+    if (typeCounts[type]) {
+      typeCounts[type].uv++;
+    } else {
+      typeCounts[type] = { type, uv: 1 };
+    }
+  });
+  return Object.values(typeCounts);
+};
+
+// Gọi hàm
+const typeCounts = calculateTypeCounts(dataTable);
+console.log('TypeCounts' , typeCounts)
 
   return (
     <div>
-     <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
-     <div style={{display:'flex'}}>
-     <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>PRODUCT MANAGEMENT</WrapperHeader>
-     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
-     </div>
-      <Button style={{borderRadius:'5px' , padding:'0 20px'}} onClick={() => setIsModalOpen(true)}>Add Product</Button>
-     </div>
+    <TypeChart typeCounts={typeCounts}/>
+      <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '20px', backgroundColor: 'white', padding: '20px', marginBottom: '-20px' }}>
+        <div style={{ display: 'flex' }}>
+          <WrapperHeader style={{ fontWeight: 'bold', fontSize: '20px' }}>PRODUCT MANAGEMENT</WrapperHeader>
+          <Button style={{ marginLeft: '20px' }} onClick={() => { exportExcel() }}>Export Excel</Button>
+        </div>
+        <Button style={{ borderRadius: '5px', padding: '0 20px' }} onClick={() => setIsModalOpen(true)}>Add Product</Button>
+      </div>
+
+
+
       <div style={{ marginTop: "20px" }}>
+       
         <TableComponent
           handleDeleteMany={handleDeleteManyProducts}
           columns={columns}
@@ -549,23 +580,26 @@ const AdminProduct = () => {
           }}
         />
       </div>
+
+{/* ------------------------------------------MODAL ADD ----------------------------------------- */}
       <ModalComponent
         forceRender
-        title="Tạo sản phẩm"
+        title="ADD PRODUCT"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
+        width={'50%'}
       >
-        {/* <Loading isLoading={isLoading}> */}
         <Form
           name="basic"
-          labelCol={{ span: 6 }}
-          wrapperCol={{ span: 18 }}
           onFinish={onFinish}
           autoComplete="on"
           form={form}
         >
+        <Row gutter={15}>
+          <Col span={12}>
           <Form.Item
+          labelCol={{span:24}}
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input your name!" }]}
@@ -576,21 +610,23 @@ const AdminProduct = () => {
               name="name"
             />
           </Form.Item>
+          </Col>
 
-          <Form.Item
+         <Col span={12}>
+         <Form.Item
+         labelCol={{span:24}}
             label="Type"
             name="type"
             rules={[{ required: true, message: "Please input your type!" }]}
           >
             <Select
               name="type"
-              // defaultValue="lucy"
-              // style={{ width: 120 }}
               value={stateProduct.type}
               onChange={handleChangeSelect}
               options={renderOptions(typeProduct?.data?.data)}
             />
           </Form.Item>
+         </Col>
           {stateProduct.type === "add_type" && (
             <Form.Item
               label="New type"
@@ -604,7 +640,9 @@ const AdminProduct = () => {
               />
             </Form.Item>
           )}
-          <Form.Item
+        <Col span={6}>
+        <Form.Item
+        labelCol={{span:24}}
             label="Count inStock"
             name="countInStock"
             rules={[
@@ -617,7 +655,10 @@ const AdminProduct = () => {
               name="countInStock"
             />
           </Form.Item>
+        </Col>
+          <Col span={6}>
           <Form.Item
+          labelCol={{span:24}}
             label="Price"
             name="price"
             rules={[
@@ -630,23 +671,10 @@ const AdminProduct = () => {
               name="price"
             />
           </Form.Item>
+          </Col>
+          <Col span={6}>
           <Form.Item
-            label="Description"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Please input your count description!",
-              },
-            ]}
-          >
-            <InputComponent
-              value={stateProduct.description}
-              onChange={handleOnchange}
-              name="description"
-            />
-          </Form.Item>
-          <Form.Item
+           labelCol={{span:24}}
             label="Rating"
             name="rating"
             rules={[
@@ -659,7 +687,10 @@ const AdminProduct = () => {
               name="rating"
             />
           </Form.Item>
+          </Col>
+          <Col span={6}>
           <Form.Item
+          labelCol={{span:24}}
             label="Discount"
             name="discount"
             rules={[
@@ -675,7 +706,30 @@ const AdminProduct = () => {
               name="discount"
             />
           </Form.Item>
-          <Form.Item
+          </Col>
+        <Col span={24}>
+        <Form.Item
+          labelCol={{span:24}}
+            label="Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count description!",
+              },
+            ]}
+          >
+            <TextArea rows={2}
+              value={stateProduct.description}
+              onChange={handleOnchange}
+              name="description"
+            />
+          </Form.Item>
+        </Col>
+          
+        <Col span={12}>
+        <Form.Item
+          labelCol={{span:24}}
             label="Image"
             name="image"
             rules={[
@@ -699,7 +753,11 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
+        </Col>
+          
+          <Col span={12}>
           <Form.Item
+        labelCol={{span:24}}
             label="ImageHover"
             name="imageHover"
             rules={[
@@ -729,30 +787,38 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+          </Col>
+          <Col span={24}><Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+            <Button style={{border:'none' , backgroundColor:'blue' , color:'white' ,borderRadius:'5px'}} type="primary" htmlType="submit">
               Submit
             </Button>
-          </Form.Item>
+          </Form.Item></Col>
+          </Row>
         </Form>
+
         {/* </Loading> */}
       </ModalComponent>
-      <DrawerComponent
-        title="Chi tiết sản phẩm"
+{/* -----------------------------------------------END------------------------------------------------ */}
+
+{/* --------------------------------------MODAL UPDATE--------------------------------------- */}
+      <ModalComponent
+        title="Product detail"
         isOpen={isOpenDrawer}
-        onClose={() => setIsOpenDrawer(false)}
-        width="90%"
+        onCancel={() => setIsOpenDrawer(false)}
+        width="50%"
+        footer={null}
       >
-        {/* <Loading isLoading={isLoadingUpdate || isLoadingUpdated}> */}
         <Form
           name="basic"
-          labelCol={{ span: 2 }}
-          wrapperCol={{ span: 22 }}
           onFinish={onUpdateProduct}
           autoComplete="on"
           form={form}
+       
         >
+        <Row gutter={15}>
+          <Col span={12}>
           <Form.Item
+           labelCol={{ span: 24 }}
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input your name!" }]}
@@ -763,19 +829,26 @@ const AdminProduct = () => {
               name="name"
             />
           </Form.Item>
+          </Col>
 
+          <Col span={12}>
           <Form.Item
+          labelCol={{ span: 24}}
             label="Type"
             name="type"
             rules={[{ required: true, message: "Please input your type!" }]}
           >
-            <InputComponent
-              value={stateProductDetails["type"]}
-              onChange={handleOnchangeDetails}
+            <Select
               name="type"
+              value={stateProduct.type}
+              onChange={handleChangeSelect}
+              options={renderOptions(typeProduct?.data?.data)}
             />
           </Form.Item>
+          </Col>
+          <Col span={6}>
           <Form.Item
+          labelCol={{span: 24}}
             label="Count inStock"
             name="countInStock"
             rules={[
@@ -788,36 +861,27 @@ const AdminProduct = () => {
               name="countInStock"
             />
           </Form.Item>
-          <Form.Item
+          </Col>
+         <Col span={6}>
+         <Form.Item
+         labelCol={{span:24}}
             label="Price"
             name="price"
             rules={[
               { required: true, message: "Please input your count price!" },
             ]}
           >
-            <InputComponent
+            <Input
               value={stateProductDetails.price}
               onChange={handleOnchangeDetails}
               name="price"
             />
           </Form.Item>
-          <Form.Item
-            label="Description"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Please input your count description!",
-              },
-            ]}
-          >
-            <InputComponent
-              value={stateProductDetails.description}
-              onChange={handleOnchangeDetails}
-              name="description"
-            />
-          </Form.Item>
-          <Form.Item
+         </Col>
+
+         <Col span={6}>
+         <Form.Item
+         labelCol={{span:24}}
             label="Rating"
             name="rating"
             rules={[
@@ -830,7 +894,11 @@ const AdminProduct = () => {
               name="rating"
             />
           </Form.Item>
-          <Form.Item
+         </Col>
+
+         <Col span={6}>
+         <Form.Item
+         labelCol={{span :24}}
             label="Discount"
             name="discount"
             rules={[
@@ -846,7 +914,31 @@ const AdminProduct = () => {
               name="discount"
             />
           </Form.Item>
+         </Col>
+          <Col span={24}>
           <Form.Item
+          labelCol={{span:24}}
+            label="Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count description!",
+              },
+            ]}
+          >
+            <TextArea rows={2}
+              value={stateProductDetails.description}
+              onChange={handleOnchangeDetails}
+              name="description"
+            />
+          </Form.Item>
+          </Col>
+         
+          
+       <Col span={12}>
+       <Form.Item
+       labelCol={{span:24}}
             label="Image"
             name="image"
             rules={[
@@ -873,7 +965,10 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
-          <Form.Item
+       </Col>
+        <Col span={12}>
+        <Form.Item
+        labelCol={{span:24}}
             label="ImageHover"
             name="imageHover"
             rules={[
@@ -900,24 +995,30 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button type="primary" htmlType="submit">
+        </Col>
+        <Col span={24}>
+        <Form.Item wrapperCol={{ offset: 20, span: 24 }}>
+            <Button style={{backgroundColor:'red' ,border:'none' , borderRadius:'3px' }} type="primary" htmlType="submit">
               Apply
             </Button>
           </Form.Item>
+        </Col>
+        </Row>
         </Form>
-        {/* </Loading> */}
-      </DrawerComponent>
-      <ModalComponent
+      </ModalComponent>
+{/* ---------------------------------end----------------------------------------- */}
+      <Modal
         title="Xóa sản phẩm"
         open={isModalOpenDelete}
         onCancel={handleCancelDelete}
         onOk={handleDeleteProduct}
+        okButtonProps={{ className: 'custom-ok-button' }}
+        cancelButtonProps={{ className: 'custom-cancel-button' }}
       >
         <Loading isLoading={isLoadingDeleted}>
           <div>Bạn có chắc xóa sản phẩm này không?</div>
         </Loading>
-      </ModalComponent>
+      </Modal>
     </div>
   );
 };

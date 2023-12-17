@@ -12,7 +12,7 @@ export const getAllProduct = async (search, limit) => {
   } else {
     res = await axios.get(
       `${import.meta.env.VITE_API_URL_BACKEND}/product/get-all?limit=${limit}`
-    );
+      );
   }
   return res.data;
 };
@@ -23,7 +23,7 @@ export const getProductType = async (type, page, limit) => {
       `${
         import.meta.env.VITE_API_URL_BACKEND
       }/product/get-all?filter=type&filter=${type}&limit=${limit}&page=${page}`
-    );
+      );
     return res.data;
   }
 };

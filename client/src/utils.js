@@ -39,10 +39,10 @@ export const renderOptions = (arr) => {
       };
     });
   }
-  results.push({
-    label: "Thêm type",
-    value: "add_type",
-  });
+  // results.push({
+  //   label: "Thêm type",
+  //   value: "add_type",
+  // });
   return results;
 };
 

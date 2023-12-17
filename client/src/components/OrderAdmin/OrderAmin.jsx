@@ -21,6 +21,7 @@ import {
 import { useSelector } from "react-redux";
 import { orderContant } from "../../contant";
 import PieChartComponent from "./PieChart";
+import TypeChart from "../TypeChart/TypeChart";
 
 const OrderAdmin = () => {
   const user = useSelector((state) => state?.user);
@@ -193,9 +194,10 @@ const OrderAdmin = () => {
     <div>
     
   
-      <div style={{ height: 200, width: 200 }}>
+      {/* <div style={{ height: 200, width: 200 }}>
         <PieChartComponent data={orders?.data} />
-      </div>
+      </div> */}
+    
       <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
      <div style={{display:'flex'}}>
      <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>ORDER MANAGEMENT</WrapperHeader>

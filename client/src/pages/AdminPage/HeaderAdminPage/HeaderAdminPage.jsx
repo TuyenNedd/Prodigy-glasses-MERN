@@ -7,7 +7,7 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const HeaderAdminPage = () => {
+const HeaderAdminPage = ({theme}) => {
     const navigate = useNavigate()
     const user = useSelector((state) => state?.user);
     const name = user.name
@@ -15,8 +15,6 @@ const HeaderAdminPage = () => {
 
     const styles = {
         wrapper: {
-          //Thêm các thuộc tính CSS cho label cha tại đây
-          //Ví dụ:
           margin: '10px',
           borderRadius: '5px',
           
@@ -52,17 +50,15 @@ const HeaderAdminPage = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', width: '101%', height: '60px', backgroundColor: 'white', alignItems: 'center', justifyContent: 'right', padding: '0 100px' }}>
-
-
+            <div style={{ display: 'flex', width: '101%', height: '60px', backgroundColor: theme === 'light' ? 'white' : '#1F2937', alignItems: 'center', justifyContent: 'right', padding: '0 100px' , border:'none' }}>
                 <Dropdown
                     menu={{items }}
                 >
                     <a onClick={(e) => e.preventDefault()}>
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                             <Avatar size="large" icon={<UserOutlined />} />
-                            <div style={{ padding: '0 6px' }}> {name} </div>
-                            <DownOutlined />
+                            <div style={{ padding: '0 6px' , color : theme === 'light' ? 'black' : 'white' }}> {name}  <DownOutlined /></div>
+                            
                         </div>
                     </a>
                 </Dropdown>
