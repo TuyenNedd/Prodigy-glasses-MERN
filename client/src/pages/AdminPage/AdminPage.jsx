@@ -160,6 +160,9 @@ import "./style.scss"
 import { FaRegMoon } from "react-icons/fa";
 import { FaRegSun } from "react-icons/fa";
 import AdminDashboard from "../../components/AdminDashboard/AdminDashboard.jsx";
+import { MdOutlineCategory } from "react-icons/md";
+import { FaInbox } from "react-icons/fa";
+import AdminCategory from "../../components/AdminCategory/AdminCategory.jsx";
 const AdminPage = () => {
 
   const user = useSelector((state) => state?.user);
@@ -169,7 +172,8 @@ const AdminPage = () => {
   const items = [
     getItem("Dashboard", "dashboard", <WindowsOutlined />),
     getItem("Users", "users", <UserOutlined />),
-    getItem("Products", "products", <AppstoreOutlined />),
+    getItem("Category", "category", <MdOutlineCategory />),
+    getItem("Products", "products", <FaInbox />    ),
     getItem("Orders", "orders", <ShoppingCartOutlined />),
     getItem("Comments", "comments", <CommentOutlined />),
   ];
@@ -186,6 +190,8 @@ const AdminPage = () => {
         return <AdminProduct  theme={theme} keySelected={keySelected} />;
       case "orders":
         return <AdminOrder theme={theme}/>;
+      case "category":
+       return <AdminCategory theme={theme}/>;
       default:
         return <></>;
     }

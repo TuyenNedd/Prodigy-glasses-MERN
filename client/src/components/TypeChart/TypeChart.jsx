@@ -1,40 +1,23 @@
 import { Divider } from 'antd';
 import React from 'react'
 import { BarChart, Bar, XAxis, YAxis } from 'recharts';
-
+import * as ProductService from "../../services//ProductService"
+import { useQuery } from "@tanstack/react-query";
+import "./style.scss"
 const TypeChart = (props) => {
     const {typeCounts} =props
     const renderCustomAxisTick = ({ x, y, payload }) => {
+      console.log('payload',payload);
         let text = '';
         switch (payload.value) {
-          case 'Light Responsive': 
-            text = 'Light Responsive';
+          case `${payload.value}`:  
+            text = `${payload.value}`;
             break;
-          case 'Prescription Sunglasses':
-            text = 'Prescription Sunglasses';
-            break;
-          case 'Sun Progressives': 
-            text = 'Sun Progressives';
-            break;
-          case  'Sunglass Readers':
-            text = 'Sunglass Readers';
-            break;  
-          case 'Prescription Glasses':
-            text = 'Prescription Glasses';
-            break;
-          case 'Progressive Readers': 
-            text = 'Progressive Readers';
-            break;
-          case 'Sunglasses ': 
-            text = 'Sunglasses';
-            break;
-          case 'Readers ': 
-            text = 'Readers';
-            break;
-          // Thêm các case khác nếu cần
+
           default:
             text = '';
         }
+
         return (
           <text x={x} y={y} dy={16} textAnchor="middle" fill="#666">
             {text}
@@ -60,7 +43,7 @@ const TypeChart = (props) => {
       <YAxis />
       <Bar
         dataKey="uv"
-        barSize={60}
+        barSize={30}
         fill="#1F2937"
         label={renderCustomBarLabel}
       />

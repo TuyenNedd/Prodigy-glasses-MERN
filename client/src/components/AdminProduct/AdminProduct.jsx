@@ -1,4 +1,4 @@
-import { Button, Col, Form, Select, Space ,Row , Modal , Input} from "antd";
+import { Button, Col, Form, Select, Space, Row, Modal, Input, Upload, InputNumber } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -24,7 +24,10 @@ import TypeChart from "../TypeChart/TypeChart";
 import "./style.scss"
 import { IoIosAdd } from "react-icons/io";
 import { CiExport } from "react-icons/ci";
-const AdminProduct = ({keySelected}) => {
+import AdminCategory from "../AdminCategory/AdminCategory";
+
+const AdminProduct = ({ keySelected }) => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -92,13 +95,13 @@ const AdminProduct = ({keySelected}) => {
     const res = ProductService.deleteManyProduct(ids, token);
     return res;
   });
-  
+
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
     const dataProduct = res;
     return res;
   };
-  
+
   const fetchGetDetailsProduct = async (rowSelected) => {
     const res = await ProductService.getDetailsProduct(rowSelected);
     if (res?.data) {
@@ -196,15 +199,7 @@ const AdminProduct = ({keySelected}) => {
     );
   };
 
-  // const handleSearch = (selectedKeys, confirm, dataIndex) => {
-  //   confirm();
-    // setSearchText(selectedKeys[0]);
-    // setSearchedColumn(dataIndex);
-  // };
-  // const handleReset = (clearFilters) => {
-  //   clearFilters();
-    // setSearchText('');
-  // };
+
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
@@ -365,25 +360,25 @@ const AdminProduct = ({keySelected}) => {
     }
   }, [isSuccessDelected]);
 
-  const handleCloseDrawer = () => {
-    setIsOpenDrawer(false);
-    setStateProductDetails({
-      name: "",
-      price: "",
-      description: "",
-      rating: "",
-      image: "",
-      imageHover: "",
-      type: "",
-      countInStock: "",
-    });
-    form.resetFields();
-  };
+  // const handleCloseDrawer = () => {
+  //   setIsOpenDrawer(false);
+  //   setStateProductDetails({
+  //     name: "",
+  //     price: "",
+  //     description: "",
+  //     rating: "",
+  //     image: "",
+  //     imageHover: "",
+  //     type: "",
+  //     countInStock: "",
+  //   });
+  //   form.resetFields();
+  // };
 
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === "OK") {
       message.success();
-      handleCloseDrawer();
+      // handleCloseDrawer();
     } else if (isErrorUpdated) {
       message.error();
     }
@@ -533,40 +528,41 @@ const AdminProduct = ({keySelected}) => {
 
 
 
-// Hàm tính số lượng các loại
-const calculateTypeCounts = (data) => {
-  const typeCounts = {};
+  // Hàm tính số lượng các loại
 
-  data.forEach((item) => {
-    const type = item.type;
-    if (typeCounts[type]) {
-      typeCounts[type].uv++;
-    } else {
-      typeCounts[type] = { type, uv: 1 };
-    }
-  });
-  return Object.values(typeCounts);
-};
 
-// Gọi hàm
-const typeCounts = calculateTypeCounts(dataTable);
-console.log('TypeCounts' , typeCounts)
+  const calculateTypeCounts = (data) => {
+    const typeCounts = {};
+
+    data.forEach((item) => {
+      const type = item.type;
+      if (typeCounts[type]) {
+        typeCounts[type].uv++;
+      } else {
+        typeCounts[type] = { type, uv: 1 };
+      }
+    });
+    return Object.values(typeCounts);
+  };
+  // Gọi hàm
+  const typeCounts = calculateTypeCounts(dataTable);
+  console.log('TypeCounts', typeCounts)
+
+  //---------------------------------------------------------------------------------------------------
+
+  //---------------------------------------------------------------------------------------------------
 
   return (
     <div>
-   <TypeChart typeCounts={typeCounts}/>
+      {/* <TypeChart typeCounts={typeCounts}/> */}
       <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '20px', backgroundColor: 'white', padding: '20px', marginBottom: '-20px' }}>
         <div style={{ display: 'flex' }}>
           <WrapperHeader style={{ fontWeight: 'bold', fontSize: '20px' }}>PRODUCT MANAGEMENT</WrapperHeader>
-          <Button style={{ marginLeft: '20px', borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => { exportExcel() }}> <span style={{fontSize:20 , paddingRight:'5px'}}><CiExport /></span> Export Excel</Button>
+          <Button style={{ marginLeft: '20px', borderRadius: '5px', height: '38px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => { exportExcel() }}> <span style={{ fontSize: 20, paddingRight: '5px' }}><CiExport /></span> Export Excel</Button>
         </div>
-        <Button style={{ borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => setIsModalOpen(true)}> <span style={{fontSize:20 , paddingRight:' 5px'}}><IoIosAdd /></span> Add Product </Button>
+        <Button style={{ borderRadius: '5px', height: '38px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} onClick={() => setIsModalOpen(true)}> <span style={{ fontSize: 20, paddingRight: ' 5px' }}><IoIosAdd /></span> Add Product </Button>
       </div>
-
-
-
       <div style={{ marginTop: "20px" }}>
-       
         <TableComponent
           handleDeleteMany={handleDeleteManyProducts}
           columns={columns}
@@ -582,7 +578,7 @@ console.log('TypeCounts' , typeCounts)
         />
       </div>
 
-{/* ------------------------------------------MODAL ADD ----------------------------------------- */}
+      {/* ------------------------------------------MODAL ADD ----------------------------------------- */}
       <ModalComponent
         forceRender
         title="ADD PRODUCT"
@@ -597,80 +593,80 @@ console.log('TypeCounts' , typeCounts)
           autoComplete="on"
           form={form}
         >
-        <Row gutter={15}>
-          <Col span={12}>
-          <Form.Item
-          labelCol={{span:24}}
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Please input your name!" }]}
-          >
-            <InputComponent
-              value={stateProduct["name"]}
-              onChange={handleOnchange}
-              name="name"
-            />
-          </Form.Item>
-          </Col>
-
-          <Col span={12}>
-            <Form.Item
-              labelCol={{ span: 24 }}
-              label="Type"
-              name="type"
-              rules={[{ required: true, message: "Please select a type!" }]}
-            >
-              <Select
-                name="type"
-                value={stateProduct.type}
-                onChange={handleChangeSelect}
-                options={renderOptions(typeProduct?.data?.data)}
-              />
-            </Form.Item>
-          </Col>
-          {stateProduct.type === "add_type" && (
+          <Row gutter={15}>
             <Col span={12}>
               <Form.Item
-              labelCol={{span:24}}
-                label="New type"
-                name="newType"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your new type!",
-                    // Thêm điều kiện kiểm tra nếu type là 'add_type'
-                    validator: (_, value) =>
-                      stateProduct.type === "add_type" && !value
-                        ? Promise.reject("Please input your new type!")
-                        : Promise.resolve(),
-                  },
-                ]}
+                labelCol={{ span: 24 }}
+                label="Name"
+                name="name"
+                rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <InputComponent
-                  value={stateProduct.newType}
+                  value={stateProduct["name"]}
                   onChange={handleOnchange}
-                  name="newType"
+                  name="name"
                 />
               </Form.Item>
             </Col>
-          )}
-        <Col span={6}>
-        <Form.Item
-        labelCol={{span:24}}
-            label="Count inStock"
-            name="countInStock"
-            rules={[
-              { required: true, message: "Please input your count inStock!" },
-            ]}
-          >
-            <InputComponent
-              value={stateProduct.countInStock}
-              onChange={handleOnchange}
-              name="countInStock"
-            />
-          </Form.Item>
-        </Col>
-          <Col span={6}>
+
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Type"
+                name="type"
+                rules={[{ required: true, message: "Please select a type!" }]}
+              >
+                <Select
+                  name="type"
+                  value={stateProduct.type}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(typeProduct?.data?.data)}
+                />
+              </Form.Item>
+            </Col>
+            {stateProduct.type === "add_type" && (
+              <Col span={12}>
+                <Form.Item
+                  labelCol={{ span: 24 }}
+                  label="New type"
+                  name="newType"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please input your new type!",
+                      // Thêm điều kiện kiểm tra nếu type là 'add_type'
+                      validator: (_, value) =>
+                        stateProduct.type === "add_type" && !value
+                          ? Promise.reject("Please input your new type!")
+                          : Promise.resolve(),
+                    },
+                  ]}
+                >
+                  <InputComponent
+                    value={stateProduct.newType}
+                    onChange={handleOnchange}
+                    name="newType"
+                  />
+                </Form.Item>
+              </Col>
+            )}
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Count inStock"
+                name="countInStock"
+                rules={[
+                  { required: true, message: "Please input your count inStock!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateProduct.countInStock}
+                  onChange={handleOnchange}
+                  name="countInStock"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
           <Form.Item
           labelCol={{span:24}}
             label="Price"
@@ -686,135 +682,156 @@ console.log('TypeCounts' , typeCounts)
             />
           </Form.Item>
           </Col>
-          <Col span={6}>
-          <Form.Item
-           labelCol={{span:24}}
-            label="Rating"
-            name="rating"
-            rules={[
-              { required: true, message: "Please input your count rating!" },
-            ]}
-          >
-            <InputComponent
-              value={stateProduct.rating}
-              onChange={handleOnchange}
-              name="rating"
-            />
-          </Form.Item>
-          </Col>
-          <Col span={6}>
-          <Form.Item
-          labelCol={{span:24}}
-            label="Discount"
-            name="discount"
-            rules={[
-              {
-                required: true,
-                message: "Please input your discount of product!",
-              },
-            ]}
-          >
-            <InputComponent
-              value={stateProduct.discount}
-              onChange={handleOnchange}
-              name="discount"
-            />
-          </Form.Item>
-          </Col>
-        <Col span={24}>
-        <Form.Item
-          labelCol={{span:24}}
-            label="Description"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Please input your count description!",
-              },
-            ]}
-          >
-            <TextArea rows={2}
-              value={stateProduct.description}
-              onChange={handleOnchange}
-              name="description"
-            />
-          </Form.Item>
-        </Col>
-          
-        <Col span={12}>
-        <Form.Item
-          labelCol={{span:24}}
-            label="Image"
-            name="image"
-            rules={[
-              { required: true, message: "Please input your count image!" },
-            ]}
-          >
-            <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
-              <Button>Select File</Button>
-              {stateProduct?.image && (
-                <img
-                  src={stateProduct?.image}
-                  style={{
-                    height: "60px",
-                    width: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginLeft: "10px",
-                  }}
-                  alt="avatar"
+            {/* <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Price"
+                name="price"
+                rules={[
+                  { required: true, message: "Please input your count price!" },
+                ]}
+              >
+                <InputNumber
+                  min={0}
+                  style={{ width: '100%' }}
+                  value={stateProduct.price}
+                  formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  addonAfter="$"
+                  onChange={handleOnchange}
+                  name="price"
                 />
-              )}
-            </WrapperUploadFile>
-          </Form.Item>
-        </Col>
-          
-          <Col span={12}>
-          <Form.Item
-        labelCol={{span:24}}
-            label="ImageHover"
-            name="imageHover"
-            rules={[
-              {
-                required: true,
-                message: "Please input your count imageHover!",
-              },
-            ]}
-          >
-            <WrapperUploadFile
-              onChange={handleOnchangeAvatarImageHover}
-              maxCount={1}
-            >
-              <Button>Select File</Button>
-              {stateProduct?.imageHover && (
-                <img
-                  src={stateProduct?.imageHover}
-                  style={{
-                    height: "60px",
-                    width: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginLeft: "10px",
-                  }}
-                  alt="avatar"
+              </Form.Item>
+            </Col> */}
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Rating"
+                name="rating"
+                rules={[
+                  { required: true, message: "Please input your count rating!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateProduct.rating}
+                  onChange={handleOnchange}
+                  name="rating"
                 />
-              )}
-            </WrapperUploadFile>
-          </Form.Item>
-          </Col>
-          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button style={{border:'none' , backgroundColor:'blue' , color:'white' ,borderRadius:'5px'}} type="primary" htmlType="submit" >
-              Submitt
-            </Button>
-          </Form.Item>
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Discount"
+                name="discount"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your discount of product!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateProduct.discount}
+                  onChange={handleOnchange}
+                  name="discount"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Description"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your count description!",
+                  },
+                ]}
+              >
+                <TextArea rows={2}
+                  value={stateProduct.description}
+                  onChange={handleOnchange}
+                  name="description"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Image"
+                name="image"
+                rules={[
+                  { required: true, message: "Please input your count image!" },
+                ]}
+              >
+                <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
+                  <Button>Select File</Button>
+                  {stateProduct?.image && (
+                    <img
+                      src={stateProduct?.image}
+                      style={{
+                        height: "60px",
+                        width: "60px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginLeft: "10px",
+                      }}
+                      alt="avatar"
+                    />
+                  )}
+                </WrapperUploadFile>
+              </Form.Item>
+            </Col>
+
+
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="ImageHover"
+                name="imageHover"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your count imageHover!",
+                  },
+                ]}
+              >
+                <WrapperUploadFile
+                  onChange={handleOnchangeAvatarImageHover}
+                  maxCount={1}
+                >
+                  <Button>Select File</Button>
+                  {stateProduct?.imageHover && (
+                    <img
+                      src={stateProduct?.imageHover}
+                      style={{
+                        height: "60px",
+                        width: "60px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginLeft: "10px",
+                      }}
+                      alt="avatar"
+                    />
+                  )}
+                </WrapperUploadFile>
+              </Form.Item>
+            </Col>
+            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+              <Button style={{ border: 'none', backgroundColor: 'blue', color: 'white', borderRadius: '5px' }} type="primary" htmlType="submit" >
+                Submitt
+              </Button>
+            </Form.Item>
           </Row>
         </Form>
 
         {/* </Loading> */}
       </ModalComponent>
-{/* -----------------------------------------------END------------------------------------------------ */}
+      {/* -----------------------------------------------END------------------------------------------------ */}
 
-{/* --------------------------------------MODAL UPDATE--------------------------------------- */}
+      {/* --------------------------------------MODAL UPDATE--------------------------------------- */}
       <ModalComponent
         title="Product detail"
         isOpen={isOpenDrawer}
@@ -827,200 +844,200 @@ console.log('TypeCounts' , typeCounts)
           onFinish={onUpdateProduct}
           autoComplete="on"
           form={form}
-       
+
         >
-        <Row gutter={15}>
-          <Col span={12}>
-          <Form.Item
-           labelCol={{ span: 24 }}
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Please input your name!" }]}
-          >
-            <InputComponent
-              value={stateProductDetails["name"]}
-              onChange={handleOnchangeDetails}
-              name="name"
-            />
-          </Form.Item>
-          </Col>
-
-          <Col span={12}>
-          <Form.Item
-          labelCol={{ span: 24}}
-            label="Type"
-            name="type"
-            rules={[{ required: true, message: "Please input your type!" }]}
-          >
-            <Select
-              name="type"
-              value={stateProduct.type}
-              onChange={handleChangeSelect}
-              options={renderOptions(typeProduct?.data?.data)}
-            />
-          </Form.Item>
-          </Col>
-          <Col span={6}>
-          <Form.Item
-          labelCol={{span: 24}}
-            label="Count inStock"
-            name="countInStock"
-            rules={[
-              { required: true, message: "Please input your count inStock!" },
-            ]}
-          >
-            <InputComponent
-              value={stateProductDetails.countInStock}
-              onChange={handleOnchangeDetails}
-              name="countInStock"
-            />
-          </Form.Item>
-          </Col>
-         <Col span={6}>
-         <Form.Item
-         labelCol={{span:24}}
-            label="Price"
-            name="price"
-            rules={[
-              { required: true, message: "Please input your count price!" },
-            ]}
-          >
-            <Input
-              value={stateProductDetails.price}
-              onChange={handleOnchangeDetails}
-              name="price"
-            />
-          </Form.Item>
-         </Col>
-
-         <Col span={6}>
-         <Form.Item
-         labelCol={{span:24}}
-            label="Rating"
-            name="rating"
-            rules={[
-              { required: true, message: "Please input your count rating!" },
-            ]}
-          >
-            <InputComponent
-              value={stateProductDetails.rating}
-              onChange={handleOnchangeDetails}
-              name="rating"
-            />
-          </Form.Item>
-         </Col>
-
-         <Col span={6}>
-         <Form.Item
-         labelCol={{span :24}}
-            label="Discount"
-            name="discount"
-            rules={[
-              {
-                required: true,
-                message: "Please input your discount of product!",
-              },
-            ]}
-          >
-            <InputComponent
-              value={stateProductDetails.discount}
-              onChange={handleOnchangeDetails}
-              name="discount"
-            />
-          </Form.Item>
-         </Col>
-          <Col span={24}>
-          <Form.Item
-          labelCol={{span:24}}
-            label="Description"
-            name="description"
-            rules={[
-              {
-                required: true,
-                message: "Please input your count description!",
-              },
-            ]}
-          >
-            <TextArea rows={2}
-              value={stateProductDetails.description}
-              onChange={handleOnchangeDetails}
-              name="description"
-            />
-          </Form.Item>
-          </Col>
-         
-          
-       <Col span={12}>
-       <Form.Item
-       labelCol={{span:24}}
-            label="Image"
-            name="image"
-            rules={[
-              { required: true, message: "Please input your count image!" },
-            ]}
-          >
-            <WrapperUploadFile
-              onChange={handleOnchangeAvatarDetails}
-              maxCount={1}
-            >
-              <Button>Select File</Button>
-              {stateProductDetails?.image && (
-                <img
-                  src={stateProductDetails?.image}
-                  style={{
-                    height: "60px",
-                    width: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginLeft: "10px",
-                  }}
-                  alt="avatar"
+          <Row gutter={15}>
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Name"
+                name="name"
+                rules={[{ required: true, message: "Please input your name!" }]}
+              >
+                <InputComponent
+                  value={stateProductDetails["name"]}
+                  onChange={handleOnchangeDetails}
+                  name="name"
                 />
-              )}
-            </WrapperUploadFile>
-          </Form.Item>
-       </Col>
-        <Col span={12}>
-        <Form.Item
-        labelCol={{span:24}}
-            label="ImageHover"
-            name="imageHover"
-            rules={[
-              { required: true, message: "Please input your count image!" },
-            ]}
-          >
-            <WrapperUploadFile
-              onChange={handleOnchangeAvatarDetailsImageHover}
-              maxCount={1}
-            >
-              <Button>Select File</Button>
-              {stateProductDetails?.imageHover && (
-                <img
-                  src={stateProductDetails?.imageHover}
-                  style={{
-                    height: "60px",
-                    width: "60px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginLeft: "10px",
-                  }}
-                  alt="avatar"
+              </Form.Item>
+            </Col>
+
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Type"
+                name="type"
+                rules={[{ required: true, message: "Please input your type!" }]}
+              >
+                <Select
+                  name="type"
+                  value={stateProduct.type}
+                  onChange={handleChangeSelect}
+                  options={renderOptions(typeProduct?.data?.data)}
                 />
-              )}
-            </WrapperUploadFile>
-          </Form.Item>
-        </Col>
-        <Col span={24}>
-        <Form.Item wrapperCol={{ offset: 20, span: 24 }}>
-            <Button style={{backgroundColor:'red' ,border:'none' , borderRadius:'3px' }} type="primary" htmlType="submit">
-              Apply
-            </Button>
-          </Form.Item>
-        </Col>
-        </Row>
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Count inStock"
+                name="countInStock"
+                rules={[
+                  { required: true, message: "Please input your count inStock!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateProductDetails.countInStock}
+                  onChange={handleOnchangeDetails}
+                  name="countInStock"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Price"
+                name="price"
+                rules={[
+                  { required: true, message: "Please input your count price!" },
+                ]}
+              >
+                <Input
+                  value={stateProductDetails.price}
+                  onChange={handleOnchangeDetails}
+                  name="price"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Rating"
+                name="rating"
+                rules={[
+                  { required: true, message: "Please input your count rating!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateProductDetails.rating}
+                  onChange={handleOnchangeDetails}
+                  name="rating"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={6}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Discount"
+                name="discount"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your discount of product!",
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateProductDetails.discount}
+                  onChange={handleOnchangeDetails}
+                  name="discount"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Description"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your count description!",
+                  },
+                ]}
+              >
+                <TextArea rows={2}
+                  value={stateProductDetails.description}
+                  onChange={handleOnchangeDetails}
+                  name="description"
+                />
+              </Form.Item>
+            </Col>
+
+
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Image"
+                name="image"
+                rules={[
+                  { required: true, message: "Please input your count image!" },
+                ]}
+              >
+                <WrapperUploadFile
+                  onChange={handleOnchangeAvatarDetails}
+                  maxCount={1}
+                >
+                  <Button>Select File</Button>
+                  {stateProductDetails?.image && (
+                    <img
+                      src={stateProductDetails?.image}
+                      style={{
+                        height: "60px",
+                        width: "60px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginLeft: "10px",
+                      }}
+                      alt="avatar"
+                    />
+                  )}
+                </WrapperUploadFile>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="ImageHover"
+                name="imageHover"
+                rules={[
+                  { required: true, message: "Please input your count image!" },
+                ]}
+              >
+                <WrapperUploadFile
+                  onChange={handleOnchangeAvatarDetailsImageHover}
+                  maxCount={1}
+                >
+                  <Button>Select File</Button>
+                  {stateProductDetails?.imageHover && (
+                    <img
+                      src={stateProductDetails?.imageHover}
+                      style={{
+                        height: "60px",
+                        width: "60px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        marginLeft: "10px",
+                      }}
+                      alt="avatar"
+                    />
+                  )}
+                </WrapperUploadFile>
+              </Form.Item>
+            </Col>
+            <Col span={24}>
+              <Form.Item wrapperCol={{ offset: 20, span: 24 }}>
+                <Button style={{ backgroundColor: 'red', border: 'none', borderRadius: '3px' }} type="primary" htmlType="submit">
+                  Apply
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       </ModalComponent>
-{/* ---------------------------------end----------------------------------------- */}
+      {/* ---------------------------------end----------------------------------------- */}
       <Modal
         title="Xóa sản phẩm"
         open={isModalOpenDelete}

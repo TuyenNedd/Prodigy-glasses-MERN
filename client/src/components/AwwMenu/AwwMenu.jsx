@@ -207,10 +207,10 @@ const AwwMenu = ({ onCartClick }) => {
                             <span>Sunglasses</span>
                           </div>
                           <ul className="menu-float__menu-nav">
-                            {/* {typeProducts.map((item) => {
+                            {typeProducts.map((item) => {
                               return <TypesWrap name={item} key={item} />;
-                            })} */}
-                            <TypesWrap
+                            })}
+                            {/* <TypesWrap
                               open={openMenu}
                               name={typeProducts[7]}
                               key={typeProducts[7]}
@@ -234,7 +234,7 @@ const AwwMenu = ({ onCartClick }) => {
                               open={openMenu}
                               name={typeProducts[0]}
                               key={typeProducts[0]}
-                            />
+                            /> */}
                           </ul>
                         </div>
                       </div>

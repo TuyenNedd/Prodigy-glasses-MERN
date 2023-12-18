@@ -25,10 +25,9 @@ const   TableComponent = (props) => {
 
 
   return (
+    <>
     
-    <Loading isLoading={isLoading}>
-  
-      {!!rowSelectedKeys.length && (
+     {!!rowSelectedKeys.length && (
         <div
           style={{
             background: "#1d1ddd",
@@ -43,7 +42,7 @@ const   TableComponent = (props) => {
           Xóa tất cả
         </div>
       )}
-      
+
       <Table
         rowSelection={{
           type: selectionType,
@@ -53,7 +52,11 @@ const   TableComponent = (props) => {
         dataSource={dataSource}
         {...props}
       />
-    </Loading>
+      
+   
+    </>
+    
+      
   );
 };
 
