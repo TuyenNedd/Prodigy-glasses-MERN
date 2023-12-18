@@ -179,6 +179,27 @@ const getDetailsUser = (id) => {
   });
 };
 
+const getUserById = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await User.findOne({ _id: id });
+      if (!user) {
+        resolve({
+          status: "ERR",
+          message: "This user is not defined",
+        });
+      }
+      resolve({
+        status: "OK",
+        message: "SUCCESS",
+        data: user,
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
 module.exports = {
   createUser,
   loginUser,
@@ -187,4 +208,5 @@ module.exports = {
   getAllUser,
   getDetailsUser,
   deleteManyUser,
+  getUserById,
 };

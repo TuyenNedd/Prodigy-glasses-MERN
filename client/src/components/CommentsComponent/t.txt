@@ -1,0 +1,22 @@
+useEffect(() => {
+    if (productId) {
+      // Gọi API chỉ khi productId hợp lệ
+      const fetchComments = async () => {
+        const res = await CommentService.getAllComment(user?.access_token);
+        // Xử lý dữ liệu bình luận
+      };
+
+      fetchComments();
+    }
+  }, [productId]);
+
+  useEffect(() => {
+    if (user?.access_token && productId) {
+      const fetchComments = async () => {
+        const res = await CommentService.getAllComment(user?.access_token);
+        // Xử lý dữ liệu bình luận
+      };
+
+      fetchComments();
+    }
+  }, [user?.access_token, productId]);

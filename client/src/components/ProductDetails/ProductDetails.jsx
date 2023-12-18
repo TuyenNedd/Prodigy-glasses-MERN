@@ -7,18 +7,24 @@ import * as ProductService from "../../services/ProductService";
 import { convertPrice } from "../../utils";
 import ProductSwiper from "./ProductSwiper.jsx";
 import * as message from "../Message/Message";
-import SlideShow from "../SlideShow/SlideShow.jsx";
+import SlideShowProDetail from "../SlideShowProDetail/SlideShowProDetail.jsx";
 
 import "./style.scss";
 import { Skeleton } from "@mui/material";
 
 import { Rate } from "antd";
 import CommentsComponent from "../CommentsComponent/CommentsComponent.jsx";
+import ReviewForm from "../ReviewForm/ReviewForm.jsx";
+import ButtonSolid from "../ButtonSolid/ButtonSolid.jsx";
 const ProductDetails = ({ idProduct }) => {
   const [numProduct, setNumProduct] = useState(1);
   const user = useSelector((state) => state.user);
   const order = useSelector((state) => state.order);
   const [errorLimitOrder, setErrorLimitOrder] = useState(false);
+  const [openReview, setOpenReview] = useState(false);
+
+  const [commentCount, setCommentCount] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -101,6 +107,22 @@ const ProductDetails = ({ idProduct }) => {
       }
     }
   };
+
+  const handelOpenReview = () => {
+    setOpenReview(true);
+
+    document.body.classList.add("!overflow-y-hidden");
+  };
+  const handelCloseReview = () => {
+    setOpenReview(false);
+
+    document.body.classList.remove("!overflow-y-hidden");
+  };
+  const handleReviewSubmit = () => {
+    // This function will be called when the review is successfully submitted
+    setOpenReview(false);
+    document.body.classList.remove("!overflow-y-hidden");
+  };
   return (
     <>
       {/* {isLoading ? (
@@ -109,7 +131,7 @@ const ProductDetails = ({ idProduct }) => {
         <></>
       )} */}
 
-      <section className="relative items-start lg:flex max-screen-2xl mx-auto justify-center">
+      <section className="relative items-start lg:flex max-w-screen-2xl mx-auto justify-center">
         <div className="product-essentials__title--mobile lg:hidden transport-recipient">
           <div>
             <div className="flex align-top justify-between pb-1 ITCGara">
@@ -171,16 +193,17 @@ const ProductDetails = ({ idProduct }) => {
                   ></Skeleton>
                 ) : (
                   <>
-                    <div>
+                    <div className="pointer-events-none">
                       <Rate
                         className="text-[var(--primaryColor)] text-base"
                         allowHalf
                         defaultValue={productDetails?.rating}
-                        value={productDetails?.rating}
+                        value={averageRating || productDetails?.rating}
                       />
                     </div>
-                    <a className="tt-c-teaser__link underline">
-                      Read 885 Reviews
+                    <a className="tt-c-teaser__link underline" href="#reviews">
+                      Read {commentCount}{" "}
+                      {commentCount > 1 ? "Reviews" : "Review"}
                     </a>
                   </>
                 )}
@@ -203,6 +226,7 @@ const ProductDetails = ({ idProduct }) => {
                   <ProductSwiper
                     image={productDetails?.image}
                     imageHover={productDetails?.imageHover}
+                    imageDetail={productDetails?.imageDetail}
                   ></ProductSwiper>
                 </div>
               </>
@@ -265,17 +289,21 @@ const ProductDetails = ({ idProduct }) => {
                           <div className="tt-u-clip-hide">
                             Rated 4.7 out of 5
                           </div>
-                          <div>
+                          <div className="pointer-events-none">
                             <Rate
                               className="text-[var(--primaryColor)] text-base"
                               allowHalf
                               defaultValue={productDetails?.rating}
-                              value={productDetails?.rating}
+                              value={averageRating || productDetails?.rating}
                             />
                           </div>
                         </div>
-                        <a className="tt-c-teaser__link underline text-xs TradeGodthicCn">
-                          Read 885 Reviews
+                        <a
+                          className="tt-c-teaser__link underline text-xs TradeGodthicCn"
+                          href="#reviews"
+                        >
+                          Read {commentCount}{" "}
+                          {commentCount > 1 ? "Reviews" : "Review"}
                         </a>
                       </div>
                     </div>
@@ -462,12 +490,19 @@ const ProductDetails = ({ idProduct }) => {
             )}
 
             <div className="lg:pb-4 p-5 lg:p-0 product-selection__add-to-cart">
-              <button
+              <ButtonSolid
+                onClick={handleAddOrderProduct}
+                child={"Add to cart"}
+                customClass={
+                  "text-lg TradeGodthic-BoldCn uppercase tracking-wider w-full inline-flex"
+                }
+              ></ButtonSolid>
+              {/* <button
                 onClick={handleAddOrderProduct}
                 className="button w-full inline-flex bg-[var(--primaryColor)] items-center justify-center py-4 px-5 text-lg TradeGodthic-BoldCn uppercase tracking-wider rounded-md hover:bg-[#ff9647] transition-all duration-300"
               >
                 Add to cart
-              </button>
+              </button> */}
               {errorLimitOrder && (
                 <div style={{ color: "red" }}>Product is out of stock</div>
               )}
@@ -735,9 +770,30 @@ const ProductDetails = ({ idProduct }) => {
         </div>
       </div>
 
-      <SlideShow></SlideShow>
+      <div id="reviews">
+        <CommentsComponent
+          imageR={productDetails?.image}
+          typeR={productDetails?.type}
+          proNameR={productDetails?.name}
+          openF={handelOpenReview}
+          productId={idProduct}
+          setCommentCount={setCommentCount}
+          setAverageRating={setAverageRating}
+        ></CommentsComponent>
+      </div>
 
-      <CommentsComponent></CommentsComponent>
+      <SlideShowProDetail></SlideShowProDetail>
+      {openReview && (
+        <ReviewForm
+          closeF={handelCloseReview}
+          imageR={productDetails?.image}
+          typeR={productDetails?.type}
+          proNameR={productDetails?.name}
+          productId={idProduct}
+          userId={user?.id}
+          onReviewSubmit={handleReviewSubmit}
+        ></ReviewForm>
+      )}
     </>
   );
 };

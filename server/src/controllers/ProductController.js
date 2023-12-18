@@ -6,6 +6,7 @@ const createProduct = async (req, res) => {
       name,
       image,
       imageHover,
+      imageDetail,
       type,
       countInStock,
       price,
@@ -16,6 +17,7 @@ const createProduct = async (req, res) => {
     if (
       !image ||
       !imageHover ||
+      !imageDetail ||
       !type ||
       !countInStock ||
       !price ||

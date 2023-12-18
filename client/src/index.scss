@@ -1,10 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 // @import "~slick-carousel/slick/slick.css";
 // @import "~slick-carousel/slick/slick-theme.css";
 @import "antd/dist/antd.min.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // @tailwind base;
 // @tailwind components;
@@ -19,7 +18,7 @@
     margin-bottom: 0;
   }
   a:hover {
-    color: black;
+    color: unset;
   }
 
   font-weight: normal;
@@ -59,6 +58,7 @@ body {
 
 :root {
   --primaryColor: #f48029;
+  // --primaryColor: #da2c38;
   --secondaryColor: #443828;
   --tertiaryColor: #bbb5a4;
   --borderColor: #61584e40;

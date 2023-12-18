@@ -24,6 +24,7 @@ export default {
       },
       colors: {
         priCo: "var(--primaryColor)",
+        christmasText: "#f4f0bb",
       },
     },
   },

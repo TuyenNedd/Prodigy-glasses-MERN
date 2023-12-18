@@ -73,29 +73,7 @@ const DetailsOrderPage = () => {
   const estimatedAfterFiveDay = data?.updatedAt
     ? addDayFormat(data?.updatedAt, 5)
     : "N/A";
-  const priceDiscountMemo = useMemo(() => {
-    const result = data?.orderItems?.reduce((total, cur) => {
-      return (
-        total + (cur.price - (cur.price * cur.discount) / 100) * cur.amount
-      );
-    }, 0);
 
-    return result;
-  }, [data]);
-
-  const deliveryPriceMemo = useMemo(() => {
-    if (priceDiscountMemo > 200000) {
-      return 10000;
-    } else if (priceDiscountMemo === 0) {
-      return 0;
-    } else {
-      return 20000;
-    }
-  }, [priceDiscountMemo]);
-
-  const totalPriceMemo = useMemo(() => {
-    return Number(priceDiscountMemo) + Number(deliveryPriceMemo);
-  }, [priceDiscountMemo, deliveryPriceMemo]);
   return (
     <>
       <Loading isLoading={isLoading}>
@@ -241,11 +219,7 @@ const DetailsOrderPage = () => {
                             <div className="flex justify-between">
                               <div>
                                 <span className="TradeGodthic-BoldCn text-base">
-                                  {convertPrice(
-                                    (order.price -
-                                      (order.price * order.discount) / 100) *
-                                      order.amount
-                                  )}
+                                  {convertPrice(data?.itemsPrice)}
                                 </span>
                               </div>
                               <div>
@@ -272,21 +246,21 @@ const DetailsOrderPage = () => {
                   <div className="rounded-[4px] flex justify-between">
                     <span className="TradeGodthicCn text-base">Subtotal</span>
                     <span className="TradeGodthicCn">
-                      {convertPrice(priceDiscountMemo)}
+                      {convertPrice(data?.itemsPrice)}
                     </span>
                   </div>
                   <div className="rounded-[4px] flex justify-between">
                     <span className="TradeGodthicCn text-base">Shipping</span>
                     <span className="TradeGodthicCn">
                       {" "}
-                      {convertPrice(deliveryPriceMemo)}
+                      {convertPrice(data?.shippingPrice)}
                     </span>
                   </div>
                   <div className="rounded-[4px] flex justify-between">
                     <span className="TradeGodthic-BoldCn text-base">Total</span>
                     <span className="TradeGodthic-BoldCn">
                       {" "}
-                      {convertPrice(totalPriceMemo)}
+                      {convertPrice(data?.totalPrice)}
                     </span>
                   </div>
                 </div>

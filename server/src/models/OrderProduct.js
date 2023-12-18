@@ -93,6 +93,7 @@ cron.schedule("*/1 * * * *", async () => {
 
   const now = new Date();
   console.log("cron now:", now);
+  // const fiveMinutesAgo = new Date(now.getTime() - 10);
   const fiveMinutesAgo = new Date(now.getTime() - 3 * 40 * 1000);
   console.log("cron fiveMinutesAgo:", fiveMinutesAgo);
 
@@ -102,11 +103,13 @@ cron.schedule("*/1 * * * *", async () => {
         createdAt: { $lte: fiveMinutesAgo },
         isDelivered: false,
         scheduledDelivery: false,
+        isPaid: false,
       },
       {
         $set: {
           isDelivered: true,
           scheduledDelivery: true,
+          isPaid: true,
           deliveredAt: now,
           paidAt: now,
         },

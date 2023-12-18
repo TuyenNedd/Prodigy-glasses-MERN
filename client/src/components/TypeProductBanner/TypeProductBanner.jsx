@@ -16,6 +16,7 @@ const TypeProductBanner = ({ type, desktopBanner, mobileBanner }) => {
               <Skeleton variant="rounded" animation="wave" height={440} />
             )}
             <img
+              loading="lazy"
               src={mobileBanner}
               className="object-center left-0 m-0 max-w-full w-full h-full object-cover lg:hidden block "
             ></img>

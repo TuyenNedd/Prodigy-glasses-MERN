@@ -7,6 +7,7 @@ const Loading = ({ children, isLoading, deday = 200 }) => {
   return (
     <>
       <Spin
+        className="inline-flex"
         spinning={isLoading}
         delay={deday}
         indicator={

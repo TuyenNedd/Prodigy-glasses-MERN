@@ -18,6 +18,7 @@ const AwwMenu = ({ onCartClick }) => {
   };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log("AwwMenu ~ user:", user);
 
   const [isVisible, setIsVisible] = useState(false);
   const [isMarginMenu, setIsMarginMenu] = useState(false);
@@ -54,6 +55,8 @@ const AwwMenu = ({ onCartClick }) => {
       setCurrentMenuName("Details");
     } else if (path.includes("product")) {
       setCurrentMenuName("Product");
+    } else if (path.includes("details-order")) {
+      setCurrentMenuName("Details");
     } else {
       // Tiếp tục kiểm tra trong danh sách routes và thiết lập menuName dựa trên path
       const currentRoute = routes.find((route) => route.path === currentPath);

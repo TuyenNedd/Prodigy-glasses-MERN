@@ -251,12 +251,12 @@ const OrderCart = ({ isVisible, onCartClick }) => {
                                     <span className="pb-1">–</span>
                                   </button>
                                   <input
-                                    defaultValue={order?.amount}
+                                    // defaultValue={order?.amount}
                                     value={order?.amount}
                                     size="small"
                                     min={1}
                                     max={order?.countInstock}
-                                    // type="number"
+                                    type="text"
                                   />
                                   <button
                                     onClick={() =>

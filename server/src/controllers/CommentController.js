@@ -1,4 +1,4 @@
-const CommentService = require('../services/CommentService')
+const CommentService = require("../services/CommentService");
 const create = async (req, res) => {
   try {
     const { content, star, userId, productId } = req.body;
@@ -8,9 +8,8 @@ const create = async (req, res) => {
         message: "please fill all the field",
       });
     }
-    const responsive = await CommentService.createComment(req.body)
-    console.log("respp" ,req.body);
-    return res.status(200).json(responsive)
+    const responsive = await CommentService.createComment(req.body);
+    return res.status(200).json(responsive);
   } catch (error) {
     return res.status(404).json({
       status: "ERR",
@@ -19,80 +18,77 @@ const create = async (req, res) => {
   }
 };
 
- const getDetailsComment = async (req, res) =>{
+const getDetailsComment = async (req, res) => {
   try {
-     const CommentId = req.params.id;
-     
-      console.log("commnt",CommentId);
-      if (!CommentId){
-         return res.status(200).json({
-           status :"ERR",
-          message :" CommentId is not defile"
-         })
-      }
-     const response = await CommentService.getDetailsComment(CommentId)
-    return res.status(200).json(response)
-     
-  } catch (e){
+    const CommentId = req.params.id;
 
-  }
-
- }
- const getAllComment = async (req, res)=>{
-  try{
-    const responsive = await CommentService.getAllComment();
-     return res.status(200).json(responsive)
-
-  }catch(e){
-    return{
-      status:"err",
-      message : e
-    }
-  }
- }
-
- const deleteManyComment = async (req,res) =>{
-  try {
-    const ids = req.body.ids
-    if(!ids){
+    if (!CommentId) {
       return res.status(200).json({
-        status :"oke",
-        message :"comment id is not found"
-      })
+        status: "ERR",
+        message: " CommentId is not defile",
+      });
     }
-    const response = await CommentService.deleteManyComment(ids)
-    return res.status(200).json(response)
+    const response = await CommentService.getDetailsComment(CommentId);
+    return res.status(200).json(response);
+  } catch (e) {}
+};
+const getAllComment = async (req, res) => {
+  try {
+    const responsive = await CommentService.getAllComment();
+    return res.status(200).json(responsive);
+  } catch (e) {
+    return {
+      status: "err",
+      message: e,
+    };
+  }
+};
+
+const deleteManyComment = async (req, res) => {
+  try {
+    const ids = req.body.ids;
+    if (!ids) {
+      return res.status(200).json({
+        status: "oke",
+        message: "comment id is not found",
+      });
+    }
+    const response = await CommentService.deleteManyComment(ids);
+    return res.status(200).json(response);
   } catch (error) {
     return res.status(404).json({
       status: "err",
-      message :error
-    })
-    
+      message: error,
+    });
   }
- }
- const deleteComment  = async (req, res) =>{
-  try{
-const CommentId = req.params.id;
-console.log("req",CommentId);
-if(!CommentId){
-  return res.status(200).json({
-    status :'err',
-    message :"coment id i not define"
-  })
-}
-const response = await CommentService.deleteComemt(CommentId);
-return res.status(200).json(response)
-
-  }catch(e){
+};
+const deleteComment = async (req, res) => {
+  try {
+    const CommentId = req.params.id;
+    const userId = req.userId;
+    const isAdmin = req.isAdmin;
+    if (!CommentId) {
+      return res.status(200).json({
+        status: "err",
+        message: "coment id i not define",
+      });
+    }
+    const response = await CommentService.deleteComment(
+      CommentId,
+      userId,
+      isAdmin
+    );
+    return res.status(200).json(response);
+  } catch (e) {
     return res.status(404).json({
-      message: e
-  })
+      message: e,
+    });
   }
- }
- module.exports = {
+};
+module.exports = {
   create,
-   getAllComment,
-   deleteComment,
+  getAllComment,
+  deleteComment,
   getDetailsComment,
-  deleteManyComment
- }
+  deleteManyComment,
+};

@@ -3,11 +3,11 @@ const Product = require("../models/ProductModel");
 const User = require("../models/UserModel");
 
 const createComment = async (commentData) => {
-  console.log("cmdt", commentData);
+  // console.log("cmdt", commentData);
   try {
     const { content, star, productId, userId } = commentData;
 
-    console.log("pro", productId);
+    // console.log("pro", productId);
     // Xác thực xem sản phẩm và người dùng có tồn tại hay không
 
     const product = await Product.findById(productId);
@@ -53,7 +53,10 @@ const createComment = async (commentData) => {
 const getAllComment = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const allComemnt = await Comment.find();
+      const allComemnt = await Comment.find().sort({
+        createdAt: -1,
+        updatedAt: -1,
+      });
       resolve({
         status: "OK",
         message: " success",
@@ -64,17 +67,23 @@ const getAllComment = () => {
     }
   });
 };
-const deleteComemt = (id) => {
-  console.log("id", id);
+const deleteComment = (id, userId, isAdmin) => {
+  // console.log("id", id);
   return new Promise(async (resolve, reject) => {
     try {
       const checkIdComment = await Comment.findOne({
         _id: id,
       });
+
       if (!checkIdComment) {
         resolve({
           status: "Error",
           message: "id k tontai",
+        });
+      } else if (userId !== checkIdComment.user || !isAdmin) {
+        resolve({
+          status: "err",
+          message: "authentication",
         });
       }
       await Comment.findByIdAndDelete(id);
@@ -87,7 +96,7 @@ const deleteComemt = (id) => {
 };
 
 const getDetailsComment = (id) => {
-  console.log("id", id);
+  // console.log("id", id);
   return new Promise(async (resolve, reject) => {
     try {
       const checkId = await Comment.findOne({
@@ -109,33 +118,32 @@ const getDetailsComment = (id) => {
     }
   });
 };
-const deleteManyComment =(ids) => {
-  return new Promise( async (resolve,reject)=>{
+const deleteManyComment = (ids) => {
+  return new Promise(async (resolve, reject) => {
     try {
       const checkIds = await Comment.deleteManyComments({
-        _id:ids
+        _id: ids,
       });
 
-      if(checkIds === null){
+      if (checkIds === null) {
         resolve({
-          status:"Error",
-          message:"id is not defline"
-        })
+          status: "Error",
+          message: "id is not defline",
+        });
       }
       resolve({
-        status : "oke",
-        message : "delete success"
-      })
+        status: "oke",
+        message: "delete success",
+      });
     } catch (error) {
-      reject (error)
-      
+      reject(error);
     }
-  })
-}
+  });
+};
 module.exports = {
   createComment,
   getAllComment,
-  deleteComemt,
+  deleteComment,
   getDetailsComment,
-  deleteManyComment
+  deleteManyComment,
 };

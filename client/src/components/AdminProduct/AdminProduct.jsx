@@ -36,6 +36,7 @@ const AdminProduct = () => {
     rating: "",
     image: "",
     imageHover: "",
+    imageDetail: "",
     type: "",
     countInStock: "",
     newType: "",
@@ -54,6 +55,7 @@ const AdminProduct = () => {
       rating,
       image,
       imageHover,
+      imageDetail,
       type,
       countInStock,
       discount,
@@ -65,6 +67,7 @@ const AdminProduct = () => {
       rating,
       image,
       imageHover,
+      imageDetail,
       type,
       countInStock,
       discount,
@@ -104,6 +107,7 @@ const AdminProduct = () => {
         rating: res?.data?.rating,
         image: res?.data?.image,
         imageHover: res?.data?.imageHover,
+        imageDetail: res?.data?.imageDetail,
         type: res?.data?.type,
         countInStock: res?.data?.countInStock,
         discount: res?.data?.discount,
@@ -381,6 +385,7 @@ const AdminProduct = () => {
       rating: "",
       image: "",
       imageHover: "",
+      imageDetail: "",
       type: "",
       countInStock: "",
     });
@@ -420,6 +425,7 @@ const AdminProduct = () => {
       rating: "",
       image: "",
       imageHover: "",
+      imageDetail: "",
       type: "",
       countInStock: "",
       discount: "",
@@ -435,6 +441,7 @@ const AdminProduct = () => {
       rating: stateProduct.rating,
       image: stateProduct.image,
       imageHover: stateProduct.imageHover,
+      imageDetail: stateProduct.imageDetail,
       type:
         stateProduct.type === "add_type"
           ? stateProduct.newType
@@ -483,6 +490,16 @@ const AdminProduct = () => {
       imageHover: file.preview,
     });
   };
+  const handleOnchangeAvatarImageDetail = async ({ fileList }) => {
+    const file = fileList[0];
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setStateProduct({
+      ...stateProduct,
+      imageDetail: file.preview,
+    });
+  };
 
   const handleOnchangeAvatarDetails = async ({ fileList }) => {
     const file = fileList[0];
@@ -502,6 +519,16 @@ const AdminProduct = () => {
     setStateProductDetails({
       ...stateProductDetails,
       imageHover: file.preview,
+    });
+  };
+  const handleOnchangeAvatarDetailsImageDetail = async ({ fileList }) => {
+    const file = fileList[0];
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setStateProductDetails({
+      ...stateProductDetails,
+      imageDetail: file.preview,
     });
   };
   const onUpdateProduct = () => {
@@ -733,6 +760,36 @@ const AdminProduct = () => {
               )}
             </WrapperUploadFile>
           </Form.Item>
+          <Form.Item
+            label="ImageDetail"
+            name="ImageDetail"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count imageDetail!",
+              },
+            ]}
+          >
+            <WrapperUploadFile
+              onChange={handleOnchangeAvatarImageDetail}
+              maxCount={1}
+            >
+              <Button>Select File</Button>
+              {stateProduct?.imageDetail && (
+                <img
+                  src={stateProduct?.imageDetail}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+                />
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
           <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
             <Button type="primary" htmlType="submit">
               Submit
@@ -892,6 +949,33 @@ const AdminProduct = () => {
               {stateProductDetails?.imageHover && (
                 <img
                   src={stateProductDetails?.imageHover}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+                />
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
+          <Form.Item
+            label="ImageDetail"
+            name="ImageDetail"
+            rules={[
+              { required: true, message: "Please input your count image!" },
+            ]}
+          >
+            <WrapperUploadFile
+              onChange={handleOnchangeAvatarDetailsImageDetail}
+              maxCount={1}
+            >
+              <Button>Select File</Button>
+              {stateProductDetails?.imageDetail && (
+                <img
+                  src={stateProductDetails?.imageDetail}
                   style={{
                     height: "60px",
                     width: "60px",

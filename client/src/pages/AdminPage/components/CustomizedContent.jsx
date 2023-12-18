@@ -8,20 +8,17 @@ import {
 const CustomizedContent = (props) => {
   const { data, colors, setKeySelected } = props;
   return (
-    <div style={{ display: "flex", gap: "40px", justifyContent: "center" }}>
+    <div className="flex gap-3 flex-1">
       {Object.keys(data) &&
         Object.keys(data)?.map((item) => {
           return (
             <div
+              className="flex p-4 h-52 flex-1"
               key={Math.random()}
               style={{
-                width: 300,
-                background: `linear-gradient(${
-                  colors[item] && colors[item][0]
-                }, ${colors[item] && colors[item][1]})`,
-                height: 200,
+                background: `${colors[item] && colors[item][0]}`,
                 display: "flex",
-                gap: 20,
+                gap: 10,
                 justifyContent: "center",
                 alignItems: "center",
                 borderRadius: "10px",
@@ -36,9 +33,10 @@ const CustomizedContent = (props) => {
                 {item === "comment" && <CommentOutlined />}
               </span>
               <span
+                className="font-semibold"
                 style={{
                   color: "#fff",
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: "bold",
                   textTransform: "uppercase",
                 }}
@@ -46,6 +44,7 @@ const CustomizedContent = (props) => {
                 {item}
               </span>
               <span
+                className="font-semibold"
                 style={{
                   color: "#fff",
                   fontSize: 20,
