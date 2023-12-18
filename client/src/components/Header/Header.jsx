@@ -27,7 +27,6 @@ const Header = () => {
   // eslint-disable-next-line no-unused-vars
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [buttonsVisible, setButtonsVisible] = useState(false);
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/sign-in");
@@ -53,10 +52,6 @@ const Header = () => {
     setUserAvatar(user?.avatar);
     setLoading(false);
 
-    const timer = setTimeout(() => {
-      setButtonsVisible(true);
-    }, 4000);
-
     const inputClickOpen = () => {
       headerSearch.classList.add("show-results");
       headerSearch.classList.add("z-[95]");
@@ -71,14 +66,10 @@ const Header = () => {
 
     overlay.addEventListener("click", inputClickClose);
 
-    // const inputBlur = () => {
-    //   headerSearch.classList.remove("show-results");
-    // };
-
     return () => {
       jsSearchInput.removeEventListener("click", inputClickOpen);
       overlay.removeEventListener("click", inputClickClose);
-      clearTimeout(timer);
+      // clearTimeout(timer);
     };
   }, [user?.name, user?.avatar]);
 
@@ -232,7 +223,13 @@ const Header = () => {
                                 <Loading></Loading>
                               </>
                             ) : (
-                              <div className="ava">
+                              <div
+                                style={{
+                                  height: "30px",
+                                  width: "30px",
+                                }}
+                                className="ava"
+                              >
                                 {userAvatar ? (
                                   <img
                                     className="object-cover"
@@ -257,20 +254,16 @@ const Header = () => {
                   </>
                 ) : (
                   <>
-                    {buttonsVisible && (
-                      <>
-                        <ButtonSolid
-                          onClick={handleLogin}
-                          child={"Login"}
-                          hidden={"hidden-sm"}
-                        ></ButtonSolid>
-                        <ButtonOutline
-                          hidden={"hidden-sm"}
-                          child={"Sign up"}
-                          onClick={handleSignUp}
-                        ></ButtonOutline>
-                      </>
-                    )}
+                    <ButtonSolid
+                      onClick={handleLogin}
+                      child={"Login"}
+                      hidden={"hidden-sm"}
+                    ></ButtonSolid>
+                    <ButtonOutline
+                      hidden={"hidden-sm"}
+                      child={"Sign up"}
+                      onClick={handleSignUp}
+                    ></ButtonOutline>
                   </>
                 )}
 

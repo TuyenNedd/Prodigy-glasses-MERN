@@ -33,6 +33,7 @@ const PaymentPage = () => {
   const [sdkReady, setSdkReady] = useState(false);
   const [deliveredAt, setDeliveredAt] = useState(null);
   const [paidAt, setPaidAt] = useState(null);
+  const [deliveryFee, setDeliveryFee] = useState(20000); // Giá trị mặc định là 20000
 
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false);
   const [stateUserDetails, setStateUserDetails] = useState({
@@ -102,14 +103,21 @@ const PaymentPage = () => {
   }, [order]);
 
   const deliveryPriceMemo = useMemo(() => {
-    if (priceDiscountMemo > 200000) {
-      return 10000;
-    } else if (priceDiscountMemo === 0) {
-      return 0;
-    } else {
-      return 20000;
-    }
-  }, [priceDiscountMemo]);
+    // if (priceDiscountMemo > 200000) {
+    //   return 10000;
+    // } else if (priceDiscountMemo === 0) {
+    //   return 0;
+    // } else {
+    //   return 20000;
+    // }
+    return deliveryFee;
+  }, [priceDiscountMemo, deliveryFee]);
+
+  const handleDilivery = (e) => {
+    const selectedDeliveryMethod = e.target.value;
+    setDelivery(selectedDeliveryMethod); // Cập nhật state delivery
+    setDeliveryFee(selectedDeliveryMethod === "fast" ? 30000 : 15000); // Cập nhật phí vận chuyển
+  };
 
   const totalPriceMemo = useMemo(() => {
     return Number(priceDiscountMemo) + Number(deliveryPriceMemo);
@@ -266,9 +274,9 @@ const PaymentPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleDilivery = (e) => {
-    setDelivery(e.target.value);
-  };
+  // const handleDilivery = (e) => {
+  //   setDelivery(e.target.value);
+  // };
 
   const handlePayment = (e) => {
     setPayment(e.target.value);
@@ -333,66 +341,71 @@ const PaymentPage = () => {
                 </div>
 
                 {show && (
-                  <div className=" bg-[#f48029] text-white flex flex-col ">
-                    <div className=" w-[65%] mx-auto py-5">
-                      <div className="flex justify-between border-b items-center border-[rgba(248,172,116,0.34)] pb-2">
-                        <div className="flex justify-center items-center">
-                          <img src={order?.image} />
-                          <div className="py-5">
-                            <div className=" text-sm ">
-                              D28 hjanciaic| Reading Glasses
-                            </div>
-                            <div className="text-orange-200	0 ">
-                              Camo / frq Blue-Light Filtering / 3.00
-                            </div>
-                          </div>
-                        </div>
+                  <>
+                    {order?.orderItemsSelected?.map((orderM) => {
+                      return (
+                        <>
+                          <div className="bg-priCo text-white flex flex-col transition-all duration-500">
+                            <div className="w-full mx-auto p-4">
+                              <div className="flex justify-between border-b items-center border-[rgba(248,172,116,0.34)] pb-2">
+                                <div className="flex justify-center items-center gap-2">
+                                  <div className="w-14 h-14 bg-white flex items-center rounded-lg relative">
+                                    <div className="amountNum w-5 h-5 bg-[#727272e6] rounded-full flex items-center justify-center top-[-10px] right-[-8px] absolute font-semibold text-xs">
+                                      {orderM?.amount}
+                                    </div>
+                                    <img src={orderM?.image} />
+                                  </div>
+                                  <div className="py-5">
+                                    <div className=" text-sm ">
+                                      {orderM?.name}
+                                    </div>
+                                    <div className="text-orange-200	0 ">
+                                      {orderM?.type}
+                                    </div>
+                                  </div>
+                                </div>
 
-                        <div className=" pl-2"> $130.00</div>
-                      </div>
-                      <div className="mt-6 gap- flex justify-between border-b border-[rgba(248,172,116,0.34)] pb-8">
-                        <input
-                          type="text"
-                          className=" text-black bg-white outline-none rounded border-0 h-[50px]  w-80 pl-2"
-                          placeholder="Discount code or gift card"
-                        />
-                        <button className="bg-[#f7a05f] h-[50px] w-[80px] ">
-                          {" "}
-                          Apply
-                        </button>
-                      </div>
-                      <div className="mt-6 border-[rgba(248,172,116,0.34)] border-b pb-8">
-                        <div className="flex justify-between">
-                          <div className="text-sm text-orange-200	 ">
-                            Subtotal
-                          </div>
-                          <div className="text-lg ">
-                            {convertPrice(priceDiscountMemo)}
-                          </div>
-                        </div>
-                        <div className="flex justify-between">
-                          <div className="text-sm text-orange-200	 ">
-                            Shipping
-                          </div>
-                          <div className="text-sm text-orange-200	 ">
-                            {convertPrice(deliveryPriceMemo)}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex justify-between mt-6">
-                          <div className="text-white font-normal text-base">
-                            Total
-                          </div>
-                          <div className="flex  ">
-                            <div className="text-lg font-semibold ">
-                              {convertPrice(totalPriceMemo)}
+                                <div className=" pl-2">
+                                  {productPrice(orderM)}
+                                </div>
+                              </div>
+
+                              <div className="mt-6 border-[rgba(248,172,116,0.34)] border-b pb-8">
+                                <div className="flex justify-between">
+                                  <div className="text-sm text-orange-200	 ">
+                                    Subtotal
+                                  </div>
+                                  <div className="text-sm ">
+                                    {convertPrice(priceDiscountMemo)}
+                                  </div>
+                                </div>
+                                <div className="flex justify-between">
+                                  <div className="text-sm text-orange-200	 ">
+                                    Shipping
+                                  </div>
+                                  <div className="text-sm text-orange-200	 ">
+                                    {convertPrice(deliveryPriceMemo)}
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div className="flex justify-between mt-6">
+                                  <div className="text-white font-normal text-base">
+                                    Total
+                                  </div>
+                                  <div className="flex">
+                                    <div className="text-base font-semibold ">
+                                      {convertPrice(totalPriceMemo)}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                        </>
+                      );
+                    })}
+                  </>
                 )}
               </div>
               <div className="comten w-full mt-6 px-4 lg:px-0 mb-14">
@@ -513,6 +526,9 @@ const PaymentPage = () => {
                           />
                         </div>
                         <span className="font-normal">Fast delivery</span>
+                        <span className="font-semibold text-priCo">
+                          30.000₫
+                        </span>
                       </div>
                     </Radio>
                     <Radio value="economical">
@@ -525,6 +541,9 @@ const PaymentPage = () => {
                           />
                         </div>
                         <span className="font-normal">Economical delivery</span>
+                        <span className="font-semibold text-priCo">
+                          15.000₫
+                        </span>
                       </div>
                     </Radio>
                   </Radio.Group>
@@ -603,7 +622,7 @@ const PaymentPage = () => {
           </div>
         </div>
 
-        <div className="hidden lg:flex lg:w-[45%] bg-[#f48029] text-white flex-col">
+        <div className="hidden lg:flex lg:w-[45%] bg-priCo text-white flex-col">
           <div className="w-3/4 pl-[56px] mt-16">
             {order?.orderItemsSelected?.map((order) => {
               return (

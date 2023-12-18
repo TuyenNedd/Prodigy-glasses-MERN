@@ -10,7 +10,7 @@ const Footer = () => {
             className="row flex lg:flex-row flex-col flex-wrap pt-10 pb-0 px-4 lg:px-0 lg:pt-16 lg:pb-0"
           >
             <div className="w-full flex lg:flex-row flex-col justify items-stretch">
-              <section className="footer-company w-full md:w-3/4 lg:w-4/4 m-0 flex flex-col items-center lg:items-start lg:py-0 py-5 lg:pr-16 lg:order-none order-none">
+              <section className="footer-company w-full lg:w-4/4 m-0 flex flex-col items-center lg:items-start lg:py-0 py-5 lg:pr-16 lg:order-none order-none">
                 <p className="h3 text-[40px] md:text-6xl m-0 ITCGara leading-none">
                   Join the cult.
                 </p>

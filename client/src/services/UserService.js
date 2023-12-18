@@ -30,10 +30,10 @@ export const getDetailsUser = async (id, access_token) => {
   return res.data;
 };
 
-export const deleteUser = async (id, access_token, data) => {
+export const deleteUser = async (id, access_token) => {
   const res = await axiosJWT.delete(
     `${import.meta.env.VITE_API_URL_BACKEND}/user/delete-user/${id}`,
-    data,
+
     {
       headers: {
         token: `Bearer ${access_token}`,
@@ -107,4 +107,20 @@ export const deleteManyUser = async (data, access_token) => {
     }
   );
   return res.data;
+};
+export const getUserById = async (userId, access_token) => {
+  try {
+    const res = await axiosJWT.get(
+      `${import.meta.env.VITE_API_URL_BACKEND}/user/get-user/${userId}`,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching user details by ID:", error);
+    throw error; // You may want to handle the error appropriately in your application
+  }
 };

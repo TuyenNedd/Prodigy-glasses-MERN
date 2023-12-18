@@ -47,6 +47,7 @@ const CardProduct = (props) => {
     description,
     image,
     imageHover,
+    imageDetail,
     name,
     price,
     rating,

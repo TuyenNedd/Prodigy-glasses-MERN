@@ -11,6 +11,7 @@ import AdminUser from "../../components/AdminUser/AdminUser";
 import AdminProduct from "../../components/AdminProduct/AdminProduct";
 import OrderAdmin from "../../components/OrderAdmin/OrderAmin";
 import * as OrderService from "../../services/OrderService";
+import * as CommentService from "../../services/CommentService";
 import * as ProductService from "../../services/ProductService";
 import * as UserService from "../../services/UserService";
 
@@ -19,6 +20,9 @@ import { useSelector } from "react-redux";
 import { useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 import Loading from "../../components/LoadingComponent/Loading";
+import AdminComment from "../../components/AdminComment/AdminComment.jsx";
+
+import "./style.scss";
 
 const AdminPage = () => {
   const user = useSelector((state) => state?.user);
@@ -27,7 +31,7 @@ const AdminPage = () => {
     getItem("Users", "users", <UserOutlined />),
     getItem("Products", "products", <AppstoreOutlined />),
     getItem("Orders", "orders", <ShoppingCartOutlined />),
-    getItem("Comments", "comments", <CommentOutlined />),
+    getItem("Comments", "comment", <CommentOutlined />),
   ];
 
   const [keySelected, setKeySelected] = useState("");
@@ -48,11 +52,17 @@ const AdminPage = () => {
     return { data: res?.data, key: "users" };
   };
 
+  const getAllComment = async () => {
+    const res = await CommentService.getAllComment(user?.access_token);
+    return { data: res?.data, key: "comment" };
+  };
+
   const queries = useQueries({
     queries: [
       { queryKey: ["products"], queryFn: getAllProducts, staleTime: 1000 * 60 },
       { queryKey: ["users"], queryFn: getAllUsers, staleTime: 1000 * 60 },
       { queryKey: ["orders"], queryFn: getAllOrder, staleTime: 1000 * 60 },
+      { queryKey: ["comment"], queryFn: getAllComment, staleTime: 1000 * 60 },
     ],
   });
   const memoCount = useMemo(() => {
@@ -69,9 +79,10 @@ const AdminPage = () => {
     }
   }, [queries]);
   const COLORS = {
-    users: ["#e66465", "#9198e5"],
-    products: ["#a8c0ff", "#3f2b96"],
-    orders: ["#11998e", "#38ef7d"],
+    users: ["#e66465"],
+    products: ["#3f2b96"],
+    orders: ["#38ef7d"],
+    comment: ["#ff9e17"],
   };
 
   const renderPage = (key) => {
@@ -82,6 +93,8 @@ const AdminPage = () => {
         return <AdminProduct />;
       case "orders":
         return <OrderAdmin />;
+      case "comment":
+        return <AdminComment />;
       default:
         return <></>;
     }
@@ -95,31 +108,26 @@ const AdminPage = () => {
     <>
       <div style={{ display: "flex", overflowX: "hidden" }}>
         <Menu
+          className="h-screen bg-blue-950 text-white"
           mode="inline"
-          style={{
-            width: 256,
-            boxShadow: "1px 1px 2px #ccc",
-            height: "100vh",
-          }}
           items={items}
           onClick={handleOnCLick}
         />
-        <div style={{ flex: 1, padding: "15px 0 15px 15px" }}>
-          <Loading
+        <div className="flex w-full p-5">
+          {/* <Loading
             isLoading={
               memoCount &&
               Object.keys(memoCount) &&
               Object.keys(memoCount).length !== 3
             }
-          >
-            {!keySelected && (
-              <CustomizedContent
-                data={memoCount}
-                colors={COLORS}
-                setKeySelected={setKeySelected}
-              />
-            )}
-          </Loading>
+          ></Loading> */}
+          {!keySelected && (
+            <CustomizedContent
+              data={memoCount}
+              colors={COLORS}
+              setKeySelected={setKeySelected}
+            />
+          )}
           {renderPage(keySelected)}
         </div>
       </div>

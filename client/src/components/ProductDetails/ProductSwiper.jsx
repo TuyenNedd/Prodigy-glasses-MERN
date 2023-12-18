@@ -14,7 +14,7 @@ import "swiper/scss/effect-fade";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 import "swiper/scss/zoom";
-const ProductSwiper = ({ image, imageHover }) => {
+const ProductSwiper = ({ image, imageHover, imageDetail }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const pagination = {
     clickable: true,
@@ -22,7 +22,7 @@ const ProductSwiper = ({ image, imageHover }) => {
       return (
         '<span class="' +
         className +
-        ' inline-block lg:hidden !mx-2">' +
+        ' inline-block lg:!hidden !mx-2">' +
         "</span>"
       );
     },
@@ -77,7 +77,7 @@ const ProductSwiper = ({ image, imageHover }) => {
             }}
           >
             <div className="aspect-w-1 aspect-h-1 w-full relative bg-white">
-              <img src={image} className="object-contain bg-white" />
+              <img src={imageDetail} className="object-contain bg-white" />
             </div>
           </div>
         </SwiperSlide>
@@ -121,7 +121,7 @@ const ProductSwiper = ({ image, imageHover }) => {
           <button className="mx-2.5 lg:p-0.5 lg:border lg:border-transparent gallery-pagination-item lg:rounded-none rounded-full">
             <span className="lg:w-10 w-2 lg:h-10 h-2 lg:bg-white block">
               <img
-                src={image}
+                src={imageDetail}
                 className="w-full h-full object-contain lg:block hidden"
               />
             </span>
