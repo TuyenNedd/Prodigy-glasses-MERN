@@ -1,8 +1,7 @@
 import { Table } from "antd";
 import React, { useState } from "react";
 import Loading from "../../components/LoadingComponent/Loading";
-import { Excel } from "antd-table-saveas-excel";
-import { useMemo } from "react";
+
 
 const   TableComponent = (props) => {
   const {
@@ -37,6 +36,7 @@ const   TableComponent = (props) => {
             fontWeight: "bold",
             padding: "10px",
             cursor: "pointer",
+            borderRadius:'5px'
           }}
           onClick={handleDeleteAll}
         >
@@ -45,6 +45,7 @@ const   TableComponent = (props) => {
       )}
       
       <Table
+    
         rowSelection={{
           type: selectionType,
           ...rowSelection,

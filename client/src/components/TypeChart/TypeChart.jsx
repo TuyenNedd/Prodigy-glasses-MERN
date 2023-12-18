@@ -1,3 +1,4 @@
+import { Divider } from 'antd';
 import React from 'react'
 import { BarChart, Bar, XAxis, YAxis } from 'recharts';
 
@@ -44,7 +45,11 @@ const TypeChart = (props) => {
         return <text x={x + width / 2} y={y} fill="#666" textAnchor="middle" dy={-10}>{`quantity: ${value}`}</text>;
       };
   return (
-    <div>  <h1 style={{ fontWeight: 'bold', fontSize:'30px' , padding:'1% 5% 3% 5%'}}>Quantity chart of each type of product</h1>
+    <div style={{backgroundColor:'white' , marginBottom:'20px' , borderRadius:'5px'}}>
+      <h1 style={{ fontWeight: 'bold', fontSize:'20px' , padding:'2% 0 0 4%' , textTransform:'uppercase'  }}>
+        Quantity chart of each type of product
+      </h1>
+    <Divider />
     <BarChart
       key="product-type-chart"
       width={1200}

@@ -145,7 +145,7 @@ import {
 } from "@ant-design/icons";
 import AdminUser from "../../components/AdminUser/AdminUser";
 import AdminProduct from "../../components/AdminProduct/AdminProduct";
-import OrderAdmin from "../../components/OrderAdmin/OrderAmin";
+import AdminOrder from "../../components/AdminOrder/OrderAmin.jsx"
 import * as OrderService from "../../services/OrderService";
 import * as ProductService from "../../services/ProductService";
 import * as UserService from "../../services/UserService";
@@ -183,9 +183,9 @@ const AdminPage = () => {
       case "users":
         return <AdminUser  theme={theme} />;
       case "products":
-        return <AdminProduct  theme={theme} />;
+        return <AdminProduct  theme={theme} keySelected={keySelected} />;
       case "orders":
-        return <OrderAdmin  theme={theme}/>;
+        return <AdminOrder theme={theme}/>;
       default:
         return <></>;
     }
@@ -255,8 +255,8 @@ const AdminPage = () => {
       <div className="body" style={{ display: "flex", overflowX: "hidden" , backgroundColor: theme === 'light' ? '#EBEEF2' : '#19222D',}}>
         <div className="aside" >
           <div className="header-aside" style={{border:'none' , width: '100%', height: '60px', display: 'flex', justifyContent:'space-between', alignItems:'center' , backgroundColor: '#232E3E' , padding:'0 10%' }}>
-            <h1 style={{color:'white', fontSize:'25px', fontWeight:'bold' , display:'flex' ,alignItems:'center'}}>ADMIN</h1>
-            <button style={{color:'white' , fontSize:'20px'}} onClick={handleMoonlightClick} > 
+            <h1 style={{color:'white', fontSize:'20px', fontWeight:'bold' , display:'flex' ,alignItems:'center'}}>ADMIN</h1>
+            <button style={{color:'white' , fontSize:'15px' ,padding:'10px' ,backgroundColor:'#283547' ,borderRadius:'5px'}} onClick={handleMoonlightClick} > 
             {theme === 'light' ? <FaRegMoon /> : <FaRegSun />}
             </button>
           </div>
@@ -265,8 +265,7 @@ const AdminPage = () => {
             defaultSelectedKeys={'dashboard'}
             style={{
               width: 220,
-          
-              minHeight: "100vh",
+              minHeight:'100vh',
               backgroundColor:'#1F2937',
               color: 'white',
               border:'none'

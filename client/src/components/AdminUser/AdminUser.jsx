@@ -1,4 +1,4 @@
-import { Button, Form, Space } from "antd";
+import { Button, Col, Form, Modal, Space } from "antd";
 import React from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
@@ -385,7 +385,6 @@ const AdminUser = () => {
      <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>USER MANAGEMENT</WrapperHeader>
      <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
      </div>
-      <Button style={{borderRadius:'5px' , padding:'0 20px'}} onClick={() => setIsModalOpen(true)}>Add Product</Button>
      </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
@@ -404,45 +403,54 @@ const AdminUser = () => {
       </div>
 
       {/* edit */}
-      <DrawerComponent
-        title="Chi tiết người dùng"
+      <ModalComponent
+        title="USER DETAIL"
         isOpen={isOpenDrawer}
-        onClose={() => setIsOpenDrawer(false)}
-        width="90%"
+        onCancel={() => setIsOpenDrawer(false)}
+        width="30%"
+        footer={null}
       >
         <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
           <Form
             name="basic"
-            labelCol={{ span: 2 }}
-            wrapperCol={{ span: 22 }}
             onFinish={onUpdateUser}
             autoComplete="on"
             form={form}
+            footer
           >
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: "Please input your name!" }]}
-            >
-              <InputComponent
-                value={stateUserDetails["name"]}
-                onChange={handleOnchangeDetails}
+            <Col span={24}>
+              <Form.Item
+              labelCol={{span:24}}
+                label="Name"
                 name="name"
-              />
-            </Form.Item>
+                rules={[{ required: true, message: "Please input your name!" }]}
+              >
+                <InputComponent
+                  value={stateUserDetails["name"]}
+                  onChange={handleOnchangeDetails}
+                  name="name"
+                />
+              </Form.Item>
+            </Col>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <InputComponent
-                value={stateUserDetails["email"]}
-                onChange={handleOnchangeDetails}
+            <Col span={24}>
+              <Form.Item
+              labelCol={{span:24}}
+                label="Email"
                 name="email"
-              />
-            </Form.Item>
+                rules={[{ required: true, message: "Please input your email!" }]}
+              >
+                <InputComponent
+                  value={stateUserDetails["email"]}
+                  onChange={handleOnchangeDetails}
+                  name="email"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={24}>
             <Form.Item
+            labelCol={{span:24}}
               label="Phone"
               name="phone"
               rules={[{ required: true, message: "Please input your  phone!" }]}
@@ -453,8 +461,11 @@ const AdminUser = () => {
                 name="phone"
               />
             </Form.Item>
+            </Col>
 
-            <Form.Item
+          <Col span={24}>
+          <Form.Item
+          labelCol={{span:24}}
               label="Adress"
               name="address"
               rules={[
@@ -467,6 +478,7 @@ const AdminUser = () => {
                 name="address"
               />
             </Form.Item>
+          </Col>
 
             <Form.Item
               label="Avatar"
@@ -487,20 +499,22 @@ const AdminUser = () => {
                       borderRadius: "50%",
                       objectFit: "cover",
                       marginLeft: "10px",
+                      marginTop:'10px'
                     }}
                     alt="avatar"
                   />
                 )}
               </WrapperUploadFile>
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Apply
+            <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+              <Button style={{borderRadius:'4px',backgroundColor:'blue', padding:'0 22px' , display:'flex', alignItems:'center'}} type="primary" htmlType="submit">
+                Update
               </Button>
             </Form.Item>
           </Form>
         </Loading>
-      </DrawerComponent>
+      </ModalComponent>
+
       <ModalComponent
         title="Xóa người dùng"
         open={isModalOpenDelete}

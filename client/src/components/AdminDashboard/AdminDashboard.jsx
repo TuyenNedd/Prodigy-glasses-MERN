@@ -8,6 +8,7 @@ import {
   } from "@ant-design/icons";
   import { useSelector } from "react-redux";
 import "./style.scss"
+import TypeChart from '../TypeChart/TypeChart';
 const AdminDashboard = ({ data, setKeySelected , theme }) => {
     const user = useSelector((state) => state?.user);
   const name = user.name
@@ -21,11 +22,11 @@ const AdminDashboard = ({ data, setKeySelected , theme }) => {
       <div style={{ display: "flex", justifyContent: "center" }}>
         {(data && Object.keys(data))?.map((item) => {
           return (      
-            <div className="item" key={Math.random()}>
+            <div className='item'  key={Math.random()}>
               <div className="top">
                 <div className="left" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <span style={{ color: 'black', fontWeight: 'bold', fontSize: '35px' }}>  {data[item]}</span>
-                  <span style={{ color: 'grey', textTransform: 'uppercase' }}> {item}</span>
+                  <span style={{ color: theme === 'light' ? 'black' : 'grey', fontWeight: 'bold', fontSize: '35px' }}>  {data[item]}</span>
+                  <span style={{ color: 'grey' ,fontWeight:'500'}}>Total {item}</span>
                 </div>
                 <div className="right">
                   <div style={{ borderRadius: '25px', backgroundColor: '#F6F7F9', padding: '16px' }}>
@@ -48,6 +49,7 @@ const AdminDashboard = ({ data, setKeySelected , theme }) => {
           )
         })}
       </div>
+      
 
     
 

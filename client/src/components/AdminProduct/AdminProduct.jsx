@@ -23,7 +23,7 @@ import { useMemo } from "react";;
 import TypeChart from "../TypeChart/TypeChart";
 import "./style.scss"
 
-const AdminProduct = () => {
+const AdminProduct = ({keySelected}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
@@ -553,7 +553,7 @@ console.log('TypeCounts' , typeCounts)
 
   return (
     <div>
-    <TypeChart typeCounts={typeCounts}/>
+   <TypeChart typeCounts={typeCounts}/>
       <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '20px', backgroundColor: 'white', padding: '20px', marginBottom: '-20px' }}>
         <div style={{ display: 'flex' }}>
           <WrapperHeader style={{ fontWeight: 'bold', fontSize: '20px' }}>PRODUCT MANAGEMENT</WrapperHeader>
@@ -612,7 +612,7 @@ console.log('TypeCounts' , typeCounts)
           </Form.Item>
           </Col>
 
-         <Col span={12}>
+         {/* <Col span={12}>
          <Form.Item
          labelCol={{span:24}}
             label="Type"
@@ -639,6 +639,47 @@ console.log('TypeCounts' , typeCounts)
                 name="newType"
               />
             </Form.Item>
+          )} */}
+
+          <Col span={12}>
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label="Type"
+              name="type"
+              rules={[{ required: true, message: "Please select a type!" }]}
+            >
+              <Select
+                name="type"
+                value={stateProduct.type}
+                onChange={handleChangeSelect}
+                options={renderOptions(typeProduct?.data?.data)}
+              />
+            </Form.Item>
+          </Col>
+          {stateProduct.type === "add_type" && (
+            <Col span={12}>
+              <Form.Item
+                label="New type"
+                name="newType"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your new type!",
+                    // Thêm điều kiện kiểm tra nếu type là 'add_type'
+                    validator: (_, value) =>
+                      stateProduct.type === "add_type" && !value
+                        ? Promise.reject("Please input your new type!")
+                        : Promise.resolve(),
+                  },
+                ]}
+              >
+                <InputComponent
+                  value={stateProduct.newType}
+                  onChange={handleOnchange}
+                  name="newType"
+                />
+              </Form.Item>
+            </Col>
           )}
         <Col span={6}>
         <Form.Item
@@ -788,11 +829,11 @@ console.log('TypeCounts' , typeCounts)
             </WrapperUploadFile>
           </Form.Item>
           </Col>
-          <Col span={24}><Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-            <Button style={{border:'none' , backgroundColor:'blue' , color:'white' ,borderRadius:'5px'}} type="primary" htmlType="submit">
-              Submit
+          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+            <Button style={{border:'none' , backgroundColor:'blue' , color:'white' ,borderRadius:'5px'}} type="primary" htmlType="submit" >
+              Submitt
             </Button>
-          </Form.Item></Col>
+          </Form.Item>
           </Row>
         </Form>
 
