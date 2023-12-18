@@ -22,7 +22,8 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import { useMemo } from "react";;
 import TypeChart from "../TypeChart/TypeChart";
 import "./style.scss"
-
+import { IoIosAdd } from "react-icons/io";
+import { CiExport } from "react-icons/ci";
 const AdminProduct = ({keySelected}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
@@ -523,10 +524,10 @@ const AdminProduct = ({keySelected}) => {
   const exportExcel = () => {
     const excel = new Excel();
     excel
-      .addSheet("test")
+      .addSheet("product")
       .addColumns(newColumnExport)
       .addDataSource(dataTable)
-      .saveAs("Excel.xlsx");
+      .saveAs("Product.xlsx");
   };
   //------------------------------end----------------------------------------
 
@@ -557,9 +558,9 @@ console.log('TypeCounts' , typeCounts)
       <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: '20px', backgroundColor: 'white', padding: '20px', marginBottom: '-20px' }}>
         <div style={{ display: 'flex' }}>
           <WrapperHeader style={{ fontWeight: 'bold', fontSize: '20px' }}>PRODUCT MANAGEMENT</WrapperHeader>
-          <Button style={{ marginLeft: '20px' }} onClick={() => { exportExcel() }}>Export Excel</Button>
+          <Button style={{ marginLeft: '20px', borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => { exportExcel() }}> <span style={{fontSize:20 , paddingRight:'5px'}}><CiExport /></span> Export Excel</Button>
         </div>
-        <Button style={{ borderRadius: '5px', padding: '0 20px' }} onClick={() => setIsModalOpen(true)}>Add Product</Button>
+        <Button style={{ borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => setIsModalOpen(true)}> <span style={{fontSize:20 , paddingRight:' 5px'}}><IoIosAdd /></span> Add Product </Button>
       </div>
 
 
@@ -612,35 +613,6 @@ console.log('TypeCounts' , typeCounts)
           </Form.Item>
           </Col>
 
-         {/* <Col span={12}>
-         <Form.Item
-         labelCol={{span:24}}
-            label="Type"
-            name="type"
-            rules={[{ required: true, message: "Please input your type!" }]}
-          >
-            <Select
-              name="type"
-              value={stateProduct.type}
-              onChange={handleChangeSelect}
-              options={renderOptions(typeProduct?.data?.data)}
-            />
-          </Form.Item>
-         </Col>
-          {stateProduct.type === "add_type" && (
-            <Form.Item
-              label="New type"
-              name="newType"
-              rules={[{ required: true, message: "Please input your type!" }]}
-            >
-              <InputComponent
-                value={stateProduct.newType}
-                onChange={handleOnchange}
-                name="newType"
-              />
-            </Form.Item>
-          )} */}
-
           <Col span={12}>
             <Form.Item
               labelCol={{ span: 24 }}
@@ -659,6 +631,7 @@ console.log('TypeCounts' , typeCounts)
           {stateProduct.type === "add_type" && (
             <Col span={12}>
               <Form.Item
+              labelCol={{span:24}}
                 label="New type"
                 name="newType"
                 rules={[

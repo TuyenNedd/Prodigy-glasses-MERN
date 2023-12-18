@@ -23,6 +23,7 @@ import {
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
 import './style.scss'
+import { CiExport } from "react-icons/ci";
 
 const AdminUser = () => {
   const [rowSelected, setRowSelected] = useState("");
@@ -372,10 +373,10 @@ const AdminUser = () => {
   const exportExcel = () => {
     const excel = new Excel();
     excel
-      .addSheet("test")
+      .addSheet("user")
       .addColumns(newColumnExport)
       .addDataSource(dataTable)
-      .saveAs("Excel.xlsx");
+      .saveAs("user.xlsx");
   };
 
   return (
@@ -383,7 +384,7 @@ const AdminUser = () => {
        <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
      <div style={{display:'flex'}}>
      <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>USER MANAGEMENT</WrapperHeader>
-     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
+     <Button style={{ marginLeft: '20px', borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => { exportExcel() }}> <span style={{fontSize:20 , paddingRight:'5px'}}><CiExport /></span> Export Excel</Button>
      </div>
      </div>
       <div style={{ marginTop: "20px" }}>

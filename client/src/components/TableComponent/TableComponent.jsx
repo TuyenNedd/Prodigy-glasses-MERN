@@ -45,7 +45,6 @@ const   TableComponent = (props) => {
       )}
       
       <Table
-    
         rowSelection={{
           type: selectionType,
           ...rowSelection,

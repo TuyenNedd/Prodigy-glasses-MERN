@@ -1,28 +1,20 @@
 import { Button, Form, Space } from "antd";
 import React from "react";
-import { WrapperHeader, WrapperUploadFile } from "./style";
+import { WrapperHeader} from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import InputComponent from "../InputComponent/InputComponent";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
-import Loading from "../LoadingComponent/Loading";
-import ModalComponent from "../ModalComponent/ModalComponent";
 import { convertPrice, getBase64 } from "../../utils";
-import { useEffect } from "react";
-import * as message from "../Message/Message";
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
 import * as OrderService from "../../services/OrderService";
 import { useQuery } from "@tanstack/react-query";
 import {
-  DeleteOutlined,
-  EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { orderContant } from "../../contant";
 import PieChartComponent from "./PieChart";
-import TypeChart from "../TypeChart/TypeChart";
-
+import { CiExport } from "react-icons/ci";
 const OrderAdmin = () => {
   const user = useSelector((state) => state?.user);
 
@@ -184,7 +176,8 @@ const OrderAdmin = () => {
       <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
      <div style={{display:'flex'}}>
      <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>ORDER MANAGEMENT</WrapperHeader>
-     <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button>
+     {/* <Button style={{marginLeft:'20px'}} onClick={()=>{exportExcel()}}>Export Excel</Button> */}
+     <Button style={{ marginLeft: '20px', borderRadius: '5px',height:'38px' , display:'flex', justifyContent:'center', alignItems:'center' }} onClick={() => { exportExcel() }}> <span style={{fontSize:20 , paddingRight:'5px'}}><CiExport /></span> Export Excel</Button>
      </div>
       
      </div>
