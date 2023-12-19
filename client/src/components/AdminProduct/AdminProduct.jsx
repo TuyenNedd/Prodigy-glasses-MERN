@@ -677,31 +677,13 @@ const AdminProduct = ({ keySelected }) => {
           >
             <InputComponent
               value={stateProduct.price}
+              // formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              //                       addonAfter="VND"
               onChange={handleOnchange}
               name="price"
             />
           </Form.Item>
           </Col>
-            {/* <Col span={6}>
-              <Form.Item
-                labelCol={{ span: 24 }}
-                label="Price"
-                name="price"
-                rules={[
-                  { required: true, message: "Please input your count price!" },
-                ]}
-              >
-                <InputNumber
-                  min={0}
-                  style={{ width: '100%' }}
-                  value={stateProduct.price}
-                  formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  addonAfter="$"
-                  onChange={handleOnchange}
-                  name="price"
-                />
-              </Form.Item>
-            </Col> */}
             <Col span={6}>
               <Form.Item
                 labelCol={{ span: 24 }}
@@ -902,8 +884,10 @@ const AdminProduct = ({ keySelected }) => {
                   { required: true, message: "Please input your count price!" },
                 ]}
               >
-                <Input
+                <InputNumber
                   value={stateProductDetails.price}
+                  formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    addonAfter="VND"
                   onChange={handleOnchangeDetails}
                   name="price"
                 />

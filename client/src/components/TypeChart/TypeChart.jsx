@@ -43,7 +43,7 @@ const TypeChart = (props) => {
       <YAxis />
       <Bar
         dataKey="uv"
-        barSize={30}
+        barSize={45 }
         fill="#1F2937"
         label={renderCustomBarLabel}
       />
