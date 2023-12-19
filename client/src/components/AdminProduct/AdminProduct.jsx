@@ -657,6 +657,8 @@ const AdminProduct = () => {
           >
             <InputComponent
               value={stateProduct.price}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    addonAfter="VND"
               onChange={handleOnchange}
               name="price"
             />
@@ -702,6 +704,7 @@ const AdminProduct = () => {
           >
             <InputComponent
               value={stateProduct.discount}
+              
               onChange={handleOnchange}
               name="discount"
             />
