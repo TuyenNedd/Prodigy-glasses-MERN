@@ -1,7 +1,6 @@
 import React from 'react'
 import * as ProductService from "../../services//ProductService"
 import { useQuery } from "@tanstack/react-query";
-import TableComponent from '../TableComponent/TableComponent';
 import { Button, Modal, Input, Form, Select , Col ,Table} from 'antd';
 
 import { useState } from 'react';
@@ -10,17 +9,15 @@ import TypeChart from '../TypeChart/TypeChart';
 const AdminCategory = () => {
     const fetchAllTypeProduct = async () => {   
         const res = await ProductService.getAllTypeProduct();
-        console.log(res);
+        console.log('res data all type',res);
         return res;
     };
     const getAllProducts = async () => {
         const res = await ProductService.getAllProduct();
         const dataProduct = res;
-        console.log('res dataTable all',res);
+        console.log('res dataTable all product',res);
         return res;
       };
-     
-
     const typeProduct = useQuery({
         queryKey: ["type-product"],
         queryFn: fetchAllTypeProduct,
@@ -50,8 +47,8 @@ const AdminCategory = () => {
         return { type, key: index }
     })
 
-    const dataTableAllP = AllP?.data?.length && AllP?.data?.map((AllP ,parky) => {
-        return { ...AllP, key: parky }
+    const dataTableAllP = AllP?.data?.length && AllP?.data?.map((AllP ,indexAllP) => {
+        return { ...AllP, key: indexAllP }
     })
 
     
@@ -59,41 +56,10 @@ const AdminCategory = () => {
     console.log('data AllP' ,dataTableAllP);
     const [stateProduct, setStateProduct] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleOk = () => {
-        setIsModalOpen(false);
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-    const [form] = Form.useForm();
-    const onFinish = () => {
-        const params = {
-            type:
-                stateProduct.type === "add_type"
-                    ? stateProduct.newType
-                    : stateProduct.type,
-        }
-        mutation.mutate(params, {
-            onSettled: () => {
-              queryProduct.refetch();
-            },
-          });
-    }
-    const handleOnchange = (e) => {
-        const { name, value } = e.target;
-        setStateProduct((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
+    
 
     const calculateTypeCounts = (data) => {
-        const typeCounts = {};
-      
+        const typeCounts = {};  
         data.forEach((item) => {
           const type = item.type;
           if (typeCounts[type]) {
@@ -108,10 +74,6 @@ const AdminCategory = () => {
       const typeCounts = calculateTypeCounts(dataTableAllP);
       console.log('TypeCounts' , typeCounts)
  
-
-
-
-
     return (
         <div>
         <TypeChart typeCounts={typeCounts}/>
@@ -119,47 +81,8 @@ const AdminCategory = () => {
             <Table
                 columns={columns}
                 isLoading={isLoadingType}
-                dataSource={dataTable}
-                onRow={(record, rowIndex) => {
-                    return {
-                        onClick: (event) => {
-                            // setRowSelected(rowIndex); // Use rowIndex or update as per your needs
-                        },
-                    };
-                }}
+                dataSource={dataTable}   
             />
-
-            <Modal title="Basic Modal" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <Form
-                    name="basic"
-                    onFinish={onFinish}
-                    autoComplete="on"
-                    form={form}
-                >
-                    {/* Remove unnecessary <Col> */}
-                    <Form.Item
-                        labelCol={{ span: 24 }}
-                        label="New type"
-                        name="newType"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input your new type!",
-                                validator: (_, value) =>
-                                    stateProduct.type === "add_type" && !value
-                                        ? Promise.reject("Please input your new type!")
-                                        : Promise.resolve(),
-                            },
-                        ]}
-                    >
-                        <Input
-                            value={stateProduct.newType}
-                            onChange={handleOnchange}
-                            name="newType"
-                        />
-                    </Form.Item>
-                </Form>
-            </Modal>
         </div>
     )
 }

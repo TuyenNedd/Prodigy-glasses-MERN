@@ -12,8 +12,7 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { orderContant } from "../../contant";
-import PieChartComponent from "./PieChart";
+
 import { CiExport } from "react-icons/ci";
 const OrderAdmin = () => {
   const user = useSelector((state) => state?.user);
@@ -26,113 +25,113 @@ const OrderAdmin = () => {
   const queryOrder = useQuery({ queryKey: ["orders"], queryFn: getAllOrder });
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
-  const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <InputComponent
-          // ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          // onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            // onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            // onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Reset
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1890ff" : undefined,
-        }}
-      />
-    ),
-    onFilter: (value, record) =>
-      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-      }
-    },
-  });
+  // const getColumnSearchProps = (dataIndex) => ({
+  //   filterDropdown: ({
+  //     setSelectedKeys,
+  //     selectedKeys,
+  //     confirm,
+  //     clearFilters,
+  //   }) => (
+  //     <div
+  //       style={{
+  //         padding: 8,
+  //       }}
+  //       onKeyDown={(e) => e.stopPropagation()}
+  //     >
+  //       <InputComponent
+  //         // ref={searchInput}
+  //         placeholder={`Search ${dataIndex}`}
+  //         value={selectedKeys[0]}
+  //         onChange={(e) =>
+  //           setSelectedKeys(e.target.value ? [e.target.value] : [])
+  //         }
+  //         // onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+  //         style={{
+  //           marginBottom: 8,
+  //           display: "block",
+  //         }}
+  //       />
+  //       <Space>
+  //         <Button
+  //           type="primary"
+  //           // onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+  //           icon={<SearchOutlined />}
+  //           size="small"
+  //           style={{
+  //             width: 90,
+  //           }}
+  //         >
+  //           Search
+  //         </Button>
+  //         <Button
+  //           // onClick={() => clearFilters && handleReset(clearFilters)}
+  //           size="small"
+  //           style={{
+  //             width: 90,
+  //           }}
+  //         >
+  //           Reset
+  //         </Button>
+  //       </Space>
+  //     </div>
+  //   ),
+  //   filterIcon: (filtered) => (
+  //     <SearchOutlined
+  //       style={{
+  //         color: filtered ? "#1890ff" : undefined,
+  //       }}
+  //     />
+  //   ),
+  //   onFilter: (value, record) =>
+  //     record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+  //   onFilterDropdownOpenChange: (visible) => {
+  //     if (visible) {
+  //     }
+  //   },
+  // });
 
   const columns = [
     {
       title: "User name",
       dataIndex: "userName",
       sorter: (a, b) => a.userName.length - b.userName.length,
-      ...getColumnSearchProps("userName"),
+      // ...getColumnSearchProps("userName"),
     },
     {
       title: "Phone",
       dataIndex: "phone",
       sorter: (a, b) => a.phone.length - b.phone.length,
-      ...getColumnSearchProps("phone"),
+      // ...getColumnSearchProps("phone"),
     },
     {
       title: "Address",
       dataIndex: "address",
       sorter: (a, b) => a.address.length - b.address.length,
-      ...getColumnSearchProps("address"),
+      // ...getColumnSearchProps("address"),
     },
     {
       title: "Paided",
       dataIndex: "isPaid",
       sorter: (a, b) => a.isPaid.length - b.isPaid.length,
-      ...getColumnSearchProps("isPaid"),
+      // ...getColumnSearchProps("isPaid"),
     },
     {
       title: "Shipped",
       dataIndex: "isDelivered",
       sorter: (a, b) => a.isDelivered.length - b.isDelivered.length,
-      ...getColumnSearchProps("isDelivered"),
+      // ...getColumnSearchProps("isDelivered"),
     },
     {
       title: "Payment method",
       dataIndex: "paymentMethod",
       sorter: (a, b) => a.paymentMethod.length - b.paymentMethod.length,
-      ...getColumnSearchProps("paymentMethod"),
+      // ...getColumnSearchProps("paymentMethod"),
     },
     {
       title: "Total price",
       dataIndex: "totalPrice",
       sorter: (a, b) => a.totalPrice.length - b.totalPrice.length,
-      ...getColumnSearchProps("totalPrice"),
+      // ...getColumnSearchProps("totalPrice"),
     },
   ];
 
@@ -146,7 +145,7 @@ const OrderAdmin = () => {
         userName: order?.shippingAddress?.fullName,
         phone: order?.shippingAddress?.phone,
         address: order?.shippingAddress?.address,
-        paymentMethod: orderContant.payment[order?.paymentMethod],
+        paymentMethod: order?.paymentMethod,
         isPaid: order?.isPaid ? "TRUE" : "FALSE",
         isDelivered: order?.isDelivered ? "TRUE" : "FALSE",
         totalPrice: convertPrice(order?.totalPrice),
@@ -169,10 +168,6 @@ const OrderAdmin = () => {
 
   return (
     <div>
-    
-  
-    
-    
       <div style={{display:'flex' ,justifyContent:'space-between' , paddingRight:'20px' , backgroundColor:'white', padding:'20px', marginBottom:'-20px' }}>
      <div style={{display:'flex'}}>
      <WrapperHeader style={{fontWeight:'bold', fontSize:'20px'}}>ORDER MANAGEMENT</WrapperHeader>

@@ -7,3 +7,15 @@
     }.editBtn:hover{
         color: green;
     }
+
+    .ant-popover-inner{
+        .ant-popover-buttons{
+            .ant-btn{
+                background-color: transparent;
+                color: black;
+                border: 1px solid black;
+                padding: 0 20px
+            }
+        }
+    }
+    

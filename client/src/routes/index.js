@@ -3,6 +3,7 @@ import DetailsOrderPage from "../pages/DetailsOrderPage/DetailsOrderPage";
 import HomePage from "../pages/HomePage/HomePage";
 import MyOrderPage from "../pages/MyOrder/MyOrder";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
+import Notpermitted from "../pages/Notpermitted/Notpermitted";
 import OrderSuccess from "../pages/OrderSuccess/OrderSuccess";
 import PaymentPage from "../pages/PaymentPage/PaymentPage";
 import ProductDetailsPage from "../pages/ProductDetailsPage/ProductDetailsPage";
@@ -85,6 +86,12 @@ export const routes = [
     isShowHeader: false,
     isPrivated: true,
     menuName: "Admin",
+  },
+  {
+    path: "/notpermitted",
+    page: Notpermitted,
+    isShowHeader: false,
+    menuName: "notpermitted",
   },
   {
     path: "*",

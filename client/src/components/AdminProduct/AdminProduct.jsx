@@ -677,13 +677,12 @@ const AdminProduct = ({ keySelected }) => {
           >
             <InputComponent
               value={stateProduct.price}
-              // formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-              //                       addonAfter="VND"
               onChange={handleOnchange}
               name="price"
             />
           </Form.Item>
           </Col>
+           
             <Col span={6}>
               <Form.Item
                 labelCol={{ span: 24 }}
@@ -1022,6 +1021,8 @@ const AdminProduct = ({ keySelected }) => {
         </Form>
       </ModalComponent>
       {/* ---------------------------------end----------------------------------------- */}
+     
+     
       <Modal
         title="Xóa sản phẩm"
         open={isModalOpenDelete}
