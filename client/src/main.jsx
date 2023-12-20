@@ -7,8 +7,13 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+<<<<<<< HEAD
 import { ConfigProvider } from 'antd';
 import { createRoot } from 'react-dom/client';
+=======
+import { BrowserRouter as Router } from "react-router-dom";
+// import { ThemeProvider } from "@mui/material";
+>>>>>>> master
 const queryClient = new QueryClient();
 
 
@@ -29,7 +34,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <PayPalScriptProvider
           options={{ "client-id": import.meta.env.VITE_CLIENT_ID }}
         >
-          <App />
+          <Router>
+            <App />
+          </Router>
         </PayPalScriptProvider>
       </PersistGate>
       </ConfigProvider>

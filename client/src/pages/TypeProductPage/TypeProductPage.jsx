@@ -7,6 +7,7 @@ import { typeBannersDesktop } from "./typeBanners.js";
 import { typeBannersMobile } from "./typeBanners.js";
 import { Skeleton } from "@mui/material";
 import CardProduct from "../../components/CardProduct/CardProduct.jsx";
+import { Helmet } from "react-helmet-async";
 
 const TypeProductPage = () => {
   // const searchProduct = useSelector((state) => state?.product?.search);
@@ -19,6 +20,14 @@ const TypeProductPage = () => {
     limit: 10,
     total: 1,
   });
+  // Lấy thông tin của sản phẩm đầu tiên trong danh sách products
+  // const firstProduct = products.length > 0 ? products[0] : null;
+  useEffect(() => {
+    if (state) {
+      fetchProductType(state, panigate.page, panigate.limit);
+    }
+  }, [state, panigate.page, panigate.limit, panigate.type]);
+
   const fetchProductType = async (type, page, limit) => {
     setLoading(true);
     const res = await ProductService.getProductType(type, page, limit);
@@ -31,17 +40,11 @@ const TypeProductPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (state) {
-      fetchProductType(state, panigate.page, panigate.limit);
-    }
-  }, [state, panigate.page, panigate.limit]);
-
-  // Lấy thông tin của sản phẩm đầu tiên trong danh sách products
-  const firstProduct = products.length > 0 ? products[0] : null;
-
   return (
     <>
+      <Helmet>
+        <title>{state} - Prodigy</title>
+      </Helmet>
       {loading ? (
         <Skeleton
           // animation="wave"
@@ -50,15 +53,13 @@ const TypeProductPage = () => {
           sx={{ bgcolor: "grey.500" }}
         ></Skeleton>
       ) : (
-        firstProduct && (
-          <TypeProductBanner
-            key={firstProduct._id}
-            type={loading ? <Skeleton></Skeleton> : firstProduct.type}
-            desktopBanner={typeBannersDesktop[firstProduct.type]}
-            mobileBanner={typeBannersMobile[firstProduct.type]}
-          />
-        )
+        <TypeProductBanner
+          type={state}
+          desktopBanner={typeBannersDesktop[state]}
+          mobileBanner={typeBannersMobile[state]}
+        />
       )}
+      {/* firstProduct && <></> */}
       {/* <TypeProductBanner></TypeProductBanner> */}
       <TypeProductHeader></TypeProductHeader>
       {/* {loading ? (

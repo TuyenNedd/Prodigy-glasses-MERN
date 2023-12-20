@@ -43,6 +43,7 @@ const AdminProduct = ({ keySelected }) => {
     rating: "",
     image: "",
     imageHover: "",
+    imageDetail: "",
     type: "",
     countInStock: "",
     newType: "",
@@ -61,6 +62,7 @@ const AdminProduct = ({ keySelected }) => {
       rating,
       image,
       imageHover,
+      imageDetail,
       type,
       countInStock,
       discount,
@@ -72,6 +74,7 @@ const AdminProduct = ({ keySelected }) => {
       rating,
       image,
       imageHover,
+      imageDetail,
       type,
       countInStock,
       discount,
@@ -112,6 +115,7 @@ const AdminProduct = ({ keySelected }) => {
         rating: res?.data?.rating,
         image: res?.data?.image,
         imageHover: res?.data?.imageHover,
+        imageDetail: res?.data?.imageDetail,
         type: res?.data?.type,
         countInStock: res?.data?.countInStock,
         discount: res?.data?.discount,
@@ -360,6 +364,7 @@ const AdminProduct = ({ keySelected }) => {
     }
   }, [isSuccessDelected]);
 
+<<<<<<< HEAD
   // const handleCloseDrawer = () => {
   //   setIsOpenDrawer(false);
   //   setStateProductDetails({
@@ -374,6 +379,23 @@ const AdminProduct = ({ keySelected }) => {
   //   });
   //   form.resetFields();
   // };
+=======
+  const handleCloseDrawer = () => {
+    setIsOpenDrawer(false);
+    setStateProductDetails({
+      name: "",
+      price: "",
+      description: "",
+      rating: "",
+      image: "",
+      imageHover: "",
+      imageDetail: "",
+      type: "",
+      countInStock: "",
+    });
+    form.resetFields();
+  };
+>>>>>>> master
 
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === "OK") {
@@ -408,6 +430,7 @@ const AdminProduct = ({ keySelected }) => {
       rating: "",
       image: "",
       imageHover: "",
+      imageDetail: "",
       type: "",
       countInStock: "",
       discount: "",
@@ -423,6 +446,7 @@ const AdminProduct = ({ keySelected }) => {
       rating: stateProduct.rating,
       image: stateProduct.image,
       imageHover: stateProduct.imageHover,
+      imageDetail: stateProduct.imageDetail,
       type:
         stateProduct.type === "add_type"
           ? stateProduct.newType
@@ -471,6 +495,16 @@ const AdminProduct = ({ keySelected }) => {
       imageHover: file.preview,
     });
   };
+  const handleOnchangeAvatarImageDetail = async ({ fileList }) => {
+    const file = fileList[0];
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setStateProduct({
+      ...stateProduct,
+      imageDetail: file.preview,
+    });
+  };
 
   const handleOnchangeAvatarDetails = async ({ fileList }) => {
     const file = fileList[0];
@@ -490,6 +524,16 @@ const AdminProduct = ({ keySelected }) => {
     setStateProductDetails({
       ...stateProductDetails,
       imageHover: file.preview,
+    });
+  };
+  const handleOnchangeAvatarDetailsImageDetail = async ({ fileList }) => {
+    const file = fileList[0];
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setStateProductDetails({
+      ...stateProductDetails,
+      imageDetail: file.preview,
     });
   };
   const onUpdateProduct = () => {
@@ -677,10 +721,13 @@ const AdminProduct = ({ keySelected }) => {
           >
             <InputComponent
               value={stateProduct.price}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    addonAfter="VND"
               onChange={handleOnchange}
               name="price"
             />
           </Form.Item>
+<<<<<<< HEAD
           </Col>
            
             <Col span={6}>
@@ -696,6 +743,74 @@ const AdminProduct = ({ keySelected }) => {
                   value={stateProduct.rating}
                   onChange={handleOnchange}
                   name="rating"
+=======
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count description!",
+              },
+            ]}
+          >
+            <InputComponent
+              value={stateProduct.description}
+              onChange={handleOnchange}
+              name="description"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Rating"
+            name="rating"
+            rules={[
+              { required: true, message: "Please input your count rating!" },
+            ]}
+          >
+            <InputComponent
+              value={stateProduct.rating}
+              onChange={handleOnchange}
+              name="rating"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Discount"
+            name="discount"
+            rules={[
+              {
+                required: true,
+                message: "Please input your discount of product!",
+              },
+            ]}
+          >
+            <InputComponent
+              value={stateProduct.discount}
+              
+              onChange={handleOnchange}
+              name="discount"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Image"
+            name="image"
+            rules={[
+              { required: true, message: "Please input your count image!" },
+            ]}
+          >
+            <WrapperUploadFile onChange={handleOnchangeAvatar} maxCount={1}>
+              <Button>Select File</Button>
+              {stateProduct?.image && (
+                <img
+                  src={stateProduct?.image}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+>>>>>>> master
                 />
               </Form.Item>
             </Col>
@@ -716,6 +831,7 @@ const AdminProduct = ({ keySelected }) => {
                   onChange={handleOnchange}
                   name="discount"
                 />
+<<<<<<< HEAD
               </Form.Item>
             </Col>
             <Col span={24}>
@@ -806,6 +922,46 @@ const AdminProduct = ({ keySelected }) => {
               </Button>
             </Form.Item>
           </Row>
+=======
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
+          <Form.Item
+            label="ImageDetail"
+            name="ImageDetail"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count imageDetail!",
+              },
+            ]}
+          >
+            <WrapperUploadFile
+              onChange={handleOnchangeAvatarImageDetail}
+              maxCount={1}
+            >
+              <Button>Select File</Button>
+              {stateProduct?.imageDetail && (
+                <img
+                  src={stateProduct?.imageDetail}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+                />
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+>>>>>>> master
         </Form>
 
         {/* </Loading> */}
@@ -826,6 +982,7 @@ const AdminProduct = ({ keySelected }) => {
           autoComplete="on"
           form={form}
 
+<<<<<<< HEAD
         >
           <Row gutter={15}>
             <Col span={12}>
@@ -839,6 +996,115 @@ const AdminProduct = ({ keySelected }) => {
                   value={stateProductDetails["name"]}
                   onChange={handleOnchangeDetails}
                   name="name"
+=======
+          <Form.Item
+            label="Type"
+            name="type"
+            rules={[{ required: true, message: "Please input your type!" }]}
+          >
+            <InputComponent
+              value={stateProductDetails["type"]}
+              onChange={handleOnchangeDetails}
+              name="type"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Count inStock"
+            name="countInStock"
+            rules={[
+              { required: true, message: "Please input your count inStock!" },
+            ]}
+          >
+            <InputComponent
+              value={stateProductDetails.countInStock}
+              onChange={handleOnchangeDetails}
+              name="countInStock"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Price"
+            name="price"
+            rules={[
+              { required: true, message: "Please input your count price!" },
+            ]}
+          >
+            <InputComponent
+              value={stateProductDetails.price}
+              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                                    addonAfter="VND"
+              onChange={handleOnchangeDetails}
+              name="price"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Description"
+            name="description"
+            rules={[
+              {
+                required: true,
+                message: "Please input your count description!",
+              },
+            ]}
+          >
+            <InputComponent
+              value={stateProductDetails.description}
+              onChange={handleOnchangeDetails}
+              name="description"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Rating"
+            name="rating"
+            rules={[
+              { required: true, message: "Please input your count rating!" },
+            ]}
+          >
+            <InputComponent
+              value={stateProductDetails.rating}
+              onChange={handleOnchangeDetails}
+              name="rating"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Discount"
+            name="discount"
+            rules={[
+              {
+                required: true,
+                message: "Please input your discount of product!",
+              },
+            ]}
+          >
+            <InputComponent
+              value={stateProductDetails.discount}
+              onChange={handleOnchangeDetails}
+              name="discount"
+            />
+          </Form.Item>
+          <Form.Item
+            label="Image"
+            name="image"
+            rules={[
+              { required: true, message: "Please input your count image!" },
+            ]}
+          >
+            <WrapperUploadFile
+              onChange={handleOnchangeAvatarDetails}
+              maxCount={1}
+            >
+              <Button>Select File</Button>
+              {stateProductDetails?.image && (
+                <img
+                  src={stateProductDetails?.image}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+>>>>>>> master
                 />
               </Form.Item>
             </Col>
@@ -856,6 +1122,7 @@ const AdminProduct = ({ keySelected }) => {
                   onChange={handleChangeSelect}
                   options={renderOptions(typeProduct?.data?.data)}
                 />
+<<<<<<< HEAD
               </Form.Item>
             </Col>
             <Col span={6}>
@@ -1018,6 +1285,43 @@ const AdminProduct = ({ keySelected }) => {
               </Form.Item>
             </Col>
           </Row>
+=======
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
+          <Form.Item
+            label="ImageDetail"
+            name="ImageDetail"
+            rules={[
+              { required: true, message: "Please input your count image!" },
+            ]}
+          >
+            <WrapperUploadFile
+              onChange={handleOnchangeAvatarDetailsImageDetail}
+              maxCount={1}
+            >
+              <Button>Select File</Button>
+              {stateProductDetails?.imageDetail && (
+                <img
+                  src={stateProductDetails?.imageDetail}
+                  style={{
+                    height: "60px",
+                    width: "60px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginLeft: "10px",
+                  }}
+                  alt="avatar"
+                />
+              )}
+            </WrapperUploadFile>
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Apply
+            </Button>
+          </Form.Item>
+>>>>>>> master
         </Form>
       </ModalComponent>
       {/* ---------------------------------end----------------------------------------- */}

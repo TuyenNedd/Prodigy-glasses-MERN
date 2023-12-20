@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -12,14 +12,16 @@ import jwt_decode from "jwt-decode";
 import * as UserService from "./services/UserService";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, updateUser } from "./redux/slides/userSlide";
-import AwwMenu from "./components/AwwMenu/AwwMenu.jsx";
-import CircularWithValueLabel from "./components/CircularWithValueLabel/CircularWithValueLabel.jsx";
+import { Suspense } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+
 import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
 import ToTopWhenChangeRoute from "./components/ToTopWhenChangeRoute/ToTopWhenChangeRoute.jsx";
 function App() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.user);
+  const location = useLocation();
 
   useEffect(() => {
     setIsLoading(true);
@@ -29,7 +31,7 @@ function App() {
     }
     setTimeout(() => {
       setIsLoading(false);
-    }, 5000);
+    }, 4000);
   }, []);
 
   const handleDecoded = () => {
@@ -42,6 +44,16 @@ function App() {
     }
     return { decoded, storageData };
   };
+
+  useEffect(() => {
+    // Update the title based on the current route
+    const currentRoute = routes.find(
+      (route) => route.path === location.pathname
+    );
+    if (currentRoute) {
+      document.title = currentRoute.titleName;
+    }
+  }, [location.pathname]);
 
   UserService.axiosJWT.interceptors.request.use(
     async (config) => {
@@ -88,35 +100,47 @@ function App() {
   // };
   return (
     <>
-      {/* Use CircularWithValueLabel for loading */}
-      {isLoading ? (
-        <LinearWithValueLabel />
-      ) : (
-        <Router>
-          <ToTopWhenChangeRoute>
-            <Routes>
-              {routes.map((route) => {
-                const Page = route.page;
-                const Layout = route.isShowHeader ? DefaultComponent : Fragment;
+      <HelmetProvider>
+        {isLoading ? (
+          <LinearWithValueLabel />
+        ) : (
+          <>
+            {/* <Router></Router> */}
+            <ToTopWhenChangeRoute>
+              <Suspense>
+                {/* <Suspense fallback={<LinearWithValueLabel />}> */}
+                <Routes>
+                  {routes.map((route) => {
+                    const Page = route.page;
+                    const Layout = route.isShowHeader
+                      ? DefaultComponent
+                      : Fragment;
 
-                return (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={
+                    return (
                       <>
-                        <Layout>
-                          <Page />
-                        </Layout>
+                        <Route
+                          key={route.path}
+                          path={route.path}
+                          element={
+                            <>
+                              <Layout>
+                                <Helmet>
+                                  <title>{route.titleName}</title>
+                                </Helmet>
+                                <Page />
+                              </Layout>
+                            </>
+                          }
+                        />
                       </>
-                    }
-                  />
-                );
-              })}
-            </Routes>
-          </ToTopWhenChangeRoute>
-        </Router>
-      )}
+                    );
+                  })}
+                </Routes>
+              </Suspense>
+            </ToTopWhenChangeRoute>
+          </>
+        )}
+      </HelmetProvider>
     </>
   );
 }

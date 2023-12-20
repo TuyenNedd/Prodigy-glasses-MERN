@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosJWT } from "./UserService.js";
 export const getAllComment = async (access_token) => {
   try {
     const res = await axios.get(
@@ -16,17 +17,33 @@ export const getAllComment = async (access_token) => {
 };
 
 export const deleteComment = async (id, access_token) => {
-  console.log("iddđ", id);
-  console.log("accasasdasdas", access_token);
-  const res = await axios.delete(
-    `${import.meta.env.VITE_API_URL_BACKEND}/comment/delete-comment/${id}`,
-    {
-      headers: {
-        token: `Bearer ${access_token}`,
-      },
-    }
-  );
-  return res.data;
+  console.log("deleteComment ~ access_token:", access_token);
+  console.log("deleteComment ~ id:", id);
+  try {
+    const res = await axiosJWT.delete(
+      `${import.meta.env.VITE_API_URL_BACKEND}/comment/delete-comment/${id}`,
+      {
+        headers: {
+          token: `Bearer ${access_token}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (error) {
+    console.log("deleteComment ~ error:", error);
+  }
+};
+
+export const createComment = async (data) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_URL_BACKEND}/comment/create`,
+      data
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // export const getUserById = async (id, access_token) => {
