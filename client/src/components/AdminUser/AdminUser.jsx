@@ -438,7 +438,7 @@ import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   DeleteOutlined,
   EditOutlined,
-  // SearchOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
@@ -725,7 +725,7 @@ const AdminUser = () => {
         width="30%"
         footer={null}
       >
-        {/* <Loading isLoading={isLoadingUpdate || isLoadingUpdated}> */}
+        <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
           <Form
             name="basic"
             onFinish={onUpdateUser}
@@ -859,7 +859,7 @@ const AdminUser = () => {
               </Button>
             </Form.Item>
           </Form>
-        {/* </Loading> */}
+        </Loading>
       </ModalComponent>
 
     </div>

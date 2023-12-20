@@ -7,7 +7,7 @@ import "./style.scss"
 const TypeChart = (props) => {
     const {typeCounts} =props
     const renderCustomAxisTick = ({ x, y, payload }) => {
-      console.log('payload',payload);
+      
         let text = '';
         switch (payload.value) {
           case `${payload.value}`:  

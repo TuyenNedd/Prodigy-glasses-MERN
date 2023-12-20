@@ -29,25 +29,22 @@ import { MdOutlineCategory } from "react-icons/md";
 import { FaInbox } from "react-icons/fa";
 import AdminCategory from "../../components/AdminCategory/AdminCategory.jsx";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 const AdminPage = () => {
-const dispatch =useDispatch()
   const user = useSelector((state) => state?.user);
 
   const [keySelected, setKeySelected] = useState("dashboard");
   const navigate = useNavigate()
 // Lấy giá trị isAdmin từ localStorage
 const isAdminLocalStorage = localStorage.getItem("isAdmin");
-const isAdmin = isAdminLocalStorage !== null ? JSON.parse(isAdminLocalStorage) : null;
+const isAdmin = isAdminLocalStorage !== null ? JSON.parse(isAdminLocalStorage) : null;  
 useEffect(() => {
-  // Nếu isAdmin không tồn tại hoặc là false, chuyển hướng đến trang "notpermitted"
   if (!isAdmin) {
     navigate("/notpermitted");
   }
 }, [isAdmin, navigate]);
   
 
-  const items = [
+  const items = [ // tạo menu
     getItem("Dashboard", "dashboard", <WindowsOutlined />),
     getItem("Users", "users", <UserOutlined />),
     getItem("Category", "category", <MdOutlineCategory />),
@@ -55,13 +52,14 @@ useEffect(() => {
     getItem("Orders", "orders", <ShoppingCartOutlined />),
     getItem("Comments", "comments", <CommentOutlined />),
   ];
-  const renderPage = (key) => {
+  const renderPage = (key) => { // xác định component cần được render
     switch (key) {
       case 'dashboard':
         return <AdminDashboard  data={memoCount}
         setKeySelected={setKeySelected}
         keySelected ={keySelected} 
         theme={theme}/>;
+
       case "users":
         return <AdminUser  theme={theme} />;
       case "products":
@@ -75,7 +73,7 @@ useEffect(() => {
     }
   };
 
-
+// lấy dữ liệu
   const getAllOrder = async () => {
     const res = await OrderService.getAllOrder(user?.access_token);
     return { data: res?.data, key: "orders" };
@@ -99,7 +97,7 @@ useEffect(() => {
     return { data: res?.data, key: "comments" };
   }
 
-  const queries = useQueries({
+  const queries = useQueries({ // lấy dữ liệu
     queries: [
       { queryKey: ["products"], queryFn: getAllProducts, staleTime: 1000 * 60 },
       { queryKey: ["users"], queryFn: getAllUsers, staleTime: 1000 * 60 },
@@ -107,14 +105,16 @@ useEffect(() => {
       { queryKey: ["comments"],queryFn : getAllComment , staleTime: 1000 * 60 },
     ],
   });
-  const memoCount = useMemo(() => {
+  const memoCount = useMemo(() => { //useMemo là một hook của React dùng để memoize giá trị, giữ cho giá trị không bị tính toán lại mỗi lần render nếu giá trị của các dependencies không thay đổi
     const result = {};
     try {
+      //Kiểm tra nếu queries tồn tại, thực hiện vòng lặp forEach để duyệt qua từng query trong mảng queries.Với mỗi query, lấy giá trị data và key, và gán giá trị chiều dài của mảng data (query?.data?.data?.length) vào thuộc tính tương ứng trong đối tượng result dựa trên key.
       if (queries) {
         queries.forEach((query) => {
-          result[query?.data?.key] = query?.data?.data?.length;
+          result[query?.data?.key] = query?.data?.data?.length; 
         });
       }
+      console.log('result' ,result);
       return result;
     } catch (error) {
       return result;
@@ -130,9 +130,6 @@ useEffect(() => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-
-
-  
 
   return (
     <>
