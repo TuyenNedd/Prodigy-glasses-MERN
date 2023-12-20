@@ -1,5 +1,7 @@
 import React from "react";
 import HomePage from "../pages/HomePage/HomePage";
+import TypeProductPage from "../pages/TypeProductPage/TypeProductPage";
+
 const AdminPage = React.lazy(() => import("../pages/AdminPage/AdminPage"));
 const DetailsOrderPage = React.lazy(() =>
   import("../pages/DetailsOrderPage/DetailsOrderPage")
@@ -22,11 +24,12 @@ const ProductsPage = React.lazy(() =>
 );
 
 const ProfilePage = React.lazy(() => import("../pages/Profile/ProfilePage"));
-const SignInPage = React.lazy(() => import("../pages/SignInPage/SignInPage"));
+// const SignInPage = React.lazy(() => import("../pages/SignInPage/SignInPage"));
+import SignInPage from "../pages/SignInPage/SignInPage";
 const SignUpPage = React.lazy(() => import("../pages/SignUpPage/SignUpPage"));
-const TypeProductPage = React.lazy(() =>
-  import("../pages/TypeProductPage/TypeProductPage")
-);
+// const TypeProductPage = React.lazy(() =>
+//   import("../pages/TypeProductPage/TypeProductPage")
+// );
 
 export const routes = [
   {

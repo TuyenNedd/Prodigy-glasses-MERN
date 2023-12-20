@@ -27,30 +27,15 @@ const Header = () => {
   // eslint-disable-next-line no-unused-vars
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate("/sign-in");
-  };
-  const handleSignUp = () => {
-    navigate("/sign-up");
-  };
-  const handleLogout = async () => {
-    setLoading(true);
-    await UserService.logoutUser();
-    dispatch(resetUser());
-    setLoading(false);
-    localStorage.clear();
-    // window.location.reload();
-  };
 
   useEffect(() => {
-    const jsSearchInput = document.querySelector(".js-search-input");
-    const headerSearch = document.querySelector(".header-search");
-    const overlay = document.querySelector(".header-search__overlay");
     setLoading(true);
     setUserName(user?.name);
     setUserAvatar(user?.avatar);
     setLoading(false);
+    const jsSearchInput = document.querySelector(".js-search-input");
+    const headerSearch = document.querySelector(".header-search");
+    const overlay = document.querySelector(".header-search__overlay");
 
     const inputClickOpen = () => {
       headerSearch.classList.add("show-results");
@@ -134,6 +119,22 @@ const Header = () => {
 
   const disableScroll = () => {
     document.body.style.overflowY = "hidden";
+  };
+
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    navigate("/sign-in");
+  };
+  const handleSignUp = () => {
+    navigate("/sign-up");
+  };
+  const handleLogout = async () => {
+    setLoading(true);
+    await UserService.logoutUser();
+    dispatch(resetUser());
+    setLoading(false);
+    localStorage.clear();
+    // window.location.reload();
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-const TypesWrapMainMenu = ({ name, children }) => {
+const TypesWrapMainMenu = ({ name, children, customClass }) => {
   const navigate = useNavigate();
   const handleNavigatetype = (type) => {
     navigate(
@@ -14,12 +14,12 @@ const TypesWrapMainMenu = ({ name, children }) => {
   // console.log(name);
   return (
     <>
-      <a
+      <div
         onClick={() => handleNavigatetype(name)}
-        className="block h-full relative group border border-l-0 border-t-0 swiper-slide__flex--border w-full"
+        className={`block h-full relative group border border-l-0 border-t-0 swiper-slide__flex--border w-full ${customClass}`}
       >
         {children}
-      </a>
+      </div>
     </>
   );
 };

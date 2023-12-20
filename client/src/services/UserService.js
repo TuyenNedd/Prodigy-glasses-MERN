@@ -15,6 +15,7 @@ export const signupUser = async (data) => {
     `${import.meta.env.VITE_API_URL_BACKEND}/user/sign-up`,
     data
   );
+  console.log("signupUser ~ res.data:", res.data);
   return res.data;
 };
 

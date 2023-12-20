@@ -16,12 +16,14 @@ import { Rate } from "antd";
 import CommentsComponent from "../CommentsComponent/CommentsComponent.jsx";
 import ReviewForm from "../ReviewForm/ReviewForm.jsx";
 import ButtonSolid from "../ButtonSolid/ButtonSolid.jsx";
+// import Notification from "../Notification/Notification.jsx";
 const ProductDetails = ({ idProduct }) => {
   const [numProduct, setNumProduct] = useState(1);
   const user = useSelector((state) => state.user);
   const order = useSelector((state) => state.order);
   const [errorLimitOrder, setErrorLimitOrder] = useState(false);
   const [openReview, setOpenReview] = useState(false);
+  // const [showNotification, setShowNotification] = useState(false);
 
   const [commentCount, setCommentCount] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
@@ -101,7 +103,11 @@ const ProductDetails = ({ idProduct }) => {
             },
           })
         );
-        message.success("Added to cart");
+        message.success("Added to cart successfully");
+        // setShowNotification(true);
+        // setTimeout(() => {
+        //   setShowNotification(false);
+        // }, 2000);
       } else {
         setErrorLimitOrder(true);
       }
@@ -489,13 +495,25 @@ const ProductDetails = ({ idProduct }) => {
               </>
             )}
 
-            <div className="lg:pb-4 p-5 lg:p-0 product-selection__add-to-cart">
+            <div
+              className={`lg:pb-4 p-5 lg:p-0 product-selection__add-to-cart ${
+                productDetails?.countInStock === 0 ? "pointer-events-none" : ""
+              }`}
+            >
               <ButtonSolid
-                onClick={handleAddOrderProduct}
+                // onClick={handleAddOrderProduct}
+                onClick={() => {
+                  if (productDetails?.countInStock === 0) {
+                    // countInStock is 0, do not proceed with the action
+                    return;
+                  }
+                  handleAddOrderProduct();
+                }}
                 child={"Add to cart"}
                 customClass={
                   "text-lg TradeGodthic-BoldCn uppercase tracking-wider w-full inline-flex"
                 }
+                disabled={productDetails?.countInStock === 0}
               ></ButtonSolid>
               {/* <button
                 onClick={handleAddOrderProduct}
@@ -503,8 +521,14 @@ const ProductDetails = ({ idProduct }) => {
               >
                 Add to cart
               </button> */}
-              {errorLimitOrder && (
-                <div style={{ color: "red" }}>Product is out of stock</div>
+              {productDetails?.countInStock === 0 ? (
+                <>
+                  <div className="text-red-600 TradeGodthic-BoldCn uppercase text-lg flex justify-center">
+                    Product is out of stock
+                  </div>
+                </>
+              ) : (
+                ""
               )}
             </div>
 
@@ -794,6 +818,9 @@ const ProductDetails = ({ idProduct }) => {
           onReviewSubmit={handleReviewSubmit}
         ></ReviewForm>
       )}
+      {/* {showNotification && (
+        <Notification notiText={"✔ Added to cart successfully"} />
+      )} */}
     </>
   );
 };

@@ -10,6 +10,7 @@ import ModalComponent from "../ModalComponent/ModalComponent";
 import Loading from "../LoadingComponent/Loading";
 import * as message from "../../components/Message/Message";
 import { useMutationHooks } from "./../../hooks/useMutationHook";
+import { WrapperHeader } from "../AdminOrder/style.js";
 
 const AdminComment = () => {
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
@@ -135,11 +136,13 @@ const AdminComment = () => {
 
   return (
     <div className=" w-full">
-      <h1 className=" pl-5 text-xl pt-5 w-full">Quản lý Comment</h1>
-      <button className=" h-40 w-40 border border-solid hover:bg-sky-700 ">
+      <WrapperHeader style={{ fontWeight: "bold", fontSize: "20px" }}>
+        ORDER MANAGEMENT
+      </WrapperHeader>
+      {/* <button className=" h-40 w-40 border border-solid hover:bg-sky-700 ">
         {" "}
         <PlusCircleOutlined style={{ fontSize: "50px" }} />
-      </button>
+      </button> */}
       <TableComponent
         isLoading={isLoadingComment}
         comment={Comment?.data}

@@ -29,12 +29,13 @@ const SignUpPage = () => {
   const mutation = useMutationHooks((data) => UserService.signupUser(data));
 
   const { data, isLoading, isSuccess, isError } = mutation;
+  console.log("SignUpPage ~ data:", data);
 
   useEffect(() => {
-    if (isSuccess) {
-      message.success();
+    if (isSuccess && data?.status === "OK") {
+      message.success("Account created successfully");
       handleNavigateSignIn();
-    } else if (isError) {
+    } else if (isError && data?.status === "ERR") {
       message.error();
     }
   }, [isSuccess, isError]);
@@ -95,6 +96,16 @@ const SignUpPage = () => {
                 onChange={handleOnchangeEmail}
               ></InputForm>
             </div>
+            {data?.status === "ERR" && (
+              <span
+                className="TradeGodthicCn tracking-wide"
+                style={{ color: "red" }}
+              >
+                {data?.message === "The email is already"
+                  ? "This email already exists"
+                  : ""}
+              </span>
+            )}
 
             <div className=" relative field my-1">
               <label className="form--label text-sm">Password</label>
@@ -107,6 +118,7 @@ const SignUpPage = () => {
                 onChange={handleOnchangePassword}
               ></InputForm>
             </div>
+
             <div className=" relative field my-1">
               <label className="form--label text-sm">Confirm Password</label>
               <InputForm
@@ -117,6 +129,16 @@ const SignUpPage = () => {
                 onChange={handleOnchangeConfirmPassword}
               ></InputForm>
             </div>
+            {data?.status === "ERR" && (
+              <span
+                className="TradeGodthicCn tracking-wide"
+                style={{ color: "red" }}
+              >
+                {data?.message === "The password is equal confirmPassword"
+                  ? "The password is equal confirmPassword"
+                  : ""}
+              </span>
+            )}
             <div className=" relative field my-1">
               <label className="form--label text-sm">Phone</label>
               <InputForm
@@ -127,7 +149,6 @@ const SignUpPage = () => {
                 onChange={handleOnchangePhone}
               ></InputForm>
             </div>
-            {data?.status === "ERR" && <span>{data?.message}</span>}
             <Loading isLoading={isLoading}>
               <ButtonSolid
                 onClick={handleSignUp}
@@ -144,7 +165,20 @@ const SignUpPage = () => {
                   phone.length === 0
                 }
                 child={"CREATE"}
-                customClass={"w-full mt-2 TradeGodthic-BoldCn text-lg"}
+                customClass={`w-full mt-2 TradeGodthic-BoldCn text-lg ${
+                  !name ||
+                  !email ||
+                  !password ||
+                  !confirmPassword ||
+                  !phone ||
+                  email.length === 0 ||
+                  password.length === 0 ||
+                  name.length === 0 ||
+                  confirmPassword.length === 0 ||
+                  phone.length === 0
+                    ? "pointer-events-none"
+                    : ""
+                }`}
               ></ButtonSolid>
             </Loading>
           </form>

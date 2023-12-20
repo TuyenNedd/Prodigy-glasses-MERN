@@ -103,7 +103,7 @@ cron.schedule("*/1 * * * *", async () => {
         createdAt: { $lte: fiveMinutesAgo },
         isDelivered: false,
         scheduledDelivery: false,
-        isPaid: false,
+        // isPaid: false,
       },
       {
         $set: {
