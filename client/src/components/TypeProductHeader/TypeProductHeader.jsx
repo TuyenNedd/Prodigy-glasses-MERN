@@ -9,7 +9,7 @@ const TypeProductHeader = () => {
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 4 seconds in milliseconds
+    }, 500); // 4 seconds in milliseconds
 
     return () => {
       // Clear the timeout to prevent memory leaks

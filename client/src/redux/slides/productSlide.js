@@ -9,7 +9,8 @@ export const productSlide = createSlice({
   initialState,
   reducers: {
     searchProduct: (state, action) => {
-      state.search = action.payload.charAt(0).toLowerCase();
+      // state.search = action.payload.charAt(0).toLowerCase();
+      state.search = action.payload.toLowerCase();
     },
   },
 });

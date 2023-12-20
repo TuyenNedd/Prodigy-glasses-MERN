@@ -58,7 +58,7 @@ const TableComponent = (props) => {
           Xóa tất cả
         </div>
       )}
-      <button onClick={exportExcel}>Export Excel</button>
+      {/* <button onClick={exportExcel}>Export Excel</button> */}
       <Table
         rowSelection={{
           type: selectionType,

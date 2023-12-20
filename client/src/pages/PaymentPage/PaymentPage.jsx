@@ -33,7 +33,7 @@ const PaymentPage = () => {
   const [sdkReady, setSdkReady] = useState(false);
   const [deliveredAt, setDeliveredAt] = useState(null);
   const [paidAt, setPaidAt] = useState(null);
-  const [deliveryFee, setDeliveryFee] = useState(20000); // Giá trị mặc định là 20000
+  const [deliveryFee, setDeliveryFee] = useState(30000); // Giá trị mặc định là 20000
 
   const [isOpenModalUpdateInfo, setIsOpenModalUpdateInfo] = useState(false);
   const [stateUserDetails, setStateUserDetails] = useState({

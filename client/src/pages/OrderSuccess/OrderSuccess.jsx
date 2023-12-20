@@ -20,6 +20,7 @@ const OrderSuccess = () => {
         token: user?.access_token,
       },
     });
+    // window.location.reload;
   };
 
   return (

@@ -92,7 +92,7 @@ const OrderCart = ({ isVisible, onCartClick }) => {
 
   const handleAddCard = () => {
     if (!order?.orderItemsSelected?.length) {
-      message.error("Please choose product");
+      message.warning("Please choose product");
     } else {
       navigate("/payment");
       onCartClick();

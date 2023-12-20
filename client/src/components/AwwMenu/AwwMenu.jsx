@@ -18,7 +18,6 @@ const AwwMenu = ({ onCartClick }) => {
   };
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log("AwwMenu ~ user:", user);
 
   const [isVisible, setIsVisible] = useState(false);
   const [isMarginMenu, setIsMarginMenu] = useState(false);

@@ -20,14 +20,6 @@ const TypeProductPage = () => {
     limit: 10,
     total: 1,
   });
-  // Lấy thông tin của sản phẩm đầu tiên trong danh sách products
-  // const firstProduct = products.length > 0 ? products[0] : null;
-  useEffect(() => {
-    if (state) {
-      fetchProductType(state, panigate.page, panigate.limit);
-    }
-  }, [state, panigate.page, panigate.limit, panigate.type]);
-
   const fetchProductType = async (type, page, limit) => {
     setLoading(true);
     const res = await ProductService.getProductType(type, page, limit);
@@ -39,6 +31,13 @@ const TypeProductPage = () => {
       setLoading(false);
     }
   };
+  // Lấy thông tin của sản phẩm đầu tiên trong danh sách products
+  // const firstProduct = products.length > 0 ? products[0] : null;
+  useEffect(() => {
+    if (state) {
+      fetchProductType(state);
+    }
+  }, [state]);
 
   return (
     <>
@@ -67,10 +66,7 @@ const TypeProductPage = () => {
       ) : (
       )} */}
 
-      <section
-        id="shopify-section-template--16133600149692__product-grid"
-        className="shopify-section section--collection-product-grid"
-      >
+      <section className="shopify-section section--collection-product-grid">
         <section className="relative flex flex-row w-full px-4 py-5 lg:px-8 lg:py-0 mx-auto collection-wrap 2xl:max-w-screen-2xl analyticsProductGridList">
           <div className="top-0 w-full animate active">
             <div className=" plp bg-white b--none">

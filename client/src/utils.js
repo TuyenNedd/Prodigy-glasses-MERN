@@ -101,7 +101,7 @@ export const convertDataChart = (data, type) => {
       Array.isArray(Object.keys(object)) &&
       Object.keys(object).map((item) => {
         return {
-          name: orderContant.payment[item],
+          name: item,
           value: object[item],
         };
       });

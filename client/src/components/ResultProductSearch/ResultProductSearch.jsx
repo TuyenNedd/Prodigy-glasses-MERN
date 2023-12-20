@@ -62,18 +62,18 @@ const ResultProductSearch = () => {
   };
   return (
     <>
-      {searchDebounce !== "" ? (
+      {searchDebounce !== "" && (
         <>
-          <div className="search-results__product w-full pt-4 lg:order-2 order-1 ">
-            <p className="lg:text-base text-sm font-custom-1 uppercase tracking-wider leading-tight text-secondary lg:mb-8 mb-4 px-0 lg:px-0 TradeGodthic-BoldCn">
-              Suggested Products:
-            </p>
-            <div className="search-results__product-grid lg:grid gap-2.5 lg:grid-cols-3 flex no-scrollbar">
-              {loading || isLoading ? (
-                <CircularProgress style={{ color: "var(--primaryColor)" }} />
-              ) : (
-                products?.data?.map((product) => {
-                  return (
+          {loading || isLoading ? (
+            <CircularProgress style={{ color: "var(--primaryColor)" }} />
+          ) : products?.data?.length > 0 ? (
+            <>
+              <div className="search-results__product w-full pt-4 lg:order-2 order-1 ">
+                <p className="lg:text-base text-sm font-custom-1 uppercase tracking-wider leading-tight text-secondary lg:mb-5 mb-4 px-0 lg:px-0 TradeGodthic-BoldCn">
+                  Suggested Products:
+                </p>
+                <div className="search-results__product-grid lg:grid gap-2.5 lg:grid-cols-3 flex no-scrollbar">
+                  {products?.data?.map((product) => (
                     <>
                       <a
                         onClick={() => {
@@ -109,14 +109,16 @@ const ResultProductSearch = () => {
                         </div>
                       </a>
                     </>
-                  );
-                })
-              )}
-            </div>
-          </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          ) : (
+            <p className="text-base tracking-wide pt-4 TradeGodthicCn">
+              Hmm..looks like we don’t have that. Try searching again:
+            </p>
+          )}
         </>
-      ) : (
-        ""
       )}
     </>
   );

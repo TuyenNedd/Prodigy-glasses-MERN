@@ -10,7 +10,10 @@ const Article = ({ swiperContent }) => {
         className="swiper-slide swiper-slide__flex  relative lg:py-0 w-full swiper-slide-active bg-white"
         role="group"
       >
-        <TypesWrapMainMenu name={swiperContent.type}>
+        <TypesWrapMainMenu
+          customClass={"cursor-pointer"}
+          name={swiperContent.type}
+        >
           <div className="block__text absolute inset-0 z-10 lg:text-center text-center">
             <div className="block__text_content  w-full lg:py-16 lg:px-8 py-8 px-4">
               <h2 className="type--subhead-s1 flex justify-center items-center flex-col mb-4 mt-0 ITCGara text-2xl lg:text-3xl">

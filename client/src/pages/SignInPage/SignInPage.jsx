@@ -43,7 +43,7 @@ const SignInPage = () => {
         if (decoded?.id) {
           handleGetDetailsUser(decoded?.id, data?.access_token);
           navigate("/");
-          window.location.reload();
+          // window.location.reload();
         }
       }
     }
@@ -132,6 +132,7 @@ const SignInPage = () => {
 
               <Loading isLoading={isLoading}>
                 <a
+                  disabled={!email.length || !password.length}
                   className={`header-main__link priBut_link py-3 px-6 bg-priCo rounded-md TradeGodthic-BoldCn hover:bg-[#ff9647] transition-all duration-300 tracking-wide inline-flex justify-center w-full mt-2 TradeGodthic-BoldCn text-lg ${
                     !email.length || !password.length
                       ? "pointer-events-none"
@@ -151,9 +152,9 @@ const SignInPage = () => {
                   Create account
                 </a>
 
-                <a className="link text-sm underline text-black px-1">
+                {/* <a className="link text-sm underline text-black px-1">
                   Forgot your password?
-                </a>
+                </a> */}
               </div>
             </form>
           </div>

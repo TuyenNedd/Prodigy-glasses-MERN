@@ -9,6 +9,7 @@ const SwiperWrapper = ({ swiperContentData }) => {
   return (
     <>
       <Swiper
+        cssMode={true}
         breakpoints={{
           1: {
             slidesPerView: 1.5,

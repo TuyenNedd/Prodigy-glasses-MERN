@@ -114,11 +114,11 @@ const ProfilePage = () => {
           <div className="flex flex-col lg:flex-row">
             <div className="user-avatar p-4 lg:p-8 border-none lg:border-r-[0.8px] border-[#61584e80] flex justify-center lg:block">
               <div className="relative inline-flex">
-                {avatar && (
-                  <div className="w-40 overflow-hidden rounded-full aspect-square border-4 border-white">
-                    <img src={avatar} alt="avatar" />
-                  </div>
-                )}
+                {/* {avatar && ( */}
+                <div className="w-40 overflow-hidden rounded-full aspect-square border-4 border-white">
+                  <img src={avatar || "/images/none-user.png"} alt="avatar" />
+                </div>
+                {/* )} */}
 
                 <div className="absolute bottom-[10%] right-0 change-action acc-form-disable">
                   <Upload onChange={handleOnchangeAvatar} maxCount={1}>

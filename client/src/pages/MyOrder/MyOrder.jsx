@@ -81,7 +81,7 @@ const MyOrderPage = () => {
 
   useEffect(() => {
     if (isSuccessCancel && dataCancel?.status === "OK") {
-      message.success();
+      message.success("Cancel successfully");
     } else if (isSuccessCancel && dataCancel?.status === "ERR") {
       message.error(dataCancel?.message);
     } else if (isErrorCancle) {

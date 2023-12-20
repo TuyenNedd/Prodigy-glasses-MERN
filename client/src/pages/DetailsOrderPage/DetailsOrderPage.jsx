@@ -129,7 +129,10 @@ const DetailsOrderPage = () => {
 
                   <div className="bg-gray-100 rounded-[4px] relative h-24 mb-7">
                     <div className="absolute -bottom-6 left-3 rounded-full overflow-hidden border-3 border-white aspect-square w-24">
-                      <img src={user?.avatar} alt="" />
+                      <img
+                        src={user?.avatar || "/images/none-user.png"}
+                        alt=""
+                      />
                     </div>
                   </div>
                   <h1 className="text-4xl duration-700 lg:duration-700 lg:text-4xl block TradeGodthic-BoldCn mb-1">
@@ -295,7 +298,14 @@ const DetailsOrderPage = () => {
                     <span className="TradeGodthicCn text-base">
                       Payment time
                     </span>
-                    <span className="TradeGodthicCn">{paymentTime}</span>
+                    <span className="TradeGodthicCn">
+                      {/* {paymentTime}{" "} */}
+                      {data?.paymentMethod === "Paypal E-Wallet" ? (
+                        <>{formattedCreatedAt}</>
+                      ) : (
+                        <>{paymentTime}</>
+                      )}
+                    </span>
                   </div>
                   <div className="rounded-[4px] flex justify-between">
                     <span className="TradeGodthicCn text-base">

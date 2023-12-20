@@ -220,7 +220,13 @@ const ReviewForm = ({
                         </div>
                       </div>
 
-                      <div className="submit-review mt-6 ">
+                      <div
+                        className={`submit-review mt-6 ${
+                          !content.trim() || star < 1
+                            ? "pointer-events-none"
+                            : ""
+                        }`}
+                      >
                         <Loading isLoading={isLoading}>
                           <ButtonSolid
                             onClick={() => {

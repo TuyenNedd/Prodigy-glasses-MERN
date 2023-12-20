@@ -1,4 +1,4 @@
-import { Button, Form, Space } from "antd";
+import { Button, Col, Form, Modal, Select, Space } from "antd";
 import React from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
@@ -20,6 +20,10 @@ import {
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { Excel } from "antd-table-saveas-excel";
+import { useMemo } from "react";
+import "./style.scss";
+import { CiExport } from "react-icons/ci";
 
 const AdminUser = () => {
   const [rowSelected, setRowSelected] = useState("");
@@ -70,7 +74,10 @@ const AdminUser = () => {
   });
 
   const fetchGetDetailsUser = async (rowSelected) => {
-    const res = await UserService.getDetailsUser(rowSelected);
+    const res = await UserService.getDetailsUser(
+      rowSelected,
+      user?.access_token
+    );
     if (res?.data) {
       setStateUserDetails({
         name: res?.data?.name,
@@ -125,11 +132,11 @@ const AdminUser = () => {
     return (
       <div>
         <DeleteOutlined
-          style={{ color: "red", fontSize: "30px", cursor: "pointer" }}
+          className="actionBtn deleteBtn"
           onClick={() => setIsModalOpenDelete(true)}
         />
         <EditOutlined
-          style={{ color: "orange", fontSize: "30px", cursor: "pointer" }}
+          className="actionBtn editBtn"
           onClick={handleDetailsProduct}
         />
       </div>
@@ -246,7 +253,7 @@ const AdminUser = () => {
       ...getColumnSearchProps("address"),
     },
     {
-      title: "Admin",
+      title: "Role",
       dataIndex: "isAdmin",
       filters: [
         {
@@ -277,7 +284,7 @@ const AdminUser = () => {
       return {
         ...user,
         key: user._id,
-        isAdmin: user.isAdmin ? "TRUE" : "FALSE",
+        isAdmin: user.isAdmin ? "Admin" : "User",
       };
     });
 
@@ -361,9 +368,57 @@ const AdminUser = () => {
     );
   };
 
+  const newColumnExport = useMemo(() => {
+    const arr = columns?.filter((col) => col.dataIndex !== "action");
+    return arr;
+  }, [columns]);
+
+  const exportExcel = () => {
+    const excel = new Excel();
+    excel
+      .addSheet("user")
+      .addColumns(newColumnExport)
+      .addDataSource(dataTable)
+      .saveAs("user.xlsx");
+  };
+
   return (
     <div>
-      <WrapperHeader>Quản lý người dùng</WrapperHeader>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          paddingRight: "20px",
+          backgroundColor: "white",
+          padding: "20px",
+          marginBottom: "-20px",
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <WrapperHeader style={{ fontWeight: "bold", fontSize: "20px" }}>
+            USER MANAGEMENT
+          </WrapperHeader>
+          <Button
+            style={{
+              marginLeft: "20px",
+              borderRadius: "5px",
+              height: "38px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => {
+              exportExcel();
+            }}
+          >
+            {" "}
+            <span style={{ fontSize: 20, paddingRight: "5px" }}>
+              <CiExport />
+            </span>{" "}
+            Export Excel
+          </Button>
+        </div>
+      </div>
       <div style={{ marginTop: "20px" }}>
         <TableComponent
           handleDeleteMany={handleDeleteManyUsers}
@@ -379,69 +434,88 @@ const AdminUser = () => {
           }}
         />
       </div>
-      <DrawerComponent
-        title="Chi tiết người dùng"
+
+      {/* edit */}
+      <ModalComponent
+        title="USER DETAIL"
         isOpen={isOpenDrawer}
-        onClose={() => setIsOpenDrawer(false)}
-        width="90%"
+        onCancel={() => setIsOpenDrawer(false)}
+        width="30%"
+        footer={null}
       >
         <Loading isLoading={isLoadingUpdate || isLoadingUpdated}>
           <Form
             name="basic"
-            labelCol={{ span: 2 }}
-            wrapperCol={{ span: 22 }}
             onFinish={onUpdateUser}
             autoComplete="on"
             form={form}
+            footer
           >
-            <Form.Item
-              label="Name"
-              name="name"
-              rules={[{ required: true, message: "Please input your name!" }]}
-            >
-              <InputComponent
-                value={stateUserDetails["name"]}
-                onChange={handleOnchangeDetails}
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Name"
                 name="name"
-              />
-            </Form.Item>
+                rules={[{ required: true, message: "Please input your name!" }]}
+              >
+                <InputComponent
+                  value={stateUserDetails["name"]}
+                  onChange={handleOnchangeDetails}
+                  name="name"
+                />
+              </Form.Item>
+            </Col>
 
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <InputComponent
-                value={stateUserDetails["email"]}
-                onChange={handleOnchangeDetails}
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Email"
                 name="email"
-              />
-            </Form.Item>
-            <Form.Item
-              label="Phone"
-              name="phone"
-              rules={[{ required: true, message: "Please input your  phone!" }]}
-            >
-              <InputComponent
-                value={stateUserDetails.phone}
-                onChange={handleOnchangeDetails}
-                name="phone"
-              />
-            </Form.Item>
+                rules={[
+                  { required: true, message: "Please input your email!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateUserDetails["email"]}
+                  onChange={handleOnchangeDetails}
+                  name="email"
+                />
+              </Form.Item>
+            </Col>
 
-            <Form.Item
-              label="Adress"
-              name="address"
-              rules={[
-                { required: true, message: "Please input your  address!" },
-              ]}
-            >
-              <InputComponent
-                value={stateUserDetails.address}
-                onChange={handleOnchangeDetails}
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Phone"
+                name="phone"
+                rules={[
+                  { required: true, message: "Please input your  phone!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateUserDetails.phone}
+                  onChange={handleOnchangeDetails}
+                  name="phone"
+                />
+              </Form.Item>
+            </Col>
+
+            <Col span={24}>
+              <Form.Item
+                labelCol={{ span: 24 }}
+                label="Adress"
                 name="address"
-              />
-            </Form.Item>
+                rules={[
+                  { required: true, message: "Please input your  address!" },
+                ]}
+              >
+                <InputComponent
+                  value={stateUserDetails.address}
+                  onChange={handleOnchangeDetails}
+                  name="address"
+                />
+              </Form.Item>
+            </Col>
 
             <Form.Item
               label="Avatar"
@@ -462,20 +536,64 @@ const AdminUser = () => {
                       borderRadius: "50%",
                       objectFit: "cover",
                       marginLeft: "10px",
+                      marginTop: "10px",
                     }}
                     alt="avatar"
                   />
                 )}
               </WrapperUploadFile>
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 20, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Apply
+            <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+              <Button
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "blue",
+                  padding: "0 22px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                type="primary"
+                htmlType="submit"
+              >
+                Update
               </Button>
+            </Form.Item>
+
+            <Form.Item
+              labelCol={{ span: 24 }}
+              label="Role"
+              name="role"
+              rules={[{ required: true, message: "Please input your role!" }]}
+            >
+              <Select
+                defaultValue={stateUserDetails.isAdmin}
+                value={stateUserDetails.isAdmin}
+                style={{
+                  width: 120,
+                }}
+                allowClear
+                onChange={(value) =>
+                  setStateUserDetails({
+                    ...stateUserDetails,
+                    isAdmin: value,
+                  })
+                }
+                options={[
+                  {
+                    value: false,
+                    label: "False",
+                  },
+                  {
+                    value: true,
+                    label: "True",
+                  },
+                ]}
+              />
             </Form.Item>
           </Form>
         </Loading>
-      </DrawerComponent>
+      </ModalComponent>
+
       <ModalComponent
         title="Xóa người dùng"
         open={isModalOpenDelete}

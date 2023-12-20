@@ -9,7 +9,7 @@ import { formatDate } from "../../utils.js";
 import VerifyRemoveComment from "../VerifyRemoveComment/VerifyRemoveComment.jsx";
 import { useMutationHooks } from "../../hooks/useMutationHook.js";
 import Loading from "../LoadingComponent/Loading.jsx";
-import Notification from "../Notification/Notification.jsx";
+// import Notification from "../Notification/Notification.jsx";
 import { UserOutlined } from "@ant-design/icons";
 
 const CommentsComponent = ({
@@ -25,7 +25,7 @@ const CommentsComponent = ({
   const [userDetails, setUserDetails] = useState({});
   const [confirmRemove, setConfirmRemove] = useState(false);
   const [id, setId] = useState("");
-  const [showNotification, setShowNotification] = useState(false);
+  // const [showNotification, setShowNotification] = useState(false);
 
   // console.log("CommentsComponent ~ id:", id);
 
@@ -99,14 +99,14 @@ const CommentsComponent = ({
   const { data, isLoading, isSuccess, isError } = mutation;
   useEffect(() => {
     if (isSuccess) {
-      // message.success("Success");
-      setShowNotification(true);
-      setTimeout(() => {
-        setShowNotification(false);
-      }, 2000);
+      message.success("This comment has been deleted");
+      // setShowNotification(true);
+      // setTimeout(() => {
+      //   setShowNotification(false);
+      // }, 2000);
       handelCancelRemove();
     } else if (isError) {
-      message.success("Error");
+      message.error("Error");
     }
   }, [isSuccess]);
 
@@ -184,17 +184,22 @@ const CommentsComponent = ({
 
           <div className="flex justify-center py-3 px-4 flex-col items-center">
             <div className="flex flex-col">
-              <div className="h-fit flex items-center gap-2">
-                <span className="ITCGara text-[40px] lg:text-[64px] leading-none">
-                  {roundedAverageRating}
-                </span>
-                <Rate
-                  className="text-[var(--primaryColor)] text-[24px] mt-3 pointer-events-none proStar"
-                  allowHalf
-                  defaultValue={0}
-                  value={averageRating}
-                />
-              </div>
+              {productComments.length === 0 ? (
+                ""
+              ) : (
+                <div className="h-fit flex items-center gap-2">
+                  <span className="ITCGara text-[40px] lg:text-[64px] leading-none">
+                    {roundedAverageRating}
+                  </span>
+                  <Rate
+                    className="text-[var(--primaryColor)] text-[24px] mt-3 pointer-events-none proStar"
+                    allowHalf
+                    defaultValue={0}
+                    value={averageRating}
+                  />
+                </div>
+              )}
+
               <ButtonSolid
                 onClick={openF}
                 customClass={"text-lg w-full"}
@@ -324,10 +329,9 @@ const CommentsComponent = ({
         ></VerifyRemoveComment>
       )}
 
-      {showNotification && (
-        <Notification notiText={"This comment has been deleted"} />
-      )}
-      <Notification notiText={"This comment has been deleted"} />
+      {/* {showNotification && (
+        <Notification notiText={"✔ This comment has been deleted"} />
+      )} */}
     </>
   );
 };
