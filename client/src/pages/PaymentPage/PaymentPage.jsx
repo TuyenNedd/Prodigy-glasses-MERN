@@ -654,7 +654,7 @@ const PaymentPage = () => {
               );
             })}
 
-            <div className="mt-6 gap-2 flex border-b border-[rgba(248,172,116,0.34)] pb-8">
+            {/* <div className="mt-6 gap-2 flex border-b border-[rgba(248,172,116,0.34)] pb-8">
               <input
                 type="text"
                 className="!bg-white outline-none rounded border-0 w-full h-[45px]  pl-2"
@@ -664,7 +664,7 @@ const PaymentPage = () => {
                 {" "}
                 Apply
               </button>
-            </div>
+            </div> */}
             <div className="mt-6 border-[rgba(248,172,116,0.34)] border-b pb-8">
               <div className="flex justify-between">
                 <div className="text-sm text-orange-200 font-normal">
