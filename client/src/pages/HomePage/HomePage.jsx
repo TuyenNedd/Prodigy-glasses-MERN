@@ -4,6 +4,7 @@ import DynamicImgContain from "../../layout/Section/DynamicImgContain/DynamicImg
 import Explore from "../../layout/Section/Explore/Explore.jsx";
 import SwiperMenu from "../../layout/Section/SwiperMenu/SwiperMenu";
 import ThreeProSwiper from "../../layout/Section/ThreeProSwiper/ThreeProSwiper.jsx";
+import TwoProSwiper from "../../layout/Section/TwoProSwiper/TwoProSwiper.jsx";
 
 const HomePage = () => {
   const isAdmin = useSelector((state) => state.user.isAdmin);
@@ -14,7 +15,8 @@ const HomePage = () => {
       <SwiperMenu></SwiperMenu>
       <ThreeProSwiper></ThreeProSwiper>
       <Explore></Explore>
-      <SlideShow></SlideShow>
+      <TwoProSwiper></TwoProSwiper>
+      <SlideShow customClass={"!mt-0 lg:!mt-0"}></SlideShow>
     </>
   );
 };

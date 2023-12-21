@@ -137,7 +137,9 @@ const OrderAdmin = () => {
   const dataTable =
     orders?.data?.length &&
     orders?.data?.map((order) => {
-      console.log("user", order);
+      // console.log("user", order);
+      console.log("orders?.data?.map ~ order?.totalPrice:", order?.totalPrice);
+
       return {
         ...order,
         key: order._id,
@@ -147,13 +149,13 @@ const OrderAdmin = () => {
         paymentMethod:
           order?.paymentMethod === "Cash on delivery" ? (
             <>
-              <span className="text-white p-2 bg-[#00C49F] rounded-full">
+              <span className="text-white p-2 bg-[#0088FE] rounded-full">
                 Cash on delivery
               </span>
             </>
           ) : (
             <>
-              <span className="text-white p-2 bg-[#0088FE] rounded-full">
+              <span className="text-white p-2 bg-[#00C49F] rounded-full">
                 Paypal E-Wallet
               </span>
             </>
@@ -163,6 +165,20 @@ const OrderAdmin = () => {
         totalPrice: convertPrice(order?.totalPrice),
       };
     });
+
+  const dataRevenue =
+    orders?.data?.length &&
+    orders?.data
+      .filter((order) => order?.isPaid)
+      .map((order) => {
+        return {
+          totalPrice: order?.totalPrice,
+        };
+      });
+
+  const totalRevenue = dataRevenue.reduce((accumulator, order) => {
+    return accumulator + order.totalPrice;
+  }, 0);
 
   const newColumnExport = useMemo(() => {
     const arr = columns?.filter((col) => col.dataIndex !== "action");
@@ -220,6 +236,12 @@ const OrderAdmin = () => {
           <div style={{ height: 200, width: 200 }}>
             <PieChartComponent data={orders?.data} />
           </div>
+        </div>
+
+        <div className="text-right flex flex-col justify-end">
+          <h1 className="text-xl font-bold">Total revenue</h1>
+          <br />
+          <span className="font-semibold">{convertPrice(totalRevenue)}</span>
         </div>
       </div>
       <div style={{ marginTop: "20px" }}>

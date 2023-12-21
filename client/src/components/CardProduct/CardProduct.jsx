@@ -73,8 +73,13 @@ const CardProduct = ({ props, product }) => {
             return pro;
           }
         }) */}
+
+      {/* filter(
+          (product) =>
+            product.selled === undefined || typeof product.selled === "number"
+        )
+        .sort((a, b) => (b.selled || 0) - (a.selled || 0)) */}
       {products?.map((product) => {
-        console.log(product.selled);
         return (
           <>
             <article
@@ -141,9 +146,6 @@ const CardProduct = ({ props, product }) => {
                                 </span>
                               </h2>
                             )}
-                            <div className="opacity-0 h-0">
-                              kkkkkkkkkkkkkkkkk
-                            </div>
                           </div>
                         </div>
 

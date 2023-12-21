@@ -217,19 +217,19 @@ const AdminPage = () => {
 
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
-    console.log("res1", res);
+    // console.log("res1", res);
     return { data: res?.data, key: "products" };
   };
 
   const getAllUsers = async () => {
     const res = await UserService.getAllUser(user?.access_token);
-    console.log("res", res);
+    // console.log("res", res);
     return { data: res?.data, key: "users" };
   };
 
   const getAllComment = async () => {
     const res = await CommentService.getAllComment();
-    console.log("res", res);
+    // console.log("res", res);
     return { data: res?.data, key: "comments" };
   };
 

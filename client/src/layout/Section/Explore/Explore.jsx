@@ -1,43 +1,22 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-import CardProduct from "../../../components/CardProduct/CardProduct.jsx";
-import { useEffect, useState } from "react";
+import { Navigation } from "swiper/modules";
 import * as ProductService from "../../../services/ProductService.js";
+import { useQuery } from "@tanstack/react-query";
+import { shuffle } from "lodash";
+import "./style.scss";
+
+import RandomProduct from "../../../components/RandomProduct/RandomProduct.jsx";
 const Explore = () => {
-  const [randomProducts, setRandomProducts] = useState([]);
-
-  useEffect(() => {
-    const fetchRandomProducts = async () => {
-      // Fetch all products or use your existing logic to get products
-      const allProducts = await ProductService.getAllProducts();
-
-      // Shuffle the products to get a random order
-      const shuffledProducts = shuffleArray(allProducts);
-
-      // Take the first 10 products as randomProducts
-      const selectedProducts = shuffledProducts.slice(0, 10);
-
-      setRandomProducts(selectedProducts);
-    };
-
-    fetchRandomProducts();
-  }, []);
-
-  // Helper function to shuffle an array
-  const shuffleArray = (array) => {
-    const shuffledArray = [...array];
-    for (let i = shuffledArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffledArray[i], shuffledArray[j]] = [
-        shuffledArray[j],
-        shuffledArray[i],
-      ];
-    }
-    return shuffledArray;
+  const fetchProductAll = async () => {
+    const res = await ProductService.getAllProduct();
+    console.log("fetchProductAll ~ res:", res);
+    return res;
   };
+  const { data: products } = useQuery(["products"], fetchProductAll);
+
   return (
     <>
       <section className="relative  block  section-slideshow section-slideshow-collection lg:mt-8 lg:mb-8 mt-8 mb-8 lg:py-0 py-0">
@@ -61,29 +40,52 @@ const Explore = () => {
           <div className="product-recommendations__carousel w-full mt-16">
             <div className="w-full h-full relative analyticsProductGridList">
               <Swiper
+                // navigation={true}
+                modules={[Navigation]}
                 cssMode={true}
+                loop={true}
                 breakpoints={{
                   1: {
-                    slidesPerView: 1.2,
-                    spaceBetween: 9,
-                    loop: true,
-                    centeredSlides: true,
+                    slidesPerView: 1.5,
+                    spaceBetween: 0,
                   },
                   1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 10,
-                    loop: true,
-                    centeredSlides: false,
+                    slidesPerView: 3.5,
+                    spaceBetween: 0,
+                    speed: 1500,
                   },
                 }}
-                // modules={[Autoplay, FreeMode]}
-                className="mySwiper text-white ITCGara"
+                navigation={{
+                  nextEl: ".swiper-button-next-random",
+                  prevEl: ".swiper-button-prev-random",
+                }}
+                className="randomSwiper text-white ITCGara"
               >
-                {randomProducts.map((product) => (
-                  <SwiperSlide key={product._id} className="w-[200px]">
-                    <CardProduct product={product} />
-                  </SwiperSlide>
-                ))}
+                {shuffle(products?.data)
+                  .slice(0, 10)
+                  .map((product) => (
+                    <>
+                      <SwiperSlide key={product._id}>
+                        <RandomProduct
+                          idRan={product._id}
+                          name={product.name}
+                          type={product.type}
+                          selled={product.selled}
+                          countInStock={product.countInStock}
+                          image={product.image}
+                          imageHover={product.imageHover}
+                          discount={product.discount}
+                          price={product.price}
+                        ></RandomProduct>
+                      </SwiperSlide>
+                    </>
+                  ))}
+                <button className="btn-control swiper-prev swiper-button-prev-random top-1/2 -translate-y-1/2 absolute p-2 left-0 lg:left-20 h-10 text-dark transform z-10 transition-all user-select-none hidden lg:block">
+                  <div className="sr-only">Previous slide</div>
+                </button>
+                <button className="btn-control swiper-next swiper-button-next-random top-1/2 -translate-y-1/2 absolute p-2 right-0 lg:right-20 h-10 text-dark transform z-10 transition-all user-select-none hidden lg:block">
+                  <div className="sr-only">Next slide</div>
+                </button>
               </Swiper>
             </div>
           </div>

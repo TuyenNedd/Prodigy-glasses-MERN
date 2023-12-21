@@ -1,5 +1,6 @@
 import ButtonSolid from "../../../components/ButtonSolid/ButtonSolid.jsx";
 import Picture from "../../../components/Picture/Picture.jsx";
+import WrapProductRoute from "../../../components/WrapProductRoute/WrapProductRoute.jsx";
 
 const DynamicImgContain = () => {
   return (
@@ -29,8 +30,12 @@ const DynamicImgContain = () => {
             >
               It’s a disruptive pattern that acts like a neutral.
             </p>
-
-            <ButtonSolid child={"SHOP CAMO"} customClass={"mt-4"}></ButtonSolid>
+            <WrapProductRoute idenPro={"658143f74cdf73b3929b9d15"}>
+              <ButtonSolid
+                child={"SHOP CAMO"}
+                customClass={"mt-4"}
+              ></ButtonSolid>
+            </WrapProductRoute>
           </div>
         </div>
       </section>

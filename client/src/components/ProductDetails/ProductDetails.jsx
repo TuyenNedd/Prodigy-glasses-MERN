@@ -67,6 +67,8 @@ const ProductDetails = ({ idProduct }) => {
     fetchGetDetailsProduct,
     { enabled: !!idProduct }
   );
+  const jsMenuFloat = document.querySelector(".js-menufloat-show");
+
   const handleAddOrderProduct = () => {
     if (!user?.id) {
       navigate("/sign-in", { state: location?.pathname });
@@ -104,6 +106,7 @@ const ProductDetails = ({ idProduct }) => {
           })
         );
         message.success("Added to cart successfully");
+        jsMenuFloat.style.transform = "translateY(0%)";
         // setShowNotification(true);
         // setTimeout(() => {
         //   setShowNotification(false);

@@ -16,7 +16,7 @@ const TypesWrapMainMenu = ({ name, children, customClass }) => {
     <>
       <div
         onClick={() => handleNavigatetype(name)}
-        className={`block h-full relative group border border-l-0 border-t-0 swiper-slide__flex--border w-full ${customClass}`}
+        className={`block h-full border border-l-0 border-t-0 swiper-slide__flex--border w-full ${customClass}`}
       >
         {children}
       </div>

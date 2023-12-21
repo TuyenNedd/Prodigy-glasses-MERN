@@ -15,7 +15,7 @@ import WrapProductRoute from "../../../components/WrapProductRoute/WrapProductRo
 const ThreeProSwiper = () => {
   return (
     <>
-      <div className="container lg:py-24 py-12 lg:text-center text-center relative bg-texture">
+      <div className="lg:py-24 py-12 lg:text-center text-center relative bg-texture">
         <div className="lg:px-8 px-4">
           <h5
             className="type--eyebrow mt-0 mb-[30px] text-sm lg:text-base TradeGodthic-BoldCn uppercase tracking-wider"
@@ -224,42 +224,6 @@ const ThreeProSwiper = () => {
           idenPro={"658143f74cdf73b3929b9d15"}
         ></WrapProductRoute>
       </div>
-
-      {/* <section class="relative lg:p-8 p-4">
-  
-  <img srcset="//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=180 180w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=360 360w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=720 720w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=1080 1080w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=1200 1200w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=1500 1500w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=2400 2400w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=2800 2800w" x-sizes="(min-width: 640px) 180px, 180px" src="//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-desktop.jpg?v=1692830651&amp;width=180 180w" loading="lazy" width="720" height="540" class="absolute top-0 left-0 h-full w-full object-cover lg:block hidden " alt=""/>
-  <img srcset="//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-mobile.jpg?v=1692830650&amp;width=180 180w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-mobile.jpg?v=1692830650&amp;width=360 360w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-mobile.jpg?v=1692830650&amp;width=720 720w" x-sizes="(min-width: 640px) 180px, 180px" src="//cdn.shopify.com/s/files/1/2633/2144/files/hp-bixby-bg-pattern-mobile.jpg?v=1692830650&amp;width=180 180w" loading="lazy" width="720" height="540" class="absolute top-0 left-0 h-full w-full object-cover lg:hidden block " alt=""/>
-  <div class="section-template--16288645841084__656981e8-6142-48d1-afa7-444f370ed550 nav-transparent section-flexible-grid relative flex-col flex-wrap items-center justify-center  lg:mt-0 lg:mb-0 mt-0 mb-0  flex  w-full overflow-hidden" >
-
-    <div class="flex-grid--container relative w-full lg:pt-0 lg:pb-0 pt-0 pb-0 lg:pl-0 pl-0 active" >
-
-      
-
-      <div class="  flex flex-row flex-wrap lg:my-0 lg:-mx-0 -m-0 justify-center">
-            <article class="block-70d005be-3293-44a9-8683-6478979edca5  relative block lg:h-auto image-height  h-auto-img lg:w-full w-full lg:py-0 lg:px-0 p-0 lg:order-none order-none"><div class="block__image_wrap blank  lg:relative relative hover-gradient transition-all duration-500  cubic h-full w-full"><img srcset="//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=180 180w,//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=360 360w,//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=720 720w,//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=1080 1080w,//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=1200 1200w,//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=1500 1500w" x-sizes="(min-width: 640px) 180px, 180px" src="//cdn.shopify.com/s/files/1/2633/2144/files/HP-Compacts-desktop_b99c068a-cc95-4ff9-8f8a-b4f0dc5f25f0.jpg?v=1692831065&amp;width=180 180w" loading="lazy" width="720" height="540" class="lg:relative top-0 left-0 max-w-full w-full h-full object-cover object-center lg:block hidden " alt="">
-  <img srcset="//cdn.shopify.com/s/files/1/2633/2144/files/hp-compacts-feature-mobile.jpg?v=1692830342&amp;width=180 180w,//cdn.shopify.com/s/files/1/2633/2144/files/hp-compacts-feature-mobile.jpg?v=1692830342&amp;width=360 360w" x-sizes="(min-width: 640px) 180px, 180px" src="//cdn.shopify.com/s/files/1/2633/2144/files/hp-compacts-feature-mobile.jpg?v=1692830342&amp;width=180 180w" loading="lazy" width="720" height="540" class="relative  top-0 left-0 max-w-full w-full h-full object-cover object-center lg:hidden block " alt=""></div>
-              <div class="block__text  h-full  w-full z-10 left-0 top-0 flex flex-col lg:items-start lg:justify-center items-center justify-end lg:text-left text-center lg:absolute absolute">
-                <div class="block__text_content  group-hover:-translate-y-2 duration-1000 lg:max-w-3xl w-full lg:py-16 lg:px-16 py-8 px-4">
-                    <h2 class="type--primary block__title  mt-0 mb-4" style="color: #ffffff; ">
-                        Narrow Styles
-                    </h2>
-                    <p class="type--subline block__subtitle mt-0 mb-4 group-hover:leading-margin transition-all duration-1000" style="color: #ffffff; ">Slightly smaller renditions of some of our most popular frames.</p>
-                    <div style="margin: 0 -8px">
-                        <a class="inline-block mt-4 min-h-0 button button--primary" href="/collections/narrow" style="background-color: ; border-color: ; color: ;" previewlistener="true">
-                            Shop Narrow
-                        </a>
-                    </div>
-                </div>
-              </div>
-            </article>
-          
-
-        
-      </div>
-   
-    </div>
-  </div>
-</section> */}
     </>
   );
 };
