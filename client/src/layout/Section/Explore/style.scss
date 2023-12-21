@@ -1,0 +1,41 @@
+.randomSwiper {
+  &:hover {
+    .swiper-button-prev-random,
+    .swiper-button-next-random {
+      opacity: 1;
+    }
+  }
+  .swiper-button-prev-random {
+    background-image: url(//caddislife.com/cdn/shop/t/540/assets/DirectionLeft@2x.png?v=54780283644200158031698847479);
+    opacity: 0;
+  }
+  .swiper-button-next-random {
+    background-image: url(//caddislife.com/cdn/shop/t/540/assets/DirectionRight@2x.png?v=176304554621661818231698847479);
+    opacity: 0;
+  }
+  .btn-control {
+    align-items: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: contain;
+    flex-direction: column;
+    height: 0;
+    justify-content: center;
+    overflow: hidden;
+    padding-top: 3rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+      rotate(var(--tw-rotate)) skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+      scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transition-duration: 0.15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-user-select: none;
+    user-select: none;
+    width: 5rem;
+    z-index: 10;
+
+    &:disabled {
+      opacity: 0 !important;
+    }
+  }
+}

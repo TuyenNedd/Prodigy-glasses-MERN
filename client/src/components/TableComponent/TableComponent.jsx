@@ -43,22 +43,25 @@ const TableComponent = (props) => {
   };
 
   return (
-    <Loading isLoading={isLoading}>
+    <>
+      {/* <Loading isLoading={isLoading}></Loading> */}
+
       {!!rowSelectedKeys.length && (
-        <div
-          style={{
-            background: "#1d1ddd",
-            color: "#fff",
-            fontWeight: "bold",
-            padding: "10px",
-            cursor: "pointer",
-          }}
-          onClick={handleDeleteAll}
-        >
-          Xóa tất cả
-        </div>
+        <>
+          <div
+            style={{
+              background: "#1d1ddd",
+              color: "#fff",
+              fontWeight: "bold",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+            onClick={handleDeleteAll}
+          >
+            Xóa tất cả
+          </div>
+        </>
       )}
-      {/* <button onClick={exportExcel}>Export Excel</button> */}
       <Table
         rowSelection={{
           type: selectionType,
@@ -68,7 +71,7 @@ const TableComponent = (props) => {
         dataSource={dataSource}
         {...props}
       />
-    </Loading>
+    </>
   );
 };
 

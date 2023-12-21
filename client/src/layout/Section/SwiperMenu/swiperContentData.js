@@ -15,7 +15,7 @@ export const swiperContentData = [
     underline: "/images/underline/underline_03.png",
   },
   {
-    type: "Prescription Sun",
+    type: "Prescription Sunglasses",
     imgType: "/images/glass-type/Caddis_RCA-SUN_HEY_02.jpg",
     underline: "/images/underline/underline_04.png",
   },

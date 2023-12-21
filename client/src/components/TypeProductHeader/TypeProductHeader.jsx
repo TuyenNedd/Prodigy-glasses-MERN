@@ -1,21 +1,8 @@
-import React, { useState, useEffect } from "react";
 import "./style.scss";
-import { Skeleton } from "@mui/material";
 
 const TypeProductHeader = () => {
   // Tạo mảng các mục để hiển thị Skeleton
-  const [loading, setLoading] = useState(true);
-  const menuItems = ["All Frames", "Best Sellers", "New Arrivals"];
-  useEffect(() => {
-    const loadingTimeout = setTimeout(() => {
-      setLoading(false);
-    }, 500); // 4 seconds in milliseconds
 
-    return () => {
-      // Clear the timeout to prevent memory leaks
-      clearTimeout(loadingTimeout);
-    };
-  }, []);
   return (
     <>
       <header
@@ -26,31 +13,30 @@ const TypeProductHeader = () => {
           <div className="container flex flex-wrap align-center w-full p-5 lg:px-8 lg:py-6 overflow-x-auto no-scrollbar">
             <form className="exposed-filters ITCGara text-lg lg:text-2xl">
               <ul className="reset flex">
-                {menuItems.map((item, index) => (
-                  <li key={index} className="flex-shrink-0">
-                    {loading ? (
-                      <Skeleton
-                        sx={{ bgcolor: "grey.400" }}
-                        animation="wave"
-                        width={100}
-                        height={32}
-                        className="mr-5"
-                        variant="rounded"
-                      ></Skeleton>
-                    ) : (
-                      <div className="field">
-                        <label>
-                          <input
-                            name="feature"
-                            type="radio"
-                            className="hidden"
-                          />
-                          <span>{item}</span>
-                        </label>
-                      </div>
-                    )}
-                  </li>
-                ))}
+                <li className="flex-shrink-0">
+                  <div className="field">
+                    <label>
+                      <input name="feature" type="radio" className="hidden" />
+                      <span>All Frames</span>
+                    </label>
+                  </div>
+                </li>
+                <li className="flex-shrink-0">
+                  <div className="field">
+                    <label>
+                      <input name="feature" type="radio" className="hidden" />
+                      <span>Best Sellers</span>
+                    </label>
+                  </div>
+                </li>
+                <li className="flex-shrink-0">
+                  <div className="field">
+                    <label>
+                      <input name="feature" type="radio" className="hidden" />
+                      <span>New Arrivals</span>
+                    </label>
+                  </div>
+                </li>
               </ul>
             </form>
           </div>

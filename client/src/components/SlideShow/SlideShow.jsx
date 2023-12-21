@@ -11,10 +11,12 @@ import "./styles.css";
 // import required modules
 import { Autoplay, FreeMode } from "swiper/modules";
 
-const SlideShow = () => {
+const SlideShow = ({ customClass }) => {
   return (
     <>
-      <section className="block section-slideshow section-slideshow-multiple lg:mt-4 lg:mb-2 mt-4 mb-2 lg:px-0 px-0 lg:py-0 py-0">
+      <section
+        className={`block section-slideshow section-slideshow-multiple lg:mt-4 lg:mb-2 mt-4 mb-2 lg:px-0 px-0 lg:py-0 py-0 ${customClass}`}
+      >
         <div className="w-full mx-auto flex flex-col">
           <div className="w-full">
             <div className="w-full h-full relative">
