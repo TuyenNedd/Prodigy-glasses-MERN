@@ -9,9 +9,7 @@ import "swiper/css/navigation";
 
 import "./style.scss";
 
-import ButtonSolid from "../../../components/ButtonSolid/ButtonSolid.jsx";
 import TypesWrapMainMenu from "../../../components/TypesWrap/TypesWrapMainMenu.jsx";
-import WrapProductRoute from "../../../components/WrapProductRoute/WrapProductRoute.jsx";
 const TwoProSwiper = () => {
   return (
     <>
@@ -98,7 +96,7 @@ const TwoProSwiper = () => {
       <div className="ITCGara section--flex-grid">
         <section className="relative lg:p-0 p-0">
           <div
-            className="section-template--16288645841084__d4c28c64-d5ca-427e-9a94-8c7ae6a9bfb2 nav-transparent section-flexible-grid relative flex-col flex-wrap items-center justify-center  lg:mt-4 lg:mb-0 mt-0 mb-0  flex  w-full overflow-hidden"
+            className="nav-transparent section-flexible-grid relative flex-col flex-wrap items-center justify-center flex  w-full overflow-hidden"
             style={{ backgroundColor: "#f5f2ec" }}
           >
             <div className="flex-grid--container relative w-full lg:pt-8 lg:pb-0 pt-8 pb-0 lg:pl-0 pl-0 active">

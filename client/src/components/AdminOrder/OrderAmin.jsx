@@ -149,13 +149,13 @@ const OrderAdmin = () => {
         paymentMethod:
           order?.paymentMethod === "Cash on delivery" ? (
             <>
-              <span className="text-white p-2 bg-[#0088FE] rounded-full">
+              <span className="text-white p-2 bg-[#00C49F]  rounded-full">
                 Cash on delivery
               </span>
             </>
           ) : (
             <>
-              <span className="text-white p-2 bg-[#00C49F] rounded-full">
+              <span className="text-white p-2 bg-[#0088FE] rounded-full">
                 Paypal E-Wallet
               </span>
             </>
