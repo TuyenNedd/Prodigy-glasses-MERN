@@ -21,7 +21,7 @@ routes(app);
 mongoose.set("strictQuery", false);
 
 // mongoose.connect(`${process.env.MONGO_DB}`)
-mongoose;
+// mongoose
 // .connect("mongodb://localhost:27017/pgdglass")
 mongoose
   .connect(

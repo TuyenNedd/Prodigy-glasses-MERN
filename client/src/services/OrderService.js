@@ -52,11 +52,12 @@ export const cancelOrder = async (id, access_token, orderItems, userId) => {
   const data = { orderItems, orderId: id };
   const res = await axiosJWT.delete(
     `${import.meta.env.VITE_API_URL_BACKEND}/order/cancel-order/${userId}`,
-    { data },
+
     {
       headers: {
         token: `Bearer ${access_token}`,
       },
+      data,
     }
   );
   return res.data;
