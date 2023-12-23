@@ -84,7 +84,7 @@ const AdminPage = () => {
 
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
-    // console.log("res1", res);
+    console.log("res1", res);
     return { data: res?.data, key: "products" };
   };
 

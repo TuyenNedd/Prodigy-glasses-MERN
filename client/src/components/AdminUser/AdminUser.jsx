@@ -543,22 +543,6 @@ const AdminUser = () => {
                 )}
               </WrapperUploadFile>
             </Form.Item>
-            <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
-              <Button
-                style={{
-                  borderRadius: "4px",
-                  backgroundColor: "blue",
-                  padding: "0 22px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                type="primary"
-                htmlType="submit"
-              >
-                Update
-              </Button>
-            </Form.Item>
-
             <Form.Item
               labelCol={{ span: 24 }}
               label="Role"
@@ -589,6 +573,21 @@ const AdminUser = () => {
                   },
                 ]}
               />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 19, span: 16 }}>
+              <Button
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "blue",
+                  padding: "0 22px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                type="primary"
+                htmlType="submit"
+              >
+                Update
+              </Button>
             </Form.Item>
           </Form>
         </Loading>

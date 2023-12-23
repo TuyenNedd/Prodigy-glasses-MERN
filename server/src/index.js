@@ -22,11 +22,11 @@ mongoose.set("strictQuery", false);
 
 // mongoose.connect(`${process.env.MONGO_DB}`)
 // mongoose
-// .connect("mongodb://localhost:27017/pgdglass")
+// .connect(
+//   "mongodb+srv://namlo:e6q8vlzQKUH28SUZ@cluster0.mkjtgy4.mongodb.net/aaaaaaaa?retryWrites=true&w=majority"
+// )
 mongoose
-  .connect(
-    "mongodb+srv://namlo:e6q8vlzQKUH28SUZ@cluster0.mkjtgy4.mongodb.net/aaaaaaaa?retryWrites=true&w=majority"
-  )
+  .connect("mongodb://localhost:27017/pgdglass")
   .then(() => {
     console.log("Connect Db success!");
   })
