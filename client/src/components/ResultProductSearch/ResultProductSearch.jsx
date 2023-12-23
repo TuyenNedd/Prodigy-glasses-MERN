@@ -13,7 +13,7 @@ const ResultProductSearch = () => {
   const searchDebounce = useDebounce(searchProduct, 100);
   const [loading, setLoading] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [limit, setLimit] = useState(2);
+  const [limit, setLimit] = useState(6);
   // eslint-disable-next-line no-unused-vars
   const [typeProducts, setTypeProducts] = useState([]);
 
