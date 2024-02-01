@@ -17,6 +17,8 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
 import ToTopWhenChangeRoute from "./components/ToTopWhenChangeRoute/ToTopWhenChangeRoute.jsx";
+import { Analytics } from "@vercel/analytics/react";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
@@ -141,6 +143,7 @@ function App() {
           </>
         )}
       </HelmetProvider>
+      <Analytics />
     </>
   );
 }
