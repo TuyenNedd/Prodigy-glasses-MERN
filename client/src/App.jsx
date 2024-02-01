@@ -18,6 +18,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
 import ToTopWhenChangeRoute from "./components/ToTopWhenChangeRoute/ToTopWhenChangeRoute.jsx";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 function App() {
   const dispatch = useDispatch();
@@ -144,6 +145,7 @@ function App() {
         )}
       </HelmetProvider>
       <Analytics />
+      <SpeedInsights />
     </>
   );
 }
