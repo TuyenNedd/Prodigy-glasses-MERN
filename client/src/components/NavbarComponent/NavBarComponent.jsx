@@ -1,4 +1,4 @@
-import { Checkbox, Col, Rate, Row } from "antd";
+import { Checkbox, Rate } from "antd";
 import React from "react";
 import {
   WrapperContent,
@@ -13,7 +13,7 @@ const NavBarComponent = () => {
     switch (type) {
       case "text":
         return options.map((option) => {
-          return <WrapperTextValue>{option}</WrapperTextValue>;
+          return <WrapperTextValue key={option}>{option}</WrapperTextValue>;
         });
       case "checkbox":
         return (
@@ -28,7 +28,11 @@ const NavBarComponent = () => {
           >
             {options.map((option) => {
               return (
-                <Checkbox style={{ marginLeft: 0 }} value={option.value}>
+                <Checkbox
+                  key={option}
+                  style={{ marginLeft: 0 }}
+                  value={option.value}
+                >
                   {option.label}
                 </Checkbox>
               );
@@ -38,7 +42,7 @@ const NavBarComponent = () => {
       case "star":
         return options.map((option) => {
           return (
-            <div style={{ display: "flex" }}>
+            <div key={option} style={{ display: "flex" }}>
               <Rate
                 style={{ fontSize: "12px" }}
                 disabled
@@ -50,7 +54,7 @@ const NavBarComponent = () => {
         });
       case "price":
         return options.map((option) => {
-          return <WrapperTextPrice>{option}</WrapperTextPrice>;
+          return <WrapperTextPrice key={option}>{option}</WrapperTextPrice>;
         });
       default:
         return {};

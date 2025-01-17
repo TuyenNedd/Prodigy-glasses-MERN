@@ -1,21 +1,14 @@
 import { Divider } from "antd";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis } from "recharts";
-import * as ProductService from "../../services//ProductService";
-import { useQuery } from "@tanstack/react-query";
 import "./style.scss";
 const TypeChart = (props) => {
   const { typeCounts } = props;
   const renderCustomAxisTick = ({ x, y, payload }) => {
     console.log("payload", payload);
     let text = "";
-    switch (payload.value) {
-      case `${payload.value}`:
-        text = `${payload.value}`;
-        break;
-
-      default:
-        text = "";
+    if (payload.value) {
+      text = `${payload.value}`;
     }
 
     return (

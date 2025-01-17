@@ -22,10 +22,8 @@ const Header = () => {
   const dispatch = useDispatch();
   const [userName, setUserName] = useState("");
   const [userAvatar, setUserAvatar] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [search, setSearch] = useState("");
-  // eslint-disable-next-line no-unused-vars
-  const [isOpenPopup, setIsOpenPopup] = useState(false);
+  const [setSearch] = useState("");
+  const [setIsOpenPopup] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -54,7 +52,6 @@ const Header = () => {
     return () => {
       jsSearchInput.removeEventListener("click", inputClickOpen);
       overlay.removeEventListener("click", inputClickClose);
-      // clearTimeout(timer);
     };
   }, [user?.name, user?.avatar]);
 
@@ -134,149 +131,135 @@ const Header = () => {
     dispatch(resetUser());
     setLoading(false);
     localStorage.clear();
-    // window.location.reload();
   };
 
   return (
-    <>
-      <header id="header">
-        <div className="inner">
-          <div className="header-main px-5 lg:px-9">
-            <div className="header-main__left flex flex-none lg:flex-1 mr-3">
-              <a href="/" className="header-main__logo">
-                <img
-                  src="/images/logo/pdglogo.svg"
-                  alt=""
-                  className="logoLarge w-20 h-6 lg:w-32 lg:h-10"
+    <header id="header">
+      <div className="inner">
+        <div className="header-main px-5 lg:px-9">
+          <div className="header-main__left flex flex-none lg:flex-1 mr-3">
+            <a href="/" className="header-main__logo">
+              <img
+                src="/images/logo/pdglogo.svg"
+                alt=""
+                className="logoLarge w-20 h-6 lg:w-32 lg:h-10"
+              />
+              <img
+                src="/images/logo/pdglogo-mobile.svg"
+                alt=""
+                className="logoSmall"
+                width={30}
+              />
+            </a>
+          </div>
+          <div className="header-search">
+            <div className="header-search__overlay"></div>
+            <div className="search-form">
+              <div className="search-form__field">
+                <input
+                  type="text"
+                  placeholder="What are you looking for?"
+                  className="search-form__input js-search-input TradeGodthicCn placeholder-[#443828] lg:text-xl text-lg text-[#443828]"
+                  style={{ width: "7.7px" }}
+                  onChange={onSearch}
                 />
-                <img
-                  src="/images/logo/pdglogo-mobile.svg"
-                  alt=""
-                  className="logoSmall"
-                  width={30}
-                />
-              </a>
-            </div>
-            <div className="header-search">
-              <div className="header-search__overlay"></div>
-              <div className="search-form">
-                <div className="search-form__field">
-                  <input
-                    type="text"
-                    placeholder="What are you looking for?"
-                    className="search-form__input js-search-input TradeGodthicCn placeholder-[#443828] lg:text-xl text-lg text-[#443828]"
-                    style={{ width: "7.7px" }}
-                    onChange={onSearch}
-                  />
-                  <button
-                    type="submit"
-                    className="search-form__button"
-                    aria-label="Search"
-                  >
-                    <img
-                      src="/images/search-outline.svg"
-                      className="w-fit h-7"
-                    />
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className="search-form__button"
+                  aria-label="Search"
+                >
+                  <img src="/images/search-outline.svg" className="w-fit h-7" />
+                </button>
               </div>
-              <HeaderSearchResult></HeaderSearchResult>
             </div>
-            <div className="header-main__right flex-none lg:flex-1">
-              <div className="header-main__user flex-1 justify-end">
-                {user?.access_token ? (
-                  <>
-                    {loading ? (
-                      <>
-                        <Loading></Loading>
-                      </>
-                    ) : (
-                      <>
-                        <Popover
-                          showArrow={false}
-                          content={content}
-                          trigger="hover"
-                          className="rounded-lg"
-                          placement="bottomRight"
-                        >
+            <HeaderSearchResult></HeaderSearchResult>
+          </div>
+          <div className="header-main__right flex-none lg:flex-1">
+            <div className="header-main__user flex-1 justify-end">
+              {user?.access_token ? (
+                <>
+                  {loading ? (
+                    <Loading></Loading>
+                  ) : (
+                    <Popover
+                      showArrow={false}
+                      content={content}
+                      trigger="hover"
+                      className="rounded-lg"
+                      placement="bottomRight"
+                    >
+                      <div
+                        className="user_Main flex items-center gap-3 TradeGodthic-BoldCn text-sm lg:text-base"
+                        style={{
+                          cursor: "pointer",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
+                        <div className="gap-0 tracking-wide hidden lg:block">
+                          Hi,
+                          <span className="uppercase ">
+                            {userName?.length ? userName : user?.email}
+                          </span>
+                        </div>
+                        {loading ? (
+                          <>
+                            <Skeleton
+                              animation="wave"
+                              variant="rectangular"
+                              height={80}
+                              sx={{ bgcolor: "grey.400" }}
+                            ></Skeleton>
+                            <Loading></Loading>
+                          </>
+                        ) : (
                           <div
-                            className="user_Main flex items-center gap-3 TradeGodthic-BoldCn text-sm lg:text-base"
                             style={{
-                              cursor: "pointer",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
+                              height: "30px",
+                              width: "30px",
                             }}
+                            className="ava"
                           >
-                            <div className="gap-0 tracking-wide hidden lg:block">
-                              Hi,
-                              <span className="uppercase ">
-                                {userName?.length ? userName : user?.email}
-                              </span>
-                            </div>
-                            {loading ? (
-                              <>
-                                <Skeleton
-                                  animation="wave"
-                                  variant="rectangular"
-                                  height={80}
-                                  sx={{ bgcolor: "grey.400" }}
-                                ></Skeleton>
-                                <Loading></Loading>
-                              </>
-                            ) : (
-                              <div
+                            {userAvatar ? (
+                              <img
+                                className="object-cover"
+                                src={userAvatar}
+                                alt="avatar"
                                 style={{
                                   height: "30px",
                                   width: "30px",
+                                  borderRadius: "50%",
+                                  objectFit: "cover",
                                 }}
-                                className="ava"
-                              >
-                                {userAvatar ? (
-                                  <img
-                                    className="object-cover"
-                                    src={userAvatar}
-                                    alt="avatar"
-                                    style={{
-                                      height: "30px",
-                                      width: "30px",
-                                      borderRadius: "50%",
-                                      objectFit: "cover",
-                                    }}
-                                  />
-                                ) : (
-                                  <UserOutlined style={{ fontSize: "30px" }} />
-                                )}
-                              </div>
+                              />
+                            ) : (
+                              <UserOutlined style={{ fontSize: "30px" }} />
                             )}
                           </div>
-                        </Popover>
-                      </>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <ButtonSolid
-                      onClick={handleLogin}
-                      child={"Login"}
-                      hidden={"hidden-sm"}
-                    ></ButtonSolid>
-                    <ButtonOutline
-                      hidden={"hidden-sm"}
-                      child={"Sign up"}
-                      onClick={handleSignUp}
-                    ></ButtonOutline>
-                  </>
-                )}
-
-                {/* <span className="header-main__ico">
-                  <img src="/images/user-check.svg" alt="" width={23} />
-                </span> */}
-              </div>
+                        )}
+                      </div>
+                    </Popover>
+                  )}
+                </>
+              ) : (
+                <>
+                  <ButtonSolid
+                    onClick={handleLogin}
+                    child={"Login"}
+                    hidden={"hidden-sm"}
+                  ></ButtonSolid>
+                  <ButtonOutline
+                    hidden={"hidden-sm"}
+                    child={"Sign up"}
+                    onClick={handleSignUp}
+                  ></ButtonOutline>
+                </>
+              )}
             </div>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
 

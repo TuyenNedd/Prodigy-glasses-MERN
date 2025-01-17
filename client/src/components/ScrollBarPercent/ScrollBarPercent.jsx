@@ -24,11 +24,9 @@ const ScrollBarPercent = () => {
   }, []); // Empty dependency array means useEffect runs once on mount
 
   return (
-    <>
-      <div className="progress-bar">
-        <div className="percent"></div>
-      </div>
-    </>
+    <div className="progress-bar">
+      <div className="percent"></div>
+    </div>
   );
 };
 

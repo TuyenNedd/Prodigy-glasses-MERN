@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import SlideShow from "../../components/SlideShow/SlideShow.jsx";
 import DynamicImgContain from "../../layout/Section/DynamicImgContain/DynamicImgContain";
 import Explore from "../../layout/Section/Explore/Explore.jsx";
@@ -7,8 +6,6 @@ import ThreeProSwiper from "../../layout/Section/ThreeProSwiper/ThreeProSwiper.j
 import TwoProSwiper from "../../layout/Section/TwoProSwiper/TwoProSwiper.jsx";
 
 const HomePage = () => {
-  const isAdmin = useSelector((state) => state.user.isAdmin);
-  const isAdminLocal = localStorage.setItem("isAdmin", JSON.stringify(isAdmin));
   return (
     <>
       <DynamicImgContain></DynamicImgContain>

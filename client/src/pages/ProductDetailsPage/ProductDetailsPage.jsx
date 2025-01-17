@@ -6,7 +6,7 @@ import * as ProductService from "../../services/ProductService";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
-  const { isLoading, data: productDetails } = useQuery(
+  const { data: productDetails } = useQuery(
     ["product-details", id],
     ProductService.getDetailsProduct
   );

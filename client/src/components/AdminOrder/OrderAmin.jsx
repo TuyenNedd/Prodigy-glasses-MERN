@@ -1,16 +1,15 @@
-import { Button, Form, Space } from "antd";
+import { Button, Space } from "antd";
 import React from "react";
 import { WrapperHeader } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import InputComponent from "../InputComponent/InputComponent";
-import { convertPrice, getBase64 } from "../../utils";
+import { convertPrice } from "../../utils";
 import { Excel } from "antd-table-saveas-excel";
 import { useMemo } from "react";
 import * as OrderService from "../../services/OrderService";
 import { useQuery } from "@tanstack/react-query";
 import { SearchOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-import { orderContant } from "../../contant";
 import PieChartComponent from "./PieChart";
 import { CiExport } from "react-icons/ci";
 const OrderAdmin = () => {
@@ -148,17 +147,13 @@ const OrderAdmin = () => {
         address: order?.shippingAddress?.address,
         paymentMethod:
           order?.paymentMethod === "Cash on delivery" ? (
-            <>
-              <span className="text-white p-2 bg-[#00C49F]  rounded-full">
-                Cash on delivery
-              </span>
-            </>
+            <span className="text-white p-2 bg-[#00C49F]  rounded-full">
+              Cash on delivery
+            </span>
           ) : (
-            <>
-              <span className="text-white p-2 bg-[#0088FE] rounded-full">
-                Paypal E-Wallet
-              </span>
-            </>
+            <span className="text-white p-2 bg-[#0088FE] rounded-full">
+              Paypal E-Wallet
+            </span>
           ),
         isPaid: order?.isPaid ? "Paid" : "Unpaid",
         isDelivered: order?.isDelivered ? "Delivered" : "Not delivery",

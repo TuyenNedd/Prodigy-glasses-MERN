@@ -1,10 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { Fragment, useEffect, useState, Suspense } from "react";
 import DefaultComponent from "./components/DefaultComponent/DefaultComponent";
 import { routes } from "./routes";
 import { isJsonString } from "./utils";
@@ -12,7 +6,6 @@ import jwt_decode from "jwt-decode";
 import * as UserService from "./services/UserService";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, updateUser } from "./redux/slides/userSlide";
-import { Suspense } from "react";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import LinearWithValueLabel from "./components/LinearWithValueLabel/LinearWithValueLabel.jsx";
@@ -94,13 +87,6 @@ function App() {
     );
   };
 
-  // const ToTopWhenChangeRoute = ({ children }) => {
-  //   const location = useLocation();
-  //   useLayoutEffect(() => {
-  //     document.documentElement.scrollTo(0, 0);
-  //   }, [location.pathname]);
-  //   return children;
-  // };
   return (
     <>
       <HelmetProvider>
@@ -120,22 +106,20 @@ function App() {
                       : Fragment;
 
                     return (
-                      <>
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          element={
-                            <>
-                              <Layout>
-                                <Helmet>
-                                  <title>{route.titleName}</title>
-                                </Helmet>
-                                <Page />
-                              </Layout>
-                            </>
-                          }
-                        />
-                      </>
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={
+                          <>
+                            <Layout>
+                              <Helmet>
+                                <title>{route.titleName}</title>
+                              </Helmet>
+                              <Page />
+                            </Layout>
+                          </>
+                        }
+                      />
                     );
                   })}
                 </Routes>

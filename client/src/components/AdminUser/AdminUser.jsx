@@ -1,27 +1,22 @@
-import { Button, Col, Form, Modal, Select, Space } from "antd";
-import React from "react";
+import { Button, Col, Form, Select, Space } from "antd";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import InputComponent from "../InputComponent/InputComponent";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
 import Loading from "../LoadingComponent/Loading";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import { getBase64 } from "../../utils";
-import { useEffect } from "react";
 import * as message from "../../components/Message/Message";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useRef } from "react";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import * as UserService from "../../services/UserService";
-import { useIsFetching, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useIsFetching, useQueryClient } from "@tanstack/react-query";
 import {
   DeleteOutlined,
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Excel } from "antd-table-saveas-excel";
-import { useMemo } from "react";
 import "./style.scss";
 import { CiExport } from "react-icons/ci";
 
@@ -145,12 +140,9 @@ const AdminUser = () => {
 
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
-    // setSearchText(selectedKeys[0]);
-    // setSearchedColumn(dataIndex);
   };
   const handleReset = (clearFilters) => {
     clearFilters();
-    // setSearchText('');
   };
 
   const getColumnSearchProps = (dataIndex) => ({

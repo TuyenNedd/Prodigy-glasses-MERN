@@ -1,9 +1,9 @@
 import React from "react";
-import { WrapperHeader, WrapperUploadFile } from "./style";
-import { Button, Form, Select, Space } from "antd";
+import { WrapperUploadFile } from "./style";
+import { Button, Form, Select } from "antd";
 import ModalComponent from "../ModalComponent/ModalComponent";
 import InputComponent from "../InputComponent/InputComponent";
-import { getBase64, renderOptions } from "../../utils";
+import { renderOptions } from "../../utils";
 import { useQuery } from "@tanstack/react-query";
 
 const ModalAddProduct = ({
@@ -19,19 +19,14 @@ const ModalAddProduct = ({
   fetchTypeProduct,
 }) => {
   const [form] = Form.useForm();
-  const typeProduct = useQuery({
-    queryKey: ["type-product"],
-    queryFn: fetchAllTypeProduct,
-  });
-  const queryProduct = useQuery({
-    queryKey: ["products"],
-    queryFn: getAllProducts,
-  });
-
   const fetchAllTypeProduct = async () => {
     const res = await ProductService.getAllTypeProduct();
     return res;
   };
+  const typeProduct = useQuery({
+    queryKey: ["type-product"],
+    queryFn: fetchAllTypeProduct,
+  });
 
   return (
     <div>
@@ -42,7 +37,6 @@ const ModalAddProduct = ({
         onCancel={handleCancel}
         footer={null}
       >
-        {/* <Loading isLoading={isLoading}> */}
         <Form
           name="basic"
           labelCol={{ span: 6 }}
@@ -251,7 +245,6 @@ const ModalAddProduct = ({
             </Button>
           </Form.Item>
         </Form>
-        {/* </Loading> */}
       </ModalComponent>
     </div>
   );
