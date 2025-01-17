@@ -16,14 +16,12 @@ import { Rate } from "antd";
 import CommentsComponent from "../CommentsComponent/CommentsComponent.jsx";
 import ReviewForm from "../ReviewForm/ReviewForm.jsx";
 import ButtonSolid from "../ButtonSolid/ButtonSolid.jsx";
-// import Notification from "../Notification/Notification.jsx";
 const ProductDetails = ({ idProduct }) => {
-  const [numProduct, setNumProduct] = useState(1);
+  const [numProduct] = useState(1);
   const user = useSelector((state) => state.user);
   const order = useSelector((state) => state.order);
-  const [errorLimitOrder, setErrorLimitOrder] = useState(false);
+  const [setErrorLimitOrder] = useState(false);
   const [openReview, setOpenReview] = useState(false);
-  // const [showNotification, setShowNotification] = useState(false);
 
   const [commentCount, setCommentCount] = useState(0);
   const [averageRating, setAverageRating] = useState(0);
@@ -32,7 +30,7 @@ const ProductDetails = ({ idProduct }) => {
   const dispatch = useDispatch();
 
   const fetchGetDetailsProduct = async (context) => {
-    const id = context?.queryKey && context?.queryKey[1];
+    const id = context?.queryKey?.[1];
     if (id) {
       const res = await ProductService.getDetailsProduct(id);
       return res.data;
@@ -55,7 +53,7 @@ const ProductDetails = ({ idProduct }) => {
 
   useEffect(() => {
     if (order.isSucessOrder) {
-      // message.success("Added to cart");
+      dispatch(resetOrder());
     }
     return () => {
       dispatch(resetOrder());
@@ -73,17 +71,6 @@ const ProductDetails = ({ idProduct }) => {
     if (!user?.id) {
       navigate("/sign-in", { state: location?.pathname });
     } else {
-      // {
-      //     name: { type: String, required: true },
-      //     amount: { type: Number, required: true },
-      //     image: { type: String, required: true },
-      //     price: { type: Number, required: true },
-      //     product: {
-      //         type: mongoose.Schema.Types.ObjectId,
-      //         ref: 'Product',
-      //         required: true,
-      //     },
-      // },
       const orderRedux = order?.orderItems?.find(
         (item) => item.product === productDetails?._id
       );
@@ -107,10 +94,6 @@ const ProductDetails = ({ idProduct }) => {
         );
         message.success("Added to cart successfully");
         jsMenuFloat.style.transform = "translateY(0%)";
-        // setShowNotification(true);
-        // setTimeout(() => {
-        //   setShowNotification(false);
-        // }, 2000);
       } else {
         setErrorLimitOrder(true);
       }
@@ -134,12 +117,6 @@ const ProductDetails = ({ idProduct }) => {
   };
   return (
     <>
-      {/* {isLoading ? (
-        <Skeleton variant="rounded" sx={{ bgcolor: "grey.300" }}></Skeleton>
-      ) : (
-        <></>
-      )} */}
-
       <section className="relative items-start lg:flex max-w-screen-2xl mx-auto justify-center">
         <div className="product-essentials__title--mobile lg:hidden transport-recipient">
           <div>
@@ -152,11 +129,9 @@ const ProductDetails = ({ idProduct }) => {
                   sx={{ bgcolor: "grey.300" }}
                 ></Skeleton>
               ) : (
-                <>
-                  <h1 className="product-essentials__liquid_title_price h4 m-0 flex flex-col justify-top text-2xl">
-                    {productDetails?.name}
-                  </h1>
-                </>
+                <h1 className="product-essentials__liquid_title_price h4 m-0 flex flex-col justify-top text-2xl">
+                  {productDetails?.name}
+                </h1>
               )}
 
               <div className="flex flex-col justify-end lg:pl-4 lg:pb-1.5">
@@ -168,20 +143,18 @@ const ProductDetails = ({ idProduct }) => {
                     sx={{ bgcolor: "grey.300" }}
                   ></Skeleton>
                 ) : (
-                  <>
-                    <p className="product-essentials__price text-2xl lg:text-3xl flex justify-center text-[var(--primaryColor)] items-end">
-                      <span>
-                        {convertPrice(
-                          productDetails?.price -
-                            (productDetails?.price * productDetails?.discount) /
-                              100
-                        )}
-                      </span>
-                      <span className="ml-2 line-through text-gray-400 text-base">
-                        {convertPrice(productDetails?.price)}
-                      </span>
-                    </p>
-                  </>
+                  <p className="product-essentials__price text-2xl lg:text-3xl flex justify-center text-[var(--primaryColor)] items-end">
+                    <span>
+                      {convertPrice(
+                        productDetails?.price -
+                          (productDetails?.price * productDetails?.discount) /
+                            100
+                      )}
+                    </span>
+                    <span className="ml-2 line-through text-gray-400 text-base">
+                      {convertPrice(productDetails?.price)}
+                    </span>
+                  </p>
                 )}
               </div>
             </div>
@@ -230,15 +203,13 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300", width: "100%" }}
               ></Skeleton>
             ) : (
-              <>
-                <div className="w-full group relative">
-                  <ProductSwiper
-                    image={productDetails?.image}
-                    imageHover={productDetails?.imageHover}
-                    imageDetail={productDetails?.imageDetail}
-                  ></ProductSwiper>
-                </div>
-              </>
+              <div className="w-full group relative">
+                <ProductSwiper
+                  image={productDetails?.image}
+                  imageHover={productDetails?.imageHover}
+                  imageDetail={productDetails?.imageDetail}
+                ></ProductSwiper>
+              </div>
             )}
           </div>
         </article>
@@ -253,32 +224,30 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <div className="product-essentials__title--desktop hidden lg:block">
-                  <div>
-                    <div className="flex align-top justify-between pb-1  ITCGara">
-                      <h1 className="product-essentials__liquid_title_price h4 m-0 flex flex-col justify-top text-[40px]">
-                        {productDetails?.name}
-                      </h1>
-                      <div className="flex flex-col justify-end lg:pl-4 lg:pb-1.5">
-                        <p className="product-essentials__price flex items-end justify-center text-3xl text-[var(--primaryColor)]">
-                          <span>
-                            {convertPrice(
-                              productDetails?.price -
-                                (productDetails?.price *
-                                  productDetails?.discount) /
-                                  100
-                            )}
-                          </span>
-                          <span className="ml-2 line-through text-gray-400 text-lg">
-                            {convertPrice(productDetails?.price)}
-                          </span>
-                        </p>
-                      </div>
+              <div className="product-essentials__title--desktop hidden lg:block">
+                <div>
+                  <div className="flex align-top justify-between pb-1  ITCGara">
+                    <h1 className="product-essentials__liquid_title_price h4 m-0 flex flex-col justify-top text-[40px]">
+                      {productDetails?.name}
+                    </h1>
+                    <div className="flex flex-col justify-end lg:pl-4 lg:pb-1.5">
+                      <p className="product-essentials__price flex items-end justify-center text-3xl text-[var(--primaryColor)]">
+                        <span>
+                          {convertPrice(
+                            productDetails?.price -
+                              (productDetails?.price *
+                                productDetails?.discount) /
+                                100
+                          )}
+                        </span>
+                        <span className="ml-2 line-through text-gray-400 text-lg">
+                          {convertPrice(productDetails?.price)}
+                        </span>
+                      </p>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             )}
             {isLoading ? (
               <Skeleton
@@ -289,36 +258,32 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <div className="product-essentials__reviews--desktop hidden lg:block">
-                  <div className="flex justify-between items-center pt-2 pb-5 px-5 lg:px-0">
-                    <div id="tt-teaser-widget">
-                      <div className="tt-c-teaser tt-u-spacing--left--xs">
-                        <div className="tt-c-rating tt-c-teaser__rating">
-                          <div className="tt-u-clip-hide">
-                            Rated 4.7 out of 5
-                          </div>
-                          <div className="pointer-events-none">
-                            <Rate
-                              className="text-[var(--primaryColor)] text-base"
-                              allowHalf
-                              defaultValue={productDetails?.rating}
-                              value={averageRating || productDetails?.rating}
-                            />
-                          </div>
+              <div className="product-essentials__reviews--desktop hidden lg:block">
+                <div className="flex justify-between items-center pt-2 pb-5 px-5 lg:px-0">
+                  <div id="tt-teaser-widget">
+                    <div className="tt-c-teaser tt-u-spacing--left--xs">
+                      <div className="tt-c-rating tt-c-teaser__rating">
+                        <div className="tt-u-clip-hide">Rated 4.7 out of 5</div>
+                        <div className="pointer-events-none">
+                          <Rate
+                            className="text-[var(--primaryColor)] text-base"
+                            allowHalf
+                            defaultValue={productDetails?.rating}
+                            value={averageRating || productDetails?.rating}
+                          />
                         </div>
-                        <a
-                          className="tt-c-teaser__link underline text-xs TradeGodthicCn"
-                          href="#reviews"
-                        >
-                          Read {commentCount}{" "}
-                          {commentCount > 1 ? "Reviews" : "Review"}
-                        </a>
                       </div>
+                      <a
+                        className="tt-c-teaser__link underline text-xs TradeGodthicCn"
+                        href="#reviews"
+                      >
+                        Read {commentCount}{" "}
+                        {commentCount > 1 ? "Reviews" : "Review"}
+                      </a>
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
             )}
 
             {isLoading ? (
@@ -330,28 +295,26 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <details className="accordion pb-2" type="accordion">
-                  <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
-                    <span className="flex items-center">
-                      <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
-                        1. Glass Type
-                      </p>
-                      <p className="m-0 text-sm">
-                        <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
-                          {productDetails?.type}
-                        </span>
-                      </p>
-                    </span>
-
-                    <span className="accordion-control accordion-control--open invisible">
-                      <span className="accordion-control accordion-control--edit font-body text-sm">
-                        Edit
+              <details className="accordion pb-2" type="accordion">
+                <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
+                  <span className="flex items-center">
+                    <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
+                      1. Glass Type
+                    </p>
+                    <p className="m-0 text-sm">
+                      <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
+                        {productDetails?.type}
                       </span>
+                    </p>
+                  </span>
+
+                  <span className="accordion-control accordion-control--open invisible">
+                    <span className="accordion-control accordion-control--edit font-body text-sm">
+                      Edit
                     </span>
-                  </summary>
-                </details>
-              </>
+                  </span>
+                </summary>
+              </details>
             )}
             {isLoading ? (
               <Skeleton
@@ -362,76 +325,26 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <details className="accordion pb-2" type="accordion">
-                  <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
-                    <span className="flex items-center">
-                      <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
-                        2. Frame Color
-                      </p>
-                      <p className="m-0 text-sm">
-                        <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
-                          Default
-                        </span>
-                      </p>
-                    </span>
-
-                    <span className="accordion-control accordion-control--open invisible">
-                      <span className="accordion-control accordion-control--edit font-body text-sm">
-                        Edit
+              <details className="accordion pb-2" type="accordion">
+                <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
+                  <span className="flex items-center">
+                    <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
+                      2. Frame Color
+                    </p>
+                    <p className="m-0 text-sm">
+                      <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
+                        Default
                       </span>
+                    </p>
+                  </span>
+
+                  <span className="accordion-control accordion-control--open invisible">
+                    <span className="accordion-control accordion-control--edit font-body text-sm">
+                      Edit
                     </span>
-                  </summary>
-
-                  {/* <article className="accordion-panel accordion-panel--ps">
-                <div>
-                  <div className="flex flex-wrap border-b mb-3">
-                    <fieldset className="ps-options ps-options--checkbox w-full mb-1">
-                      <div className="field field--checkbox ">
-                        <label className="flex items-start mb-0 pointer-none">
-                          <input type="radio" />
-
-                          <span className="rounded-full border w-6 h-6 flex items-center justify-center flex-shrink-0 mr-2"></span>
-                          <span>
-                            <p className="m-0 type--label-m text-black">
-                              <span className="relative">Readers</span>
-                            </p>
-
-                            <p className="m-0 text-sm font-body">
-                              Your chosen magnification across the entire lens
-                              allows you to read things up close without
-                              squinting or using a magnifying glass.
-                            </p>
-                          </span>
-                        </label>
-                      </div>
-
-                      <div className="field field--checkbox ">
-                        <label className="flex items-start mb-0 pointer-none">
-                          <input type="radio" />
-
-                          <span className="rounded-full border w-6 h-6 flex items-center justify-center flex-shrink-0 mr-2"></span>
-                          <span>
-                            <p className="m-0 type--label-m text-black">
-                              <span className="relative">
-                                Progressive Readers
-                              </span>
-                            </p>
-
-                            <p className="m-0 text-sm font-body">
-                              Seamlessly transition from no magnification at the
-                              top to your preferred magnification at the bottom,
-                              allowing you to see both near and far.
-                            </p>
-                          </span>
-                        </label>
-                      </div>
-                    </fieldset>
-                  </div>
-                </div>
-              </article> */}
-                </details>
-              </>
+                  </span>
+                </summary>
+              </details>
             )}
             {isLoading ? (
               <Skeleton
@@ -442,28 +355,26 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <details className="accordion pb-2" type="accordion">
-                  <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
-                    <span className="flex items-center">
-                      <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
-                        3. Count In Stock
-                      </p>
-                      <p className="m-0 text-sm">
-                        <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
-                          {productDetails?.countInStock}
-                        </span>
-                      </p>
-                    </span>
-
-                    <span className="accordion-control accordion-control--open invisible">
-                      <span className="accordion-control accordion-control--edit font-body text-sm">
-                        Edit
+              <details className="accordion pb-2" type="accordion">
+                <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
+                  <span className="flex items-center">
+                    <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
+                      3. Count In Stock
+                    </p>
+                    <p className="m-0 text-sm">
+                      <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
+                        {productDetails?.countInStock}
                       </span>
+                    </p>
+                  </span>
+
+                  <span className="accordion-control accordion-control--open invisible">
+                    <span className="accordion-control accordion-control--edit font-body text-sm">
+                      Edit
                     </span>
-                  </summary>
-                </details>
-              </>
+                  </span>
+                </summary>
+              </details>
             )}
             {isLoading ? (
               <Skeleton
@@ -474,28 +385,26 @@ const ProductDetails = ({ idProduct }) => {
                 sx={{ bgcolor: "grey.300" }}
               ></Skeleton>
             ) : (
-              <>
-                <details className="accordion pb-2" type="accordion">
-                  <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
-                    <span className="flex items-center">
-                      <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
-                        4. Discount
-                      </p>
-                      <p className="m-0 text-sm">
-                        <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
-                          {productDetails?.discount}%
-                        </span>
-                      </p>
-                    </span>
-
-                    <span className="accordion-control accordion-control--open invisible">
-                      <span className="accordion-control accordion-control--edit font-body text-sm">
-                        Edit
+              <details className="accordion pb-2" type="accordion">
+                <summary className="accordion-title accordion-title--ps p-5 lg:py-4 lg:px-5">
+                  <span className="flex items-center">
+                    <p className="m-0 text-2xl lg:text-3xl mr-2.5 -mb-[3px]">
+                      4. Discount
+                    </p>
+                    <p className="m-0 text-sm">
+                      <span className="text-sm text-[var(--primaryColor)] TradeGodthic-BoldCn">
+                        {productDetails?.discount}%
                       </span>
+                    </p>
+                  </span>
+
+                  <span className="accordion-control accordion-control--open invisible">
+                    <span className="accordion-control accordion-control--edit font-body text-sm">
+                      Edit
                     </span>
-                  </summary>
-                </details>
-              </>
+                  </span>
+                </summary>
+              </details>
             )}
 
             <div
@@ -525,11 +434,9 @@ const ProductDetails = ({ idProduct }) => {
                 Add to cart
               </button> */}
               {productDetails?.countInStock === 0 ? (
-                <>
-                  <div className="text-red-600 TradeGodthic-BoldCn uppercase text-lg flex justify-center">
-                    Product is out of stock
-                  </div>
-                </>
+                <div className="text-red-600 TradeGodthic-BoldCn uppercase text-lg flex justify-center">
+                  Product is out of stock
+                </div>
               ) : (
                 ""
               )}
@@ -821,9 +728,6 @@ const ProductDetails = ({ idProduct }) => {
           onReviewSubmit={handleReviewSubmit}
         ></ReviewForm>
       )}
-      {/* {showNotification && (
-        <Notification notiText={"✔ Added to cart successfully"} />
-      )} */}
     </>
   );
 };

@@ -1,8 +1,9 @@
-import LinearProgress from "@mui/material/LinearProgress";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
-import { linearProgressClasses } from "@mui/material/LinearProgress";
+import {
+  linearProgressClasses,
+  LinearProgress,
+} from "@mui/material/LinearProgress";
 function LinearProgressWithLabel(props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>

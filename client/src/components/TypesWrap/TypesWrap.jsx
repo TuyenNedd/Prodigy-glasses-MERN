@@ -12,20 +12,18 @@ const TypesWrap = ({ name, children, open }) => {
   };
 
   return (
-    <>
-      <li>
-        <a
-          onClick={() => {
-            handleNavigatetype(name);
-            open();
-          }}
-          className="menu-float__sub-item"
-        >
-          <span>{name}</span>
-          {children}
-        </a>
-      </li>
-    </>
+    <li>
+      <a
+        onClick={() => {
+          handleNavigatetype(name);
+          open();
+        }}
+        className="menu-float__sub-item"
+      >
+        <span>{name}</span>
+        {children}
+      </a>
+    </li>
   );
 };
 

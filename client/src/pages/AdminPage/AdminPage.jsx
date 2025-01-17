@@ -1,5 +1,5 @@
 import { Menu, Switch } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getItem } from "../../utils";
 import {
   UserOutlined,
@@ -17,15 +17,12 @@ import * as CommentService from "../../services/CommentService.js";
 
 import { useSelector } from "react-redux";
 import { useQueries } from "@tanstack/react-query";
-import { useMemo } from "react";
 
 import HeaderAdminPage from "./HeaderAdminPage/HeaderAdminPage";
 import "./style.scss";
-import { FaRegMoon } from "react-icons/fa";
-import { FaRegSun } from "react-icons/fa";
+import { FaRegMoon, FaRegSun, FaInbox } from "react-icons/fa";
 import AdminDashboard from "../../components/AdminDashboard/AdminDashboard.jsx";
 import { MdOutlineCategory } from "react-icons/md";
-import { FaInbox } from "react-icons/fa";
 import AdminCategory from "../../components/AdminCategory/AdminCategory.jsx";
 import AdminComment from "../../components/AdminComment/AdminComment.jsx";
 import { useNavigate } from "react-router-dom";
@@ -90,13 +87,11 @@ const AdminPage = () => {
 
   const getAllUsers = async () => {
     const res = await UserService.getAllUser(user?.access_token);
-    // console.log("res", res);
     return { data: res?.data, key: "users" };
   };
 
   const getAllComment = async () => {
     const res = await CommentService.getAllComment();
-    // console.log("res", res);
     return { data: res?.data, key: "comments" };
   };
 
@@ -133,69 +128,67 @@ const AdminPage = () => {
   const [theme, setTheme] = useState("light");
 
   return (
-    <>
-      <div
-        className="body"
-        style={{
-          display: "flex",
-          overflowX: "hidden",
-          backgroundColor: theme === "light" ? "#EBEEF2" : "#19222D",
-        }}
-      >
-        <div className="aside fixed">
-          <div
-            className="header-aside"
-            style={{
-              border: "none",
-              width: "100%",
-              height: "100px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#232E3E",
-              padding: "0 10%",
-            }}
-          >
-            <div className="w-28">
-              <img
-                className="brightness-[100]"
-                src="/images/logo/pdg-payment.png"
-              />
-            </div>
-            <div style={{ padding: "20px" }}>
-              <Switch
-                onClick={handleMoonlightClick}
-                checkedChildren={<FaRegMoon />}
-                unCheckedChildren={<FaRegSun />}
-                defaultChecked
-              />
-            </div>
+    <div
+      className="body"
+      style={{
+        display: "flex",
+        overflowX: "hidden",
+        backgroundColor: theme === "light" ? "#EBEEF2" : "#19222D",
+      }}
+    >
+      <div className="aside fixed">
+        <div
+          className="header-aside"
+          style={{
+            border: "none",
+            width: "100%",
+            height: "100px",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: "#232E3E",
+            padding: "0 10%",
+          }}
+        >
+          <div className="w-28">
+            <img
+              className="brightness-[100]"
+              src="/images/logo/pdg-payment.png"
+            />
           </div>
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={"dashboard"}
-            style={{
-              width: 220,
-              minHeight: "100vh",
-              backgroundColor: "#1F2937",
-              color: "white",
-              border: "none",
-            }}
-            items={items}
-            onClick={handleOnCLick}
-          />
+          <div style={{ padding: "20px" }}>
+            <Switch
+              onClick={handleMoonlightClick}
+              checkedChildren={<FaRegMoon />}
+              unCheckedChildren={<FaRegSun />}
+              defaultChecked
+            />
+          </div>
         </div>
-        <div style={{ flex: 1 }}>
-          <HeaderAdminPage theme={theme} />
-          <div
-            className="ml-[220px]"
-            style={{ padding: "15px", height: "100vh" }}
-          >
-            {renderPage(keySelected)}
-          </div>
+        <Menu
+          mode="inline"
+          defaultSelectedKeys={"dashboard"}
+          style={{
+            width: 220,
+            minHeight: "100vh",
+            backgroundColor: "#1F2937",
+            color: "white",
+            border: "none",
+          }}
+          items={items}
+          onClick={handleOnCLick}
+        />
+      </div>
+      <div style={{ flex: 1 }}>
+        <HeaderAdminPage theme={theme} />
+        <div
+          className="ml-[220px]"
+          style={{ padding: "15px", height: "100vh" }}
+        >
+          {renderPage(keySelected)}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

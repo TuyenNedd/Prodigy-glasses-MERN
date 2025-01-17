@@ -5,11 +5,8 @@ import "./style.scss";
 const ScrollToTop = () => {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   useEffect(() => {
-    // const topScroll = document.querySelector(".topScroll");
-
     const handleScroll = () => {
       const isScrolled = window.scrollY > window.innerHeight / 2;
-      // const isScrolled = window.scrollY > document.body.scrollHeight - window.innerHeight - 200;
 
       setShowScrollToTop(isScrolled);
     };
@@ -32,7 +29,6 @@ const ScrollToTop = () => {
       >
         <ArrowUpOutlined />
       </a>
-      {/* )} */}
     </>
   );
 };

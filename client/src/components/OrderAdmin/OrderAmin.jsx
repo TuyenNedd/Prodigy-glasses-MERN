@@ -1,25 +1,53 @@
-import { Button, Form, Space } from "antd";
+import { Button, Space } from "antd";
 import React from "react";
-import { WrapperHeader, WrapperUploadFile } from "./style";
+import { WrapperHeader } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
 import InputComponent from "../InputComponent/InputComponent";
-import DrawerComponent from "../DrawerComponent/DrawerComponent";
-import Loading from "../LoadingComponent/Loading";
-import ModalComponent from "../ModalComponent/ModalComponent";
-import { convertPrice, getBase64 } from "../../utils";
-import { useEffect } from "react";
-import * as message from "../Message/Message";
+import { convertPrice } from "../../utils";
 
 import * as OrderService from "../../services/OrderService";
 import { useQuery } from "@tanstack/react-query";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { orderContant } from "../../contant";
 import PieChartComponent from "./PieChart";
+
+const FilterDropdown = ({
+  setSelectedKeys,
+  selectedKeys,
+  confirm,
+  clearFilters,
+}) => (
+  <div style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()}>
+    <InputComponent
+      placeholder={`Search ${dataIndex}`}
+      value={selectedKeys[0]}
+      onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+      style={{ marginBottom: 8, display: "block" }}
+    />
+    <Space>
+      <Button
+        type="primary"
+        icon={<SearchOutlined />}
+        size="small"
+        style={{ width: 90 }}
+      >
+        Search
+      </Button>
+      <Button size="small" style={{ width: 90 }}>
+        Reset
+      </Button>
+    </Space>
+  </div>
+);
+
+const FilterIcon = ({ filtered }) => (
+  <SearchOutlined
+    style={{
+      color: filtered ? "#1890ff" : undefined,
+    }}
+  />
+);
 
 const OrderAdmin = () => {
   const user = useSelector((state) => state?.user);
@@ -33,83 +61,11 @@ const OrderAdmin = () => {
   const { isLoading: isLoadingOrders, data: orders } = queryOrder;
 
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({
-      setSelectedKeys,
-      selectedKeys,
-      confirm,
-      clearFilters,
-    }) => (
-      <div
-        style={{
-          padding: 8,
-        }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
-        <InputComponent
-          // ref={searchInput}
-          placeholder={`Search ${dataIndex}`}
-          value={selectedKeys[0]}
-          onChange={(e) =>
-            setSelectedKeys(e.target.value ? [e.target.value] : [])
-          }
-          // onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
-          style={{
-            marginBottom: 8,
-            display: "block",
-          }}
-        />
-        <Space>
-          <Button
-            type="primary"
-            // onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
-            icon={<SearchOutlined />}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Search
-          </Button>
-          <Button
-            // onClick={() => clearFilters && handleReset(clearFilters)}
-            size="small"
-            style={{
-              width: 90,
-            }}
-          >
-            Reset
-          </Button>
-        </Space>
-      </div>
-    ),
-    filterIcon: (filtered) => (
-      <SearchOutlined
-        style={{
-          color: filtered ? "#1890ff" : undefined,
-        }}
-      />
-    ),
+    filterDropdown: FilterDropdown,
+    filterIcon: FilterIcon,
     onFilter: (value, record) =>
       record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-    onFilterDropdownOpenChange: (visible) => {
-      if (visible) {
-        // setTimeout(() => searchInput.current?.select(), 100);
-      }
-    },
-    // render: (text) =>
-    //   searchedColumn === dataIndex ? (
-    //     // <Highlighter
-    //     //   highlightStyle={{
-    //     //     backgroundColor: '#ffc069',
-    //     //     padding: 0,
-    //     //   }}
-    //     //   searchWords={[searchText]}
-    //     //   autoEscape
-    //     //   textToHighlight={text ? text.toString() : ''}
-    //     // />
-    //   ) : (
-    //     text
-    //   ),
+    onFilterDropdownOpenChange: (visible) => {},
   });
 
   const columns = [

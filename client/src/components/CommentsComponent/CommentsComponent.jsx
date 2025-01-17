@@ -8,8 +8,6 @@ import * as UserService from "../../services/UserService.js";
 import { formatDate } from "../../utils.js";
 import VerifyRemoveComment from "../VerifyRemoveComment/VerifyRemoveComment.jsx";
 import { useMutationHooks } from "../../hooks/useMutationHook.js";
-import Loading from "../LoadingComponent/Loading.jsx";
-// import Notification from "../Notification/Notification.jsx";
 import { UserOutlined } from "@ant-design/icons";
 
 const CommentsComponent = ({
@@ -25,9 +23,6 @@ const CommentsComponent = ({
   const [userDetails, setUserDetails] = useState({});
   const [confirmRemove, setConfirmRemove] = useState(false);
   const [id, setId] = useState("");
-  // const [showNotification, setShowNotification] = useState(false);
-
-  // console.log("CommentsComponent ~ id:", id);
 
   const handelConfirmRemove = () => {
     setConfirmRemove(true);
@@ -68,22 +63,16 @@ const CommentsComponent = ({
   });
 
   const { isLoading: isLoadingComment, data: Comment } = queryComment;
-  // console.log("CommentsComponent ~ Comment:", Comment);
 
   // Filter comments for the specific product
   const productComments =
     Comment?.data.filter((comment) => comment.product === productId) || [];
-  // console.log(
-  //   "CommentsComponent ~ productComments.length:",
-  //   productComments.length
-  // );
 
   useEffect(() => {
     // Fetch user names when comments data is available
     if (Comment?.data) {
       Comment.data.forEach((comment) => {
         getUserName(comment?.user);
-        // console.log("Comment.data.forEach ~ comment?.user:", comment?.user);
       });
     }
   }, [Comment?.data]);
@@ -100,10 +89,6 @@ const CommentsComponent = ({
   useEffect(() => {
     if (isSuccess) {
       message.success("This comment has been deleted");
-      // setShowNotification(true);
-      // setTimeout(() => {
-      //   setShowNotification(false);
-      // }, 2000);
       handelCancelRemove();
     } else if (isError) {
       message.error("Error");
@@ -118,12 +103,6 @@ const CommentsComponent = ({
         id: id,
         access_token: user?.access_token,
       },
-      // {
-      //   onSuccess: () => {
-      //     message.success("Success");
-      //     setConfirmRemove(false);
-      //   },
-      // },
 
       {
         onSettled: () => {
@@ -133,17 +112,6 @@ const CommentsComponent = ({
     );
   };
 
-  //   // Kiểm tra xem Comment và Comment.data có tồn tại không
-  //   if (Comment && Comment.data && Comment.data._id) {
-  //     mutation.mutate({
-  //       id: Comment.data._id,
-  //       access_token: user?.access_token,
-  //     });
-  //   } else {
-  //     console.error("Comment or Comment.data is undefined");
-  //   }
-  // };
-  // console.log("deleteComment ~ Comment.data._id:", Comment.data._id);
   useEffect(() => {
     setCommentCount(productComments.length);
   }, [productComments]);
@@ -210,11 +178,9 @@ const CommentsComponent = ({
 
           <div className="comment-list flex flex-col gap-3 px-4">
             {productComments.length === 0 ? (
-              <>
-                <div className="TradeGodthicCn text-base flex justify-center p-5">
-                  This product has no comments yet
-                </div>
-              </>
+              <div className="TradeGodthicCn text-base flex justify-center p-5">
+                This product has no comments yet
+              </div>
             ) : (
               <>
                 {productComments?.map((comment) => {
@@ -227,90 +193,86 @@ const CommentsComponent = ({
                   return (
                     <>
                       {comment?.product === productId && (
-                        <>
-                          <div
-                            key={comment?._id}
-                            className="child-review p-8 bg-white rounded-md"
-                          >
-                            <div className="review-content">
-                              <div className="flex flex-col">
-                                <div className="flex flex-col mb-6 gap-1">
-                                  <div className="name-reviewer flex justify-between">
-                                    <div className="flex items-center gap-1">
-                                      <div className="w-7 rounded-full overflow-hidden">
-                                        {userDetails[comment?.user]?.avatar ? (
-                                          <img
-                                            src={
-                                              userDetails[comment?.user]?.avatar
-                                            }
-                                            className="avatar-img object-cover"
-                                          />
-                                        ) : (
-                                          <UserOutlined
-                                            style={{ fontSize: "30px" }}
-                                          />
-                                        )}
-                                      </div>
-                                      <span className="TradeGodthic-BoldCn">
-                                        {userDetails[comment?.user]?.name ||
-                                          "Unknown"}
-                                      </span>
+                        <div
+                          key={comment?._id}
+                          className="child-review p-8 bg-white rounded-md"
+                        >
+                          <div className="review-content">
+                            <div className="flex flex-col">
+                              <div className="flex flex-col mb-6 gap-1">
+                                <div className="name-reviewer flex justify-between">
+                                  <div className="flex items-center gap-1">
+                                    <div className="w-7 rounded-full overflow-hidden">
+                                      {userDetails[comment?.user]?.avatar ? (
+                                        <img
+                                          src={
+                                            userDetails[comment?.user]?.avatar
+                                          }
+                                          className="avatar-img object-cover"
+                                        />
+                                      ) : (
+                                        <UserOutlined
+                                          style={{ fontSize: "30px" }}
+                                        />
+                                      )}
                                     </div>
-                                    <span className="TradeGodthicCn text-xs">
-                                      {formattedCmtDate}
+                                    <span className="TradeGodthic-BoldCn">
+                                      {userDetails[comment?.user]?.name ||
+                                        "Unknown"}
                                     </span>
                                   </div>
-                                  <div className="star-reviewer pointer-events-none">
-                                    <Rate
-                                      className="text-[var(--primaryColor)] text-sm"
-                                      allowHalf
-                                      defaultValue={0}
-                                      value={comment?.star}
-                                    />
+                                  <span className="TradeGodthicCn text-xs">
+                                    {formattedCmtDate}
+                                  </span>
+                                </div>
+                                <div className="star-reviewer pointer-events-none">
+                                  <Rate
+                                    className="text-[var(--primaryColor)] text-sm"
+                                    allowHalf
+                                    defaultValue={0}
+                                    value={comment?.star}
+                                  />
+                                </div>
+                                <div className="product-reviewer flex gap-2">
+                                  <div className="imageR">
+                                    <div className="w-20">
+                                      <img src={imageR} />
+                                    </div>
                                   </div>
-                                  <div className="product-reviewer flex gap-2">
-                                    <div className="imageR">
-                                      <div className="w-20">
-                                        <img src={imageR} />
-                                      </div>
-                                    </div>
-                                    <div className="proName flex flex-col justify-center">
-                                      <span className="TradeGodthicCn text-xs">
-                                        About
-                                      </span>
-                                      <span className="TradeGodthicCn text-xs font-bold underline">
-                                        {proNameR} | {typeR}
-                                      </span>
-                                    </div>
+                                  <div className="proName flex flex-col justify-center">
+                                    <span className="TradeGodthicCn text-xs">
+                                      About
+                                    </span>
+                                    <span className="TradeGodthicCn text-xs font-bold underline">
+                                      {proNameR} | {typeR}
+                                    </span>
                                   </div>
                                 </div>
+                              </div>
 
-                                <div className="comment-text">
-                                  <div className="mb-4 flex justify-between">
-                                    <span className="TradeGodthicCn text-sm">
-                                      {comment?.content}
+                              <div className="comment-text">
+                                <div className="mb-4 flex justify-between">
+                                  <span className="TradeGodthicCn text-sm">
+                                    {comment?.content}
+                                  </span>
+                                  {user?.id === comment?.user ? (
+                                    <span
+                                      onClick={() => {
+                                        handelConfirmRemove();
+                                        setId(idComment);
+                                      }}
+                                      className="TradeGodthicCn text-sm cursor-pointer"
+                                    >
+                                      Remove
                                     </span>
-                                    {user?.id === comment?.user ? (
-                                      <>
-                                        <span
-                                          onClick={() => {
-                                            handelConfirmRemove();
-                                            setId(idComment);
-                                          }}
-                                          className="TradeGodthicCn text-sm cursor-pointer"
-                                        >
-                                          Remove
-                                        </span>
-                                      </>
-                                    ) : (
-                                      ""
-                                    )}
-                                  </div>
+                                  ) : (
+                                    ""
+                                  )}
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </>
+                        </div>
                       )}
                     </>
                   );
@@ -328,10 +290,6 @@ const CommentsComponent = ({
           cancelBut={handelCancelRemove}
         ></VerifyRemoveComment>
       )}
-
-      {/* {showNotification && (
-        <Notification notiText={"✔ This comment has been deleted"} />
-      )} */}
     </>
   );
 };

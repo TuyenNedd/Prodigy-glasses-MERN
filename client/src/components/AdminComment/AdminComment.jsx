@@ -4,17 +4,16 @@ import * as UserService from "../../services/UserService";
 import * as ProductService from "../../services/ProductService";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
-import { DeleteFilled, PlusCircleOutlined } from "@ant-design/icons";
+import { DeleteFilled } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import ModalComponent from "../ModalComponent/ModalComponent";
-import Loading from "../LoadingComponent/Loading";
 import * as message from "../../components/Message/Message";
 import { useMutationHooks } from "./../../hooks/useMutationHook";
 import { WrapperHeader } from "../AdminOrder/style.js";
 
 const AdminComment = () => {
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
-  const [rowSelected, setRowSelected] = useState("");
+  const [setRowSelected] = useState("");
   const [idRowSelected, setIdRowSelected] = useState("");
   const [dataTable, setDataTable] = useState([]);
 

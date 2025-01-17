@@ -12,14 +12,12 @@ const WrapProductRoute = ({ idenPro, children, customClass }) => {
     );
   };
   return (
-    <>
-      <span
-        onClick={() => handleNavigatetype(idenPro)}
-        className={`h-fit w-fit ${customClass}`}
-      >
-        {children}
-      </span>
-    </>
+    <span
+      onClick={() => handleNavigatetype(idenPro)}
+      className={`h-fit w-fit ${customClass}`}
+    >
+      {children}
+    </span>
   );
 };
 

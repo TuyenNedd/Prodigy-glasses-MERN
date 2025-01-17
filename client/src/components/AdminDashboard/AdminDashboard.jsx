@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import "./style.scss";
-import TypeChart from "../TypeChart/TypeChart";
 const AdminDashboard = ({ data, setKeySelected, theme }) => {
   const user = useSelector((state) => state?.user);
   const name = user.name;

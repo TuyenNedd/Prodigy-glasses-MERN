@@ -1,47 +1,31 @@
-import {
-  Button,
-  Col,
-  Form,
-  Select,
-  Space,
-  Row,
-  Modal,
-  Input,
-  Upload,
-  InputNumber,
-} from "antd";
+import { Button, Col, Form, Select, Space, Row, Modal, Input } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
 import { Excel } from "antd-table-saveas-excel";
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useMemo, useState } from "react";
 import { WrapperHeader, WrapperUploadFile } from "./style";
 import TableComponent from "../TableComponent/TableComponent";
-import { useState } from "react";
 import InputComponent from "../InputComponent/InputComponent";
 import { getBase64, renderOptions } from "../../utils";
 import * as ProductService from "../../services/ProductService";
 import { useMutationHooks } from "../../hooks/useMutationHook";
 import Loading from "../../components/LoadingComponent/Loading";
-import { useEffect } from "react";
 import * as message from "../../components/Message/Message";
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import ModalComponent from "../ModalComponent/ModalComponent";
-import { useMemo } from "react";
-import TypeChart from "../TypeChart/TypeChart";
 import "./style.scss";
 import { IoIosAdd } from "react-icons/io";
 import { CiExport } from "react-icons/ci";
-import AdminCategory from "../AdminCategory/AdminCategory";
 
-const AdminProduct = ({ keySelected }) => {
+const AdminProduct = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState("");
   const [isOpenDrawer, setIsOpenDrawer] = useState(false);
-  const [isLoadingUpdate, setIsLoadingUpdate] = useState(false);
+  const [setIsLoadingUpdate] = useState(false);
   const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
   const user = useSelector((state) => state?.user);
   const searchInput = useRef(null);
@@ -169,10 +153,9 @@ const AdminProduct = ({ keySelected }) => {
     return res;
   };
 
-  const { data, isLoading, isSuccess, isError } = mutation;
+  const { data, isSuccess, isError } = mutation;
   const {
     data: dataUpdated,
-    isLoading: isLoadingUpdated,
     isSuccess: isSuccessUpdated,
     isError: isErrorUpdated,
   } = mutationUpdate;
@@ -184,7 +167,6 @@ const AdminProduct = ({ keySelected }) => {
   } = mutationDeleted;
   const {
     data: dataDeletedMany,
-    isLoading: isLoadingDeletedMany,
     isSuccess: isSuccessDelectedMany,
     isError: isErrorDeletedMany,
   } = mutationDeletedMany;
@@ -214,12 +196,9 @@ const AdminProduct = ({ keySelected }) => {
   };
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
-    // setSearchText(selectedKeys[0]);
-    // setSearchedColumn(dataIndex);
   };
   const handleReset = (clearFilters) => {
     clearFilters();
-    // setSearchText('');
   };
 
   const getColumnSearchProps = (dataIndex) => ({
@@ -380,25 +359,9 @@ const AdminProduct = ({ keySelected }) => {
     }
   }, [isSuccessDelected]);
 
-  // const handleCloseDrawer = () => {
-  //   setIsOpenDrawer(false);
-  //   setStateProductDetails({
-  //     name: "",
-  //     price: "",
-  //     description: "",
-  //     rating: "",
-  //     image: "",
-  //     imageHover: "",
-  //     type: "",
-  //     countInStock: "",
-  //   });
-  //   form.resetFields();
-  // };
-
   useEffect(() => {
     if (isSuccessUpdated && dataUpdated?.status === "OK") {
       message.success();
-      // handleCloseDrawer();
     } else if (isErrorUpdated) {
       message.error();
     }
@@ -763,26 +726,6 @@ const AdminProduct = ({ keySelected }) => {
                 />
               </Form.Item>
             </Col>
-            {/* <Col span={6}>
-              <Form.Item
-                labelCol={{ span: 24 }}
-                label="Price"
-                name="price"
-                rules={[
-                  { required: true, message: "Please input your count price!" },
-                ]}
-              >
-                <InputNumber
-                  min={0}
-                  style={{ width: '100%' }}
-                  value={stateProduct.price}
-                  formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  addonAfter="$"
-                  onChange={handleOnchange}
-                  name="price"
-                />
-              </Form.Item>
-            </Col> */}
             <Col span={6}>
               <Form.Item
                 labelCol={{ span: 24 }}

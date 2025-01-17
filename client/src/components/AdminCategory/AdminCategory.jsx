@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import * as ProductService from "../../services//ProductService";
 import { useQuery } from "@tanstack/react-query";
-import TableComponent from "../TableComponent/TableComponent";
-import { Button, Modal, Input, Form, Select, Col, Table } from "antd";
-
-import { useState } from "react";
+import { Modal, Input, Form, Table } from "antd";
 
 import TypeChart from "../TypeChart/TypeChart";
 const AdminCategory = () => {
@@ -15,8 +12,6 @@ const AdminCategory = () => {
   };
   const getAllProducts = async () => {
     const res = await ProductService.getAllProduct();
-    const dataProduct = res;
-    console.log("res dataTable all", res);
     return res;
   };
 
@@ -29,7 +24,7 @@ const AdminCategory = () => {
     queryFn: getAllProducts,
   });
   const { isLoadingType, data: types } = typeProduct;
-  const { isLoadingAllP, data: AllP } = queryProduct;
+  const { data: AllP } = queryProduct;
 
   const columns = [
     {
@@ -38,12 +33,6 @@ const AdminCategory = () => {
     },
   ];
 
-  const columnsAllP = [
-    {
-      title: "allP",
-      dataIndex: "allP",
-    },
-  ];
   const dataTable =
     types?.data?.length &&
     types?.data?.map((type, index) => {
@@ -60,9 +49,6 @@ const AdminCategory = () => {
   console.log("data AllP", dataTableAllP);
   const [stateProduct, setStateProduct] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
   const handleOk = () => {
     setIsModalOpen(false);
   };

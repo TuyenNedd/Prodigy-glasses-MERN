@@ -9,9 +9,6 @@ import * as UserService from "../../services/UserService";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-
-  const [isShowPassword, setIsShowPassword] = useState(false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");

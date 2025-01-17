@@ -3,17 +3,14 @@ import { useLocation } from "react-router-dom";
 import * as ProductService from "../../services/ProductService";
 import TypeProductBanner from "../../components/TypeProductBanner/TypeProductBanner.jsx";
 import TypeProductHeader from "../../components/TypeProductHeader/TypeProductHeader.jsx";
-import { typeBannersDesktop } from "./typeBanners.js";
-import { typeBannersMobile } from "./typeBanners.js";
+import { typeBannersDesktop, typeBannersMobile } from "./typeBanners.js";
 import { Skeleton } from "@mui/material";
 import CardProduct from "../../components/CardProduct/CardProduct.jsx";
 import { Helmet } from "react-helmet-async";
 
 const TypeProductPage = () => {
-  // const searchProduct = useSelector((state) => state?.product?.search);
-
   const { state } = useLocation();
-  const [products, setProducts] = useState([]);
+  const [setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [panigate, setPanigate] = useState({
     page: 0,
@@ -79,17 +76,6 @@ const TypeProductPage = () => {
           </div>
         </section>
       </section>
-      {/* <Loading isLoading={loading}> */}
-      {/* {products.map((product) => {
-      return (
-        <TypeProductBanner
-          key={product._id}
-          type={product.type}
-          desktopBanner={typeBannersDesktop[product.type]}
-          mobileBanner={typeBannersMobile[product.type]}
-        ></TypeProductBanner>
-      );
-    })} */}
     </>
   );
 };
