@@ -15,7 +15,7 @@ const Explore = () => {
     console.log("fetchProductAll ~ res:", res);
     return res;
   };
-  const { data: products } = useQuery(["products"], fetchProductAll);
+  const { data: products } = useQuery({ queryKey: ["products"], queryFn: fetchProductAll });
 
   return (
     <>

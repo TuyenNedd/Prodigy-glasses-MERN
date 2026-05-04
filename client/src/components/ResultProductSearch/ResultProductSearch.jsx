@@ -35,15 +35,12 @@ const ResultProductSearch = () => {
     }
   };
 
-  const { isLoading, data: products } = useQuery(
-    ["products", limit, searchDebounce],
-    fetchProductAll,
-    {
-      retry: 3,
-      retryDelay: 1000,
-      keepPreviousData: false,
-    }
-  );
+  const { isLoading, data: products } = useQuery({
+    queryKey: ["products", limit, searchDebounce],
+    queryFn: fetchProductAll,
+    retry: 3,
+    retryDelay: 1000,
+  });
 
   useEffect(() => {
     fetchAllTypeProduct();

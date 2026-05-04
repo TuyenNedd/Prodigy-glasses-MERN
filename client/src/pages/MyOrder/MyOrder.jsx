@@ -26,12 +26,11 @@ const MyOrderPage = () => {
   // const order = useSelector((state) => state.order);
   // console.log("MyOrderPage ~ orders:", orders);
 
-  const queryOrder = useQuery(
-    { queryKey: ["orders"], queryFn: fetchMyOrder },
-    {
-      enabled: state?.id && state?.token,
-    }
-  );
+  const queryOrder = useQuery({
+    queryKey: ["orders"],
+    queryFn: fetchMyOrder,
+    enabled: !!(state?.id && state?.token),
+  });
   const { isLoading, data } = queryOrder;
 
   const handleDetailsOrder = (id) => {
