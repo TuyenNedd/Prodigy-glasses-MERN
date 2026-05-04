@@ -81,9 +81,12 @@ const CommentsComponent = ({
   useEffect(() => {
     // Fetch user names when comments data is available
     if (Comment?.data) {
-      Comment.data.forEach((comment) => {
-        getUserName(comment?.user);
-        // console.log("Comment.data.forEach ~ comment?.user:", comment?.user);
+      // Deduplicate user IDs to prevent sending too many parallel requests for the same user
+      const uniqueUserIds = [...new Set(Comment.data.map(c => c?.user).filter(Boolean))];
+      uniqueUserIds.forEach((userId) => {
+        if (!userDetails[userId]) {
+          getUserName(userId);
+        }
       });
     }
   }, [Comment?.data]);

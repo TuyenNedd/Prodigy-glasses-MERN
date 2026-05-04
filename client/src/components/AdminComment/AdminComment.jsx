@@ -105,27 +105,49 @@ const AdminComment = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (Comment?.data) {
-        const newDataTable = await Promise.all(
-          Comment?.data.map(async (comment) => {
-            const userDetails = await UserService.getDetailsUser(
-              comment?.user,
-              user?.access_token
-            );
-            const productDetails = await ProductService.getDetailsProduct(
-              comment?.product,
-              user?.access_token
-            );
-            const userName = userDetails?.data?.name || "Unknown";
-            const productName = productDetails?.data?.name || "Unknown";
-            console.log("productname", productName);
-            return {
-              ...comment,
-              key: comment?._id,
-              userName: userName,
-              productName: productName,
-            };
+        // Extract unique IDs to prevent N+1 query spam causing 429 Too Many Requests
+        const uniqueUserIds = [...new Set(Comment.data.map(c => c.user).filter(Boolean))];
+        const uniqueProductIds = [...new Set(Comment.data.map(c => c.product).filter(Boolean))];
+
+        const userMap = {};
+        const productMap = {};
+
+        // Fetch users concurrently, but only once per unique user
+        await Promise.all(
+          uniqueUserIds.map(async (userId) => {
+            try {
+              const res = await UserService.getDetailsUser(userId, user?.access_token);
+              userMap[userId] = res;
+            } catch (err) {
+              console.error(err);
+            }
           })
         );
+
+        // Fetch products concurrently, but only once per unique product
+        await Promise.all(
+          uniqueProductIds.map(async (productId) => {
+            try {
+              const res = await ProductService.getDetailsProduct(productId, user?.access_token);
+              productMap[productId] = res;
+            } catch (err) {
+              console.error(err);
+            }
+          })
+        );
+
+        const newDataTable = Comment?.data.map((comment) => {
+          const userDetails = userMap[comment?.user];
+          const productDetails = productMap[comment?.product];
+          const userName = userDetails?.data?.name || "Unknown";
+          const productName = productDetails?.data?.name || "Unknown";
+          return {
+            ...comment,
+            key: comment?._id,
+            userName: userName,
+            productName: productName,
+          };
+        });
 
         setDataTable(newDataTable);
       }
