@@ -28,12 +28,11 @@ const DetailsOrderPage = () => {
     return res.data;
   };
 
-  const queryOrder = useQuery(
-    { queryKey: ["orders-details"], queryFn: fetchDetailsOrder },
-    {
-      enabled: id,
-    }
-  );
+  const queryOrder = useQuery({
+    queryKey: ["orders-details"],
+    queryFn: fetchDetailsOrder,
+    enabled: !!id,
+  });
   const { isLoading, data } = queryOrder;
 
   const priceMemo = useMemo(() => {

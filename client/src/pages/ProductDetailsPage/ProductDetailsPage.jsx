@@ -6,10 +6,13 @@ import * as ProductService from "../../services/ProductService";
 
 const ProductDetailsPage = () => {
   const { id } = useParams();
-  const { isLoading, data: productDetails } = useQuery(
-    ["product-details", id],
-    ProductService.getDetailsProduct
-  );
+  const { isLoading, data: productDetails } = useQuery({
+    queryKey: ["product-details", id],
+    queryFn: async ({ queryKey }) => {
+      const res = await ProductService.getDetailsProduct(queryKey[1]);
+      return res?.data;
+    },
+  });
   return (
     <>
       <Helmet>

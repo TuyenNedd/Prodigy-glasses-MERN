@@ -62,11 +62,11 @@ const ProductDetails = ({ idProduct }) => {
     };
   }, [order.isSucessOrder]);
 
-  const { isLoading, data: productDetails } = useQuery(
-    ["product-details", idProduct],
-    fetchGetDetailsProduct,
-    { enabled: !!idProduct }
-  );
+  const { isLoading, data: productDetails } = useQuery({
+    queryKey: ["product-details", idProduct],
+    queryFn: fetchGetDetailsProduct,
+    enabled: !!idProduct,
+  });
   const jsMenuFloat = document.querySelector(".js-menufloat-show");
 
   const handleAddOrderProduct = () => {
