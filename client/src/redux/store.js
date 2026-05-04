@@ -12,7 +12,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import createWebStorage from 'redux-persist/es/storage/createWebStorage'
+
+const createNoopStorage = () => ({
+  getItem: (_key) => Promise.resolve(null),
+  setItem: (_key, value) => Promise.resolve(value),
+  removeItem: (_key) => Promise.resolve(),
+})
+
+const storage =
+  typeof window !== 'undefined'
+    ? createWebStorage('local')
+    : createNoopStorage()
+
 
 const persistConfig = {
   key: 'root',
