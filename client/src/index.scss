@@ -1,6 +1,7 @@
 // @import "~slick-carousel/slick/slick.css";
 // @import "~slick-carousel/slick/slick-theme.css";
-@import "antd/dist/antd.min.css";
+// antd v6+ uses CSS-in-JS — no manual CSS import needed
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

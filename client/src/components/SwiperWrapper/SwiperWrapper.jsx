@@ -1,4 +1,5 @@
-import "swiper/scss";
+import "swiper/css";
+
 
 import { Swiper, SwiperSlide } from "swiper/react";
 // import { EffectFade } from "swiper/modules";
