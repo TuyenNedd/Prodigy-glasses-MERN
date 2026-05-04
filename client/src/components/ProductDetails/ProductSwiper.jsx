@@ -9,11 +9,12 @@ import {
   Pagination,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/scss";
-import "swiper/scss/effect-fade";
-import "swiper/scss/navigation";
-import "swiper/scss/pagination";
-import "swiper/scss/zoom";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/zoom";
+
 const ProductSwiper = ({ image, imageHover, imageDetail }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const pagination = {
